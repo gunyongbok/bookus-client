@@ -12,11 +12,11 @@ import fisrtProgress from "../../assets/img/progress1.png";
 
 // Agree
 import BreakLine from "../../commons/BreakLine/BreakLine";
+import AgreeTextBox from "../../components/Auth/AgreeTextBox";
+import StandardBtn from "../../commons/Button/StandardBtn";
 // Agree - Image
 import AgreeBtn from "../../assets/svg/AgreeBtn.svg";
 import FilledAgreeBtn from "../../assets/svg/FilledAgreeBtn.svg";
-import AgreeTextBox from "../../components/Auth/AgreeTextBox";
-import StandardBtn from "../../commons/Button/StandardBtn";
 
 const AgreeContainer = styled.div`
   width: 100%;

@@ -4,7 +4,7 @@ interface BtnProps {
   $background?: string;
   $text: string;
   $color?: string;
-  $disabled?: string;
+  $disabled?: boolean;
 }
 
 const Btn = styled.button<BtnProps>`
