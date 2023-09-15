@@ -43,6 +43,7 @@ const AgreeTitle = styled.div`
 const AgreeContent = styled.div`
   width: 100%;
   height: fit-content;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
 `;
