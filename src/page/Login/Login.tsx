@@ -13,7 +13,7 @@ import LoginBtn from "../../commons/Button/LoginBtn";
 import { agreeMessage } from "../../assets/text/message";
 
 const BtnContainer = styled.div`
-  width: 92%;
+  width: 5vw;
   min-width: 356px;
   height: 128px;
   position: absolute;
