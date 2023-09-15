@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -16,11 +16,12 @@ import BreakLine from "../../commons/BreakLine/BreakLine";
 import AgreeBtn from "../../assets/svg/AgreeBtn.svg";
 import FilledAgreeBtn from "../../assets/svg/FilledAgreeBtn.svg";
 import AgreeTextBox from "../../components/Auth/AgreeTextBox";
+import StandardBtn from "../../commons/Button/StandardBtn";
 
 const AgreeContainer = styled.div`
   width: 100%;
   max-width: 358px;
-  height: 300px;
+  height: fit-content;
   display: inline-flex;
   flex-direction: column;
   gap: 60px;
@@ -41,7 +42,7 @@ const AgreeTitle = styled.div`
 
 const AgreeContent = styled.div`
   width: 100%;
-  height: 212px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
 `;
@@ -59,12 +60,13 @@ const ServiceAgree = () => {
   const [service, setService] = useState<boolean>(false);
   const [personal, setPersonal] = useState<boolean>(false);
   const [optional, setOptional] = useState<boolean>(false);
+  const [next, setNext] = useState<boolean>(false);
 
   const toggleClickAll = () => {
     setAll(!all);
-    setAge(!age);
-    setService(!service);
-    setPersonal(!personal);
+    setAge(!all);
+    setService(!all);
+    setPersonal(!all);
   };
 
   const toggleClickAge = () => {
@@ -82,6 +84,14 @@ const ServiceAgree = () => {
   const toggleClickOptional = () => {
     setOptional(!optional);
   };
+
+  useEffect(() => {
+    if (age && service && personal) {
+      setNext(true);
+    } else {
+      setNext(false);
+    }
+  }, [age, service, personal]);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -119,6 +129,11 @@ const ServiceAgree = () => {
             />
           </AgreeDetailWrapper>
         </AgreeContent>
+        {next ? (
+          <StandardBtn $background="#83D0A1" $text="다음" $color="#FCFCFF" />
+        ) : (
+          <StandardBtn $disabled={true} $background="#E9F6EE" $text="다음" />
+        )}
       </AgreeContainer>
     </TopContainer>
   );

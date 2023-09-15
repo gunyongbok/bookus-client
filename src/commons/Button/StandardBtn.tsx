@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 interface BtnProps {
   $background?: string;
   $text: string;
+  $color?: string;
+  $disabled?: string;
 }
 
 const Btn = styled.button<BtnProps>`
@@ -16,14 +18,22 @@ const Btn = styled.button<BtnProps>`
   font-style: normal;
   font-weight: 500;
   background: ${(props) => props.$background || "#FCFCFF"};
+  color: ${(props) => props.$color || "#0F473F"};
+  cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 `;
 
-const LoginBtn = ({ $background, $text }: BtnProps) => {
+const StandardBtn = ({ $background, $text, $color, $disabled }: BtnProps) => {
   return (
-    <Btn $background={$background} $text={$text}>
+    <Btn
+      $background={$background}
+      $text={$text}
+      $color={$color}
+      $disabled={$disabled}
+      disabled={$disabled}
+    >
       {$text}
     </Btn>
   );
 };
 
-export default LoginBtn;
+export default StandardBtn;

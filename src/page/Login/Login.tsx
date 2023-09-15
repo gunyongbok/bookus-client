@@ -7,7 +7,7 @@ import TopContainer from "../../components/Wrapper/TopContainer";
 import LoginTitle from "../../components/Title/LoginTitle";
 
 // Button
-import LoginBtn from "../../commons/Button/LoginBtn";
+import StandardBtn from "../../commons/Button/StandardBtn";
 
 // Message
 import { agreeMessage } from "../../assets/text/message";
@@ -40,8 +40,8 @@ const Login = () => {
     <TopContainer>
       <LoginTitle />
       <BtnContainer>
-        <LoginBtn $text="카카오 계정으로 시작하기" $background="#FEE500" />
-        <LoginBtn $text="둘러보기" />
+        <StandardBtn $text="카카오 계정으로 시작하기" $background="#FEE500" />
+        <StandardBtn $text="둘러보기" />
       </BtnContainer>
       <TextBox>{agreeMessage}</TextBox>
     </TopContainer>
