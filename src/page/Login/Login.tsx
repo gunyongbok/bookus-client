@@ -11,6 +11,7 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 
 // Message
 import { agreeMessage } from "../../assets/text/message";
+import KakaoLoginBtn from "../../components/Button/KakaoLoginBtn";
 
 const BtnContainer = styled.div`
   width: 5vw;
@@ -40,8 +41,9 @@ const Login = () => {
     <TopContainer>
       <LoginTitle />
       <BtnContainer>
-        <StandardBtn $text="카카오 계정으로 시작하기" $background="#FEE500" />
-        <StandardBtn $text="둘러보기" />
+        {/* <StandardBtn $text="카카오 계정으로 시작하기" $background="#FEE500" /> */}
+        <KakaoLoginBtn />
+        <StandardBtn>둘러보기</StandardBtn>
       </BtnContainer>
       <TextBox>{agreeMessage}</TextBox>
     </TopContainer>

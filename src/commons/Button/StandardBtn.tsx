@@ -2,9 +2,9 @@ import { styled } from "styled-components";
 
 interface BtnProps {
   $background?: string;
-  $text: string;
   $color?: string;
   $disabled?: boolean;
+  children?: React.ReactNode;
 }
 
 const Btn = styled.button<BtnProps>`
@@ -22,16 +22,15 @@ const Btn = styled.button<BtnProps>`
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 `;
 
-const StandardBtn = ({ $background, $text, $color, $disabled }: BtnProps) => {
+const StandardBtn = ({
+  $background,
+  $color,
+  $disabled,
+  children,
+}: BtnProps) => {
   return (
-    <Btn
-      $background={$background}
-      $text={$text}
-      $color={$color}
-      $disabled={$disabled}
-      disabled={$disabled}
-    >
-      {$text}
+    <Btn $background={$background} $color={$color} $disabled={$disabled}>
+      {children}
     </Btn>
   );
 };
