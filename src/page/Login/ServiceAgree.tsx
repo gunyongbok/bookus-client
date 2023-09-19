@@ -8,7 +8,10 @@ import TopContainer from "../../components/Wrapper/TopContainer";
 import MainHeader from "../../components/Header/MainHeader";
 // Header - Image
 import backArrowImg from "../../assets/img/back.png";
-import fisrtProgress from "../../assets/img/Step.png";
+import fisrtProgress from "../../assets/img/FirstStep.png";
+
+// Title
+import PageTopTitle from "../../components/Title/PageTopTitle";
 
 // Agree
 import BreakLine from "../../commons/BreakLine/BreakLine";
@@ -27,17 +30,8 @@ const AgreeContainer = styled.div`
   justify-content: space-between;
   position: absolute;
   top: 13%;
-`;
-
-const AgreeTitle = styled.div`
-  width: 100%;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  display: flex;
-  justify-content: flex-start;
+  padding: 0 8px 0 8px;
+  box-sizing: border-box;
 `;
 
 const AgreeContent = styled.div`
@@ -73,7 +67,6 @@ const ServiceAgree = () => {
 
   const toggleClickAll = () => {
     setAll(!all);
-    setAge(!all);
     setService(!all);
     setPersonal(!all);
   };
@@ -95,7 +88,7 @@ const ServiceAgree = () => {
   };
 
   useEffect(() => {
-    if (age && service && personal) {
+    if (service && personal) {
       setNext(true);
     } else {
       setNext(false);
@@ -107,7 +100,7 @@ const ServiceAgree = () => {
       <MainHeader src1={backArrowImg} src2={fisrtProgress} />
       <AgreeContainer>
         <AgreeWrapper>
-          <AgreeTitle>서비스 이용 동의</AgreeTitle>
+          <PageTopTitle $text="서비스 이용 동의" />
           <AgreeContent>
             <AgreeTextBox
               onClick={toggleClickAll}
