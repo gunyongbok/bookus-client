@@ -14,6 +14,9 @@ import PageTopTitle from "../../components/Title/PageTopTitle";
 // Input
 import { nicknameCaution, nicknameLabel } from "../../assets/text/message";
 
+// Next_Btn
+import StandardBtn from "../../commons/Button/StandardBtn";
+
 const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
@@ -37,7 +40,7 @@ const NicknameWrapper = styled.div`
 
 const InputWrapper = styled.div`
   width: 100%;
-  height: 95px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -78,24 +81,36 @@ const NicknameInput = styled.input`
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+`;
+
 const ServiceName = () => {
   const [nickname, setNickname] = useState<string>("");
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
+  const [length, setLength] = useState<number>(0);
 
   // validate input value
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newNickname: string = e.target.value;
-    const regex: RegExp = /^[a-zA-Z가-힣_-]*$/;
+    const normalizedNickname = newNickname.normalize("NFC"); // 유니코드 정규화
 
-    if (newNickname.length <= 10 && regex.test(newNickname)) {
-      setNickname(newNickname);
+    setLength(normalizedNickname.length);
+    const regex: RegExp = /^[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9_-]*$/u;
+
+    if (length <= 10 && regex.test(normalizedNickname)) {
+      setNickname(normalizedNickname);
       setIsValidNickname(true);
     } else {
-      setNickname(newNickname);
+      setNickname(normalizedNickname);
       setIsValidNickname(false);
     }
   };
-  console.log(nickname, isValidNickname);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={secondProgress} />
@@ -111,8 +126,20 @@ const ServiceName = () => {
               value={nickname}
               onChange={handleNicknameChange}
             />
+            {isValidNickname || (
+              <ErrorMessage>사용이 불가능한 닉네임입니다.</ErrorMessage>
+            )}
           </InputWrapper>
         </NicknameWrapper>
+        {isValidNickname === false || length === 0 ? (
+          <StandardBtn $disabled={true} $background="#E9F6EE">
+            다음
+          </StandardBtn>
+        ) : (
+          <StandardBtn $background="#83D0A1" $color="#FCFCFF">
+            다음
+          </StandardBtn>
+        )}
       </MainContent>
     </TopContainer>
   );
