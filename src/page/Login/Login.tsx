@@ -37,12 +37,15 @@ const TextBox = styled.div`
 `;
 
 const Login = () => {
+  console.log(import.meta.env.VITE_APP_KAKAO_AUTH_URL);
+  const handleLogin = () => {
+    window.location.href = import.meta.env.VITE_APP_KAKAO_AUTH_URL;
+  };
   return (
     <TopContainer>
       <LoginTitle />
       <BtnContainer>
-        {/* <StandardBtn $text="카카오 계정으로 시작하기" $background="#FEE500" /> */}
-        <KakaoLoginBtn />
+        <KakaoLoginBtn onClick={handleLogin} />
         <StandardBtn>둘러보기</StandardBtn>
       </BtnContainer>
       <TextBox>{agreeMessage}</TextBox>

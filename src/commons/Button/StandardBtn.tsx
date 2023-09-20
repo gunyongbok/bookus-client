@@ -1,10 +1,12 @@
 import { styled } from "styled-components";
+import React from "react";
 
 interface BtnProps {
   $background?: string;
   $color?: string;
   $disabled?: boolean;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const Btn = styled.button<BtnProps>`
@@ -27,9 +29,15 @@ const StandardBtn = ({
   $color,
   $disabled,
   children,
+  onClick,
 }: BtnProps) => {
   return (
-    <Btn $background={$background} $color={$color} $disabled={$disabled}>
+    <Btn
+      $background={$background}
+      $color={$color}
+      $disabled={$disabled}
+      onClick={onClick}
+    >
       {children}
     </Btn>
   );
