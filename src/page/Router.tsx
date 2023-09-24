@@ -8,6 +8,9 @@ import ServiceAgree from "./Login/ServiceAgree";
 import ServiceName from "./Login/ServiceName";
 import Kakao from "./Login/Kakao";
 
+// Main
+import Main from "./Main/Main";
+
 const Router = () => {
   return (
     <>
@@ -16,6 +19,7 @@ const Router = () => {
         <Route path="service/agree" element={<ServiceAgree />} />
         <Route path="service/nickname" element={<ServiceName />} />
         <Route path="kakao" element={<Kakao />} />
+        <Route path="main" element={<Main />} />
       </Routes>
     </>
   );
