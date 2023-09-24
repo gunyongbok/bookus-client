@@ -102,7 +102,7 @@ const ServiceName = () => {
     setLength(normalizedNickname.length);
     const regex: RegExp = /^[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9_-]*$/u;
 
-    if (length <= 10 && regex.test(normalizedNickname)) {
+    if (length < 15 && regex.test(normalizedNickname)) {
       setNickname(normalizedNickname);
       setIsValidNickname(true);
     } else {
