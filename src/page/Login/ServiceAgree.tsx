@@ -32,6 +32,9 @@ const AgreeContainer = styled.div`
   top: 13%;
   padding: 0 8px 0 8px;
   box-sizing: border-box;
+  @media (max-width: 599px) {
+    height: 80%;
+  }
 `;
 
 const AgreeContent = styled.div`

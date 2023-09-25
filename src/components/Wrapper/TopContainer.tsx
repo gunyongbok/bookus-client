@@ -11,7 +11,7 @@ const Container = styled.div<ContainerProps>`
   height: 844px;
   display: flex;
   justify-content: center;
-  padding: 44px 16px 34px 16px;
+  padding: 10% 1% 4% 1%;
   box-sizing: border-box;
   position: relative;
   background: ${(props) =>

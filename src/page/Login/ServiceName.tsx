@@ -28,6 +28,9 @@ const MainContent = styled.div`
   top: 13%;
   padding: 0 8px 0 8px;
   box-sizing: border-box;
+  @media (max-width: 599px) {
+    height: 80%;
+  }
 `;
 
 const NicknameWrapper = styled.div`
@@ -44,6 +47,7 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  line-height: normal;
 `;
 
 const Label = styled.div`

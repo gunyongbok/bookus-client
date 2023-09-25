@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 
+import Logo from "../../assets/svg/BookusLogo.svg";
+
 const TitleWrapper = styled.div`
   width: 100%;
   height: 232px;
@@ -8,13 +10,12 @@ const TitleWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 `;
 
 const LogoBox = styled.div`
   width: 100%;
   height: 100.06px;
-  background-color: yellow;
 `;
 
 const TitleBox = styled.div`
@@ -46,7 +47,9 @@ const SubTitle = styled.div`
 const LoginTitle = () => {
   return (
     <TitleWrapper>
-      <LogoBox>Logo</LogoBox>
+      <LogoBox>
+        <img src={Logo} alt="logo" />
+      </LogoBox>
       <TitleBox>
         <MainTitle>BOOKUS</MainTitle>
         <SubTitle>
