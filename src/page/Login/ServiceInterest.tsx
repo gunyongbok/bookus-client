@@ -15,9 +15,11 @@ import PageTopTitle from "../../components/Title/PageTopTitle";
 import {
   bookRecommend,
   bookMessage,
-  interestArray,
+  interestArray1,
 } from "../../assets/text/message";
 import StandardBtn from "../../commons/Button/StandardBtn";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -101,6 +103,35 @@ const BtnWrapper = styled.div`
 `;
 
 const ServiceInterest = () => {
+  interface DataObject {
+    [key: string]: string;
+  }
+
+  const [data, setData] = useState<DataObject>({});
+  const [interest, setInterest] = useState<string[]>([]);
+
+  const getInterestData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/interests`
+      );
+      const interests = response.data.data;
+      interests.forEach((interestItem: any) => {
+        data[interestItem.interest] = interestItem.interestKoreanName;
+      });
+      setData(data);
+      setInterest(Object.values(data));
+    } catch (err) {
+      console.log("Error >>", err);
+    }
+  };
+
+  useEffect(() => {
+    getInterestData();
+  }, []);
+
+  console.log(interest);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={lastProgress} />
@@ -111,7 +142,7 @@ const ServiceInterest = () => {
             <Label>{bookRecommend}</Label>
             <Label>{bookMessage}</Label>
             <InterestContainer>
-              {interestArray.map((interest, index) => (
+              {interest.map((interest, index) => (
                 <InterestBtn key={index}>{interest}</InterestBtn>
               ))}
             </InterestContainer>

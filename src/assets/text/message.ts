@@ -9,7 +9,7 @@ export const bookRecommend: string = "도서 추천에 필요해요.";
 
 export const bookMessage: string = "해당 정보는 외부에 공개되지 않아요.";
 
-export const interestArray: string[] = [
+export const interestArray1: string[] = [
   "소설",
   "시/에세이",
   "경제/경영",

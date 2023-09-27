@@ -26,9 +26,7 @@ const Kakao = () => {
         navigate("/service/agree");
       }
       navigate("/main");
-    } catch (err) {
-      console.log("Error >>", err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
