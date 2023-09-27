@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -54,7 +55,6 @@ const InterestWrapper = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 8px;
   line-height: normal;
 `;
 
@@ -68,7 +68,22 @@ const BtnWrapper = styled.div`
   gap: 8px;
 `;
 
+const LimitMessage = styled.div`
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  margin-top: 12px;
+`;
+
 const ServiceInterest = () => {
+  const [limit, setLimit] = useState<boolean>(false);
+
+  const handleLimitChange = (newLimit: boolean) => {
+    setLimit(newLimit);
+  };
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={lastProgress} />
@@ -78,12 +93,23 @@ const ServiceInterest = () => {
           <InterestWrapper>
             <StandardLabel $text={bookRecommend} />
             <StandardLabel $text={bookMessage} />
-            <InterestContents />
+            <InterestContents onLimitChange={handleLimitChange} />
+            {limit ? (
+              <LimitMessage>최대 5개까지만 선택이 가능해요</LimitMessage>
+            ) : null}
           </InterestWrapper>
         </TopicWrapper>
         <BtnWrapper>
           <StandardLabel $text={interestFix} />
-          <StandardBtn $background="#E9F6EE">다음</StandardBtn>
+          {limit ? (
+            <StandardBtn $disabled={true} $background="#E9F6EE">
+              다음
+            </StandardBtn>
+          ) : (
+            <StandardBtn $background="#83D0A1" $color="#FCFCFF">
+              다음
+            </StandardBtn>
+          )}
         </BtnWrapper>
       </MainContainer>
     </TopContainer>
@@ -91,3 +117,5 @@ const ServiceInterest = () => {
 };
 
 export default ServiceInterest;
+
+// 2. 서버에 고른 버튼 key값 저장해서 서버에 post

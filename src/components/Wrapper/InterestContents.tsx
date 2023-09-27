@@ -32,7 +32,11 @@ const InterestBtn = styled.div<{ $active: boolean }>`
   }
 `;
 
-const InterestContents = () => {
+const InterestContents = ({
+  onLimitChange,
+}: {
+  onLimitChange: (newLimit: boolean) => void;
+}) => {
   interface DataObject {
     [key: string]: string;
   }
@@ -40,6 +44,7 @@ const InterestContents = () => {
   const [data, setData] = useState<DataObject>({});
   const [interest, setInterest] = useState<string[]>([]);
   const [clicked, setClicked] = useState<boolean[]>([]);
+  const [limit, setLimit] = useState<boolean>(false);
 
   const handleClick = (index: number) => {
     const newActiveButtons = [...clicked];
@@ -67,6 +72,14 @@ const InterestContents = () => {
   useEffect(() => {
     getInterestData();
   }, []);
+
+  useEffect(() => {
+    const trueCount = clicked.filter((value) => value).length;
+    const newLimit = trueCount > 5 || trueCount === 0;
+    setLimit(newLimit);
+    onLimitChange(newLimit);
+    console.log(limit);
+  }, [clicked]);
 
   return (
     <InterestContainer>
