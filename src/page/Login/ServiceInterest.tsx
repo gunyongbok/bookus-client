@@ -69,7 +69,7 @@ const InterestContainer = styled.div`
   margin-top: 20px;
 `;
 
-const InterestBtn = styled.div`
+const InterestBtn = styled.div<{ $active: boolean }>`
   width: fit-content;
   height: 43px;
   padding: 12px 20px;
@@ -78,14 +78,15 @@ const InterestBtn = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 40px;
-  background: #e9f6ee;
-  margin-bottom: 12px;
-  margin-right: 8px;
-  color: #0f473f;
+  background: ${(props) => (props.$active ? "#83D0A1" : "#e9f6ee")};
+  color: ${(props) => (props.$active ? "#FCFCFF" : "#0f473f")};
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
+  cursor: pointer;
+  margin-bottom: 12px;
+  margin-right: 8px;
   @media (max-width: 390px) {
     padding: 8px 16px;
     font-size: 12px;
@@ -109,6 +110,13 @@ const ServiceInterest = () => {
 
   const [data, setData] = useState<DataObject>({});
   const [interest, setInterest] = useState<string[]>([]);
+  const [clicked, setClicked] = useState<boolean[]>([]);
+
+  const handleClick = (index: number) => {
+    const newActiveButtons = [...clicked];
+    newActiveButtons[index] = !newActiveButtons[index];
+    setClicked(newActiveButtons);
+  };
 
   const getInterestData = async () => {
     try {
@@ -121,6 +129,7 @@ const ServiceInterest = () => {
       });
       setData(data);
       setInterest(Object.values(data));
+      setClicked(Array(interests.length).fill(false));
     } catch (err) {
       console.log("Error >>", err);
     }
@@ -143,7 +152,13 @@ const ServiceInterest = () => {
             <Label>{bookMessage}</Label>
             <InterestContainer>
               {interest.map((interest, index) => (
-                <InterestBtn key={index}>{interest}</InterestBtn>
+                <InterestBtn
+                  $active={clicked[index]}
+                  onClick={() => handleClick(index)}
+                  key={index}
+                >
+                  {interest}
+                </InterestBtn>
               ))}
             </InterestContainer>
           </InterestWrapper>
