@@ -9,23 +9,4 @@ export const bookRecommend: string = "도서 추천에 필요해요.";
 
 export const bookMessage: string = "해당 정보는 외부에 공개되지 않아요.";
 
-export const interestArray1: string[] = [
-  "소설",
-  "시/에세이",
-  "경제/경영",
-  "자기개발",
-  "인문",
-  "역사/문화",
-  "종교",
-  "정치/사회",
-  "예술/대중문화",
-  "과학",
-  "기술/공학",
-  "컴퓨터/IT",
-  "외국어",
-  "가정/육아",
-  "건강",
-  "여행",
-  "요리",
-  "취미/실용/스포츠",
-];
+export const interestFix: string = "관심 주제는 언제든지 수정 가능해요!";

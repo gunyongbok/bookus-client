@@ -11,6 +11,9 @@ import backArrowImg from "../../assets/img/back.png";
 import secondProgress from "../../assets/img/SecondStep.png";
 import PageTopTitle from "../../components/Title/PageTopTitle";
 
+// Label
+import StandardLabel from "../../commons/Label/StandardLabel";
+
 // Input
 import { nicknameCaution, nicknameLabel } from "../../assets/text/message";
 
@@ -48,15 +51,6 @@ const InputWrapper = styled.div`
   flex-direction: column;
   gap: 8px;
   line-height: normal;
-`;
-
-const Label = styled.div`
-  width: fit-content;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 300;
 `;
 
 const NicknameInput = styled.input`
@@ -122,8 +116,8 @@ const ServiceName = () => {
         <NicknameWrapper>
           <PageTopTitle $text="닉네임 설정" />
           <InputWrapper>
-            <Label>{nicknameLabel}</Label>
-            <Label>{nicknameCaution}</Label>
+            <StandardLabel $text={nicknameLabel} />
+            <StandardLabel $text={nicknameCaution} />
             <NicknameInput
               type="text"
               placeholder="사용하실 별명을 입력해주세요."
