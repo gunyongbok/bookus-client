@@ -79,11 +79,17 @@ const LimitMessage = styled.div`
 
 const ServiceInterest = () => {
   const [limit, setLimit] = useState<boolean>(false);
+  const [array, setArray] = useState<string[]>([]);
 
   const handleLimitChange = (newLimit: boolean) => {
     setLimit(newLimit);
   };
 
+  const handleInterest = (newData: string[]) => {
+    setArray(newData);
+  };
+
+  console.log(array);
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={lastProgress} />
@@ -93,7 +99,10 @@ const ServiceInterest = () => {
           <InterestWrapper>
             <StandardLabel $text={bookRecommend} />
             <StandardLabel $text={bookMessage} />
-            <InterestContents onLimitChange={handleLimitChange} />
+            <InterestContents
+              finalData={handleInterest}
+              onLimitChange={handleLimitChange}
+            />
             {limit ? (
               <LimitMessage>최대 5개까지만 선택이 가능해요</LimitMessage>
             ) : null}
