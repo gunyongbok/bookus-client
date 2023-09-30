@@ -25,6 +25,7 @@ import InterestContents from "../../components/Wrapper/InterestContents";
 
 // Next_Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
+import axios from "axios";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -89,6 +90,25 @@ const ServiceInterest = () => {
     setArray(newData);
   };
 
+  const submitInterestData = async () => {
+    const accessTokenHeader = localStorage.getItem("accessToken");
+
+    const headers = {
+      "Access-token": `${accessTokenHeader}`,
+    };
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/interests/enroll`,
+        array,
+        { headers }
+      );
+
+      console.log("response >>", response);
+    } catch (err) {
+      console.log("Err >>", err);
+    }
+  };
+
   console.log(array);
   return (
     <TopContainer $background="#FCFCFF">
@@ -115,7 +135,11 @@ const ServiceInterest = () => {
               다음
             </StandardBtn>
           ) : (
-            <StandardBtn $background="#83D0A1" $color="#FCFCFF">
+            <StandardBtn
+              onClick={submitInterestData}
+              $background="#83D0A1"
+              $color="#FCFCFF"
+            >
               다음
             </StandardBtn>
           )}
@@ -126,5 +150,3 @@ const ServiceInterest = () => {
 };
 
 export default ServiceInterest;
-
-// 2. 서버에 고른 버튼 key값 저장해서 서버에 post
