@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-import axios from "axios";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -26,6 +25,9 @@ import InterestContents from "../../components/Wrapper/InterestContents";
 
 // Next_Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
+
+// Api
+import submitInterestData from "../../Api/submitInterestData";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -92,27 +94,6 @@ const ServiceInterest = () => {
     setArray(newData);
   };
 
-  // 관심 도서 분야 선택 후 서버에 전송
-  const submitInterestData = async () => {
-    const accessTokenHeader = localStorage.getItem("accessToken");
-
-    const headers = {
-      "Access-token": `${accessTokenHeader}`,
-    };
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/interests/enroll`,
-        array,
-        { headers }
-      );
-
-      console.log("response >>", response);
-    } catch (err) {
-      console.log("Err >>", err);
-    }
-  };
-
-  console.log(array);
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={lastProgress} />
@@ -139,7 +120,7 @@ const ServiceInterest = () => {
             </StandardBtn>
           ) : (
             <StandardBtn
-              onClick={submitInterestData}
+              onClick={() => submitInterestData(array)}
               $background="#83D0A1"
               $color="#FCFCFF"
             >
