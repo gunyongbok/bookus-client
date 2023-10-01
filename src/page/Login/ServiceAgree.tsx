@@ -20,6 +20,7 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 // Agree - Image
 import AgreeBtn from "../../assets/img/AgreeBtn.png";
 import FilledAgreeBtn from "../../assets/img/FilledAgreeBtn.png";
+import { useNavigate } from "react-router-dom";
 
 const AgreeContainer = styled.div`
   width: 100%;
@@ -61,12 +62,14 @@ const AgreeWrapper = styled.div`
 `;
 
 const ServiceAgree = () => {
+  const navigate = useNavigate();
   const [all, setAll] = useState<boolean>(false);
   const [age, setAge] = useState<boolean>(false);
   const [service, setService] = useState<boolean>(false);
   const [personal, setPersonal] = useState<boolean>(false);
   const [optional, setOptional] = useState<boolean>(false);
   const [next, setNext] = useState<boolean>(false);
+  const [data, setData] = useState<Object>({});
 
   const toggleClickAll = () => {
     setAll(!all);
@@ -91,8 +94,16 @@ const ServiceAgree = () => {
   };
 
   useEffect(() => {
+    const agreeData: Data = {};
+
+    interface Data {
+      marketingAgreement?: boolean;
+    }
+
     if (service && personal) {
       setNext(true);
+      agreeData["marketingAgreement"] = true;
+      setData(agreeData);
     } else {
       setNext(false);
     }
@@ -137,7 +148,11 @@ const ServiceAgree = () => {
           </AgreeContent>
         </AgreeWrapper>
         {next ? (
-          <StandardBtn $background="#83D0A1" $color="#FCFCFF">
+          <StandardBtn
+            onClick={() => navigate("/service/nickname", { state: { data } })}
+            $background="#83D0A1"
+            $color="#FCFCFF"
+          >
             다음
           </StandardBtn>
         ) : (

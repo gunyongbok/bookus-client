@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -25,7 +26,6 @@ import InterestContents from "../../components/Wrapper/InterestContents";
 
 // Next_Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
-import axios from "axios";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -82,14 +82,17 @@ const ServiceInterest = () => {
   const [limit, setLimit] = useState<boolean>(false);
   const [array, setArray] = useState<string[]>([]);
 
+  // 5개 검증
   const handleLimitChange = (newLimit: boolean) => {
     setLimit(newLimit);
   };
 
+  // 관심 분야 모음 배열
   const handleInterest = (newData: string[]) => {
     setArray(newData);
   };
 
+  // 관심 도서 분야 선택 후 서버에 전송
   const submitInterestData = async () => {
     const accessTokenHeader = localStorage.getItem("accessToken");
 

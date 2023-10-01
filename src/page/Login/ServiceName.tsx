@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -19,6 +20,10 @@ import { nicknameCaution, nicknameLabel } from "../../assets/text/message";
 
 // Next_Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
+
+// Api
+import signUp from "../../Api/signUp";
+import validateNickname from "../../Api/validateNickname";
 
 const MainContent = styled.div`
   width: 100%;
@@ -88,9 +93,15 @@ const ErrorMessage = styled.div`
 `;
 
 const ServiceName = () => {
+  const location = useLocation();
+  const data = location.state && location.state.data;
   const [nickname, setNickname] = useState<string>("");
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
   const [length, setLength] = useState<number>(0);
+
+  useEffect(() => {
+    data["memberName"] = nickname;
+  }, [nickname]);
 
   // validate input value
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -128,13 +139,18 @@ const ServiceName = () => {
               <ErrorMessage>사용이 불가능한 닉네임입니다.</ErrorMessage>
             )}
           </InputWrapper>
+          <button onClick={() => validateNickname(nickname)}>검증</button>
         </NicknameWrapper>
         {isValidNickname === false || length === 0 ? (
           <StandardBtn $disabled={true} $background="#E9F6EE">
             다음
           </StandardBtn>
         ) : (
-          <StandardBtn $background="#83D0A1" $color="#FCFCFF">
+          <StandardBtn
+            onClick={() => signUp(data)}
+            $background="#83D0A1"
+            $color="#FCFCFF"
+          >
             다음
           </StandardBtn>
         )}
