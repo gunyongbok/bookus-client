@@ -58,6 +58,14 @@ const InputWrapper = styled.div`
   line-height: normal;
 `;
 
+const NicknameInputWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+`;
+
 const NicknameInput = styled.input`
   width: 70%;
   height: 56px;
@@ -84,6 +92,21 @@ const NicknameInput = styled.input`
   }
 `;
 
+const DuplicatedBtn = styled.div`
+  width: 91px;
+  height: 56px;
+  border-radius: 16px;
+  border: 1px solid #4ca771;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ErrorMessage = styled.div`
   color: #4ca771;
   font-family: Pretendard;
@@ -98,6 +121,7 @@ const ServiceName = () => {
   const [nickname, setNickname] = useState<string>("");
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
   const [length, setLength] = useState<number>(0);
+  const [duplicated, setDuplicated] = useState<boolean>(false);
 
   useEffect(() => {
     data["memberName"] = nickname;
@@ -120,6 +144,13 @@ const ServiceName = () => {
     }
   };
 
+  const handleDuplicatedNickname = async (nickname: string) => {
+    const isDuplicated: boolean = (await validateNickname(nickname)) as boolean;
+    setDuplicated(isDuplicated);
+  };
+
+  console.log(duplicated);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={secondProgress} />
@@ -129,20 +160,27 @@ const ServiceName = () => {
           <InputWrapper>
             <StandardLabel $text={nicknameLabel} />
             <StandardLabel $text={nicknameCaution} />
-            <NicknameInput
-              type="text"
-              placeholder="사용하실 별명을 입력해주세요."
-              value={nickname}
-              onChange={handleNicknameChange}
-            />
+            <NicknameInputWrapper>
+              <NicknameInput
+                type="text"
+                placeholder="사용하실 별명을 입력해주세요."
+                value={nickname}
+                onChange={handleNicknameChange}
+              />
+              <DuplicatedBtn onClick={() => handleDuplicatedNickname(nickname)}>
+                중복확인
+              </DuplicatedBtn>
+            </NicknameInputWrapper>
 
             {isValidNickname || (
               <ErrorMessage>사용이 불가능한 닉네임입니다.</ErrorMessage>
             )}
+            {duplicated ? (
+              <ErrorMessage>이미 사용중인 닉네임이에요</ErrorMessage>
+            ) : null}
           </InputWrapper>
-          <button onClick={() => validateNickname(nickname)}>검증</button>
         </NicknameWrapper>
-        {isValidNickname === false || length === 0 ? (
+        {!(duplicated || isValidNickname || length === 0) ? (
           <StandardBtn $disabled={true} $background="#E9F6EE">
             다음
           </StandardBtn>

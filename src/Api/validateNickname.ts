@@ -12,7 +12,7 @@ const validateNickname = async (nickname: string) => {
       memberName
     );
     console.log("response >>", response);
-    console.log(memberName);
+    return Object.values(response.data.data)[0];
   } catch (err) {
     console.log("Err >>", err);
   }
