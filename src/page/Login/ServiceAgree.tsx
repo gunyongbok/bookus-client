@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
 import { useEffect, useState } from "react";
+import * as S from "./ServiceAgree.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -21,45 +21,6 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 import AgreeBtn from "../../assets/img/AgreeBtn.png";
 import FilledAgreeBtn from "../../assets/img/FilledAgreeBtn.png";
 import { useNavigate } from "react-router-dom";
-
-const AgreeContainer = styled.div`
-  width: 100%;
-  max-width: 358px;
-  height: 680px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  top: 13%;
-  padding: 0 8px 0 8px;
-  box-sizing: border-box;
-  @media (max-width: 599px) {
-    height: 80%;
-  }
-`;
-
-const AgreeContent = styled.div`
-  width: 100%;
-  height: fit-content;
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const AgreeDetailWrapper = styled.div`
-  width: 100%;
-  gap: 24px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const AgreeWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-`;
 
 const ServiceAgree = () => {
   const navigate = useNavigate();
@@ -112,10 +73,10 @@ const ServiceAgree = () => {
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={fisrtProgress} />
-      <AgreeContainer>
-        <AgreeWrapper>
+      <S.AgreeContainer>
+        <S.AgreeWrapper>
           <PageTopTitle $text="서비스 이용 동의" />
-          <AgreeContent>
+          <S.AgreeContent>
             <AgreeTextBox
               onClick={toggleClickAll}
               imgSrc={all ? FilledAgreeBtn : AgreeBtn}
@@ -123,7 +84,7 @@ const ServiceAgree = () => {
               fontWeight="600"
             />
             <BreakLine />
-            <AgreeDetailWrapper>
+            <S.AgreeDetailWrapper>
               <AgreeTextBox
                 onClick={toggleClickAge}
                 imgSrc={age ? FilledAgreeBtn : AgreeBtn}
@@ -144,9 +105,9 @@ const ServiceAgree = () => {
                 imgSrc={optional ? FilledAgreeBtn : AgreeBtn}
                 text="(선택) 마케팅 정보 수신 동의"
               />
-            </AgreeDetailWrapper>
-          </AgreeContent>
-        </AgreeWrapper>
+            </S.AgreeDetailWrapper>
+          </S.AgreeContent>
+        </S.AgreeWrapper>
         {next ? (
           <StandardBtn
             onClick={() => navigate("/service/nickname", { state: { data } })}
@@ -160,7 +121,7 @@ const ServiceAgree = () => {
             다음
           </StandardBtn>
         )}
-      </AgreeContainer>
+      </S.AgreeContainer>
     </TopContainer>
   );
 };

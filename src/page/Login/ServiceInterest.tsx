@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { useState } from "react";
+import * as S from "./ServiceInterest.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -29,57 +29,6 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 // Api
 import submitInterestData from "../../Api/submitInterestData";
 
-const MainContainer = styled.div`
-  width: 100%;
-  max-width: 358px;
-  height: 680px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  top: 13%;
-  padding: 0 8px 0 8px;
-  box-sizing: border-box;
-  @media (max-width: 599px) {
-    height: 80%;
-  }
-`;
-
-const TopicWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-`;
-
-const InterestWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-`;
-
-const BtnWrapper = styled.div`
-  height: fit-content;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-`;
-
-const LimitMessage = styled.div`
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  margin-top: 12px;
-`;
-
 const ServiceInterest = () => {
   const [limit, setLimit] = useState<boolean>(false);
   const [array, setArray] = useState<string[]>([]);
@@ -97,10 +46,10 @@ const ServiceInterest = () => {
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={lastProgress} />
-      <MainContainer>
-        <TopicWrapper>
+      <S.MainContainer>
+        <S.TopicWrapper>
           <PageTopTitle $text="관심 주제 선택" />
-          <InterestWrapper>
+          <S.InterestWrapper>
             <StandardLabel $text={bookRecommend} />
             <StandardLabel $text={bookMessage} />
             <InterestContents
@@ -108,11 +57,11 @@ const ServiceInterest = () => {
               onLimitChange={handleLimitChange}
             />
             {limit ? (
-              <LimitMessage>최대 5개까지만 선택이 가능해요</LimitMessage>
+              <S.LimitMessage>최대 5개까지만 선택이 가능해요</S.LimitMessage>
             ) : null}
-          </InterestWrapper>
-        </TopicWrapper>
-        <BtnWrapper>
+          </S.InterestWrapper>
+        </S.TopicWrapper>
+        <S.BtnWrapper>
           <StandardLabel $text={interestFix} />
           {limit ? (
             <StandardBtn $disabled={true} $background="#E9F6EE">
@@ -127,8 +76,8 @@ const ServiceInterest = () => {
               다음
             </StandardBtn>
           )}
-        </BtnWrapper>
-      </MainContainer>
+        </S.BtnWrapper>
+      </S.MainContainer>
     </TopContainer>
   );
 };

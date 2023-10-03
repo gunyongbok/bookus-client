@@ -59,7 +59,7 @@ const InputWrapper = styled.div`
 `;
 
 const NicknameInput = styled.input`
-  width: 100%;
+  width: 70%;
   height: 56px;
   border-radius: 16px;
   border: none;
@@ -135,6 +135,7 @@ const ServiceName = () => {
               value={nickname}
               onChange={handleNicknameChange}
             />
+
             {isValidNickname || (
               <ErrorMessage>사용이 불가능한 닉네임입니다.</ErrorMessage>
             )}

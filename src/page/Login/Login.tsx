@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import * as S from "./Login.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -13,41 +13,18 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 import { agreeMessage } from "../../assets/text/message";
 import KakaoLoginBtn from "../../components/Button/KakaoLoginBtn";
 
-const BtnContainer = styled.div`
-  width: 5vw;
-  min-width: 356px;
-  height: 128px;
-  position: absolute;
-  bottom: 7%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const TextBox = styled.div`
-  width: fit-content;
-  color: var(--Base-Grren, #e9f6ee);
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  position: absolute;
-  bottom: 4%;
-`;
+// util
+import { handleLogin } from "../../utils/handleLogin";
 
 const Login = () => {
-  const handleLogin = () => {
-    window.location.href = import.meta.env.VITE_APP_KAKAO_AUTH_URL;
-  };
   return (
     <TopContainer>
       <LoginTitle />
-      <BtnContainer>
+      <S.BtnContainer>
         <KakaoLoginBtn onClick={handleLogin} />
         <StandardBtn>둘러보기</StandardBtn>
-      </BtnContainer>
-      <TextBox>{agreeMessage}</TextBox>
+      </S.BtnContainer>
+      <S.TextBox>{agreeMessage}</S.TextBox>
     </TopContainer>
   );
 };
