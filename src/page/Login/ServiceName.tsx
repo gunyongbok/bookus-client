@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import * as S from "./ServiceName.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -21,180 +21,12 @@ import { nicknameCaution, nicknameLabel } from "../../assets/text/message";
 // Next_Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
 
+// Age_Select
+import AgeSelect, { AgeOption } from "../../components/Select/AgeSelect";
+
 // Api
 import signUp from "../../Api/signUp";
 import validateNickname from "../../Api/validateNickname";
-import AgeSelect, { AgeOption } from "../../components/Select/AgeSelect";
-
-const MainContent = styled.div`
-  width: 100%;
-  max-width: 358px;
-  height: 680px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  top: 13%;
-  padding: 0 8px 0 8px;
-  box-sizing: border-box;
-  @media (max-width: 599px) {
-    height: 80%;
-  }
-`;
-
-const NicknameWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-`;
-
-const InputWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  line-height: normal;
-`;
-
-const NicknameInputWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
-`;
-
-const NicknameInput = styled.input`
-  width: 70%;
-  height: 56px;
-  border-radius: 16px;
-  border: none;
-  background: #e9f6ee;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  position: relative;
-  right: 8px;
-  padding-left: 16px;
-  &::placeholder {
-    color: #0f473f;
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 300;
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-const DuplicatedBtn = styled.div`
-  width: 91px;
-  height: 56px;
-  border-radius: 16px;
-  border: 1px solid #4ca771;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ErrorMessage = styled.div`
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-`;
-
-const TopicTopContainer = styled.div`
-  width: 100%;
-  height: fit-content;
-  gap: 24px;
-  margin-top: 40px;
-  display: flex;
-`;
-
-const TopicSubWrapper = styled.div`
-  width: fit-content;
-  gap: 8px;
-  display: flex;
-  flex-direction: row;
-`;
-
-const TopicWrapper = styled.div`
-  width: fit-content;
-  display: flex;
-  gap: 3px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const ToggleTopic = styled.div`
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-`;
-
-const ToggleOptional = styled.div`
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-`;
-
-const TopicGenderSelect = styled.div`
-  width: 200px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid #4ca771;
-  display: flex;
-`;
-
-const MaleSelect = styled.div<{ selected: boolean }>`
-  cursor: pointer;
-  width: 49%;
-  height: 100%;
-  border-radius: 8px 0 0 8px;
-  background: ${(props) => (props.selected ? " #E9F6EE" : "#fff")};
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid #4ca771;
-`;
-
-const FemaleSelect = styled.div<{ selected: boolean }>`
-  cursor: pointer;
-  width: 50%;
-  height: 100%;
-  border-radius: 0 8px 8px 0;
-  background: ${(props) => (props.selected ? " #E9F6EE" : "#fff")};
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const ServiceName = () => {
   const location = useLocation();
@@ -208,25 +40,9 @@ const ServiceName = () => {
   const [femaleSelected, setFemaleSelected] = useState<boolean>(false);
   const [selectedGenger, setSelectedGender] = useState<string>("NOT_CHOOSE");
 
-  const handleMaleClick = () => {
-    setMaleSelected(!maleSelected);
-    setFemaleSelected(false);
-    setSelectedGender("MALE");
-  };
-
-  const handleFemaleClick = () => {
-    setFemaleSelected(!femaleSelected);
-    setMaleSelected(false);
-    setSelectedGender("FEMALE");
-  };
-
-  // AgeSelect에서 선택한 값이 여기로 전달
-  const handleAgeSelect = (selectedOption: AgeOption | null) => {
-    setSelectedAge(selectedOption);
-  };
-
   useEffect(() => {
     data["ageBand"] = selectedAge?.value;
+    if (selectedAge?.value === undefined) data["ageBand"] = "NOT_CHOOSE";
   }, [selectedAge]);
 
   useEffect(() => {
@@ -256,68 +72,93 @@ const ServiceName = () => {
     }
   };
 
+  // 닉네임 중복 검사
   const handleDuplicatedNickname = async (nickname: string) => {
     const isDuplicated: boolean = (await validateNickname(nickname)) as boolean;
     setDuplicated(isDuplicated);
   };
 
+  // AgeSelect에서 선택한 값이 여기로 전달
+  const handleAgeSelect = (selectedOption: AgeOption | null) => {
+    setSelectedAge(selectedOption);
+  };
+
+  const handleMaleClick = () => {
+    setMaleSelected(!maleSelected);
+    setFemaleSelected(false);
+    setSelectedGender("MALE");
+  };
+
+  const handleFemaleClick = () => {
+    setFemaleSelected(!femaleSelected);
+    setMaleSelected(false);
+    setSelectedGender("FEMALE");
+  };
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={secondProgress} />
-      <MainContent>
-        <NicknameWrapper>
+      <S.MainContent>
+        <S.NicknameWrapper>
           <PageTopTitle $text="닉네임 설정" />
-          <InputWrapper>
+          <S.InputWrapper>
             <StandardLabel $text={nicknameLabel} />
             <StandardLabel $text={nicknameCaution} />
-            <NicknameInputWrapper>
-              <NicknameInput
+            <S.NicknameInputWrapper>
+              <S.NicknameInput
                 type="text"
                 placeholder="사용하실 별명을 입력해주세요."
                 value={nickname}
                 onChange={handleNicknameChange}
               />
-              <DuplicatedBtn onClick={() => handleDuplicatedNickname(nickname)}>
+              <S.DuplicatedBtn
+                onClick={() => handleDuplicatedNickname(nickname)}
+              >
                 중복확인
-              </DuplicatedBtn>
-            </NicknameInputWrapper>
+              </S.DuplicatedBtn>
+            </S.NicknameInputWrapper>
 
             {isValidNickname || (
-              <ErrorMessage>사용이 불가능한 닉네임입니다.</ErrorMessage>
+              <S.ErrorMessage>사용이 불가능한 닉네임입니다.</S.ErrorMessage>
             )}
             {duplicated ? (
-              <ErrorMessage>이미 사용중인 닉네임이에요</ErrorMessage>
+              <S.ErrorMessage>이미 사용중인 닉네임이에요</S.ErrorMessage>
             ) : (
-              <ErrorMessage>사용 가능한 닉네임이에요</ErrorMessage>
+              length !== 0 && (
+                <S.ErrorMessage>사용 가능한 닉네임이에요</S.ErrorMessage>
+              )
             )}
-            <TopicTopContainer>
-              <TopicWrapper>
-                <TopicSubWrapper>
-                  <ToggleTopic>연령대</ToggleTopic>
-                  <ToggleOptional>(선택)</ToggleOptional>
-                </TopicSubWrapper>
+            <S.TopicTopContainer>
+              <S.TopicWrapper>
+                <S.TopicSubWrapper>
+                  <S.ToggleTopic>연령대</S.ToggleTopic>
+                  <S.ToggleOptional>(선택)</S.ToggleOptional>
+                </S.TopicSubWrapper>
                 <AgeSelect onAgeChange={handleAgeSelect} />
-              </TopicWrapper>
-              <TopicWrapper>
-                <TopicSubWrapper>
-                  <ToggleTopic>성별</ToggleTopic>
-                  <ToggleOptional>(선택)</ToggleOptional>
-                </TopicSubWrapper>
-                <TopicGenderSelect>
-                  <MaleSelect onClick={handleMaleClick} selected={maleSelected}>
+              </S.TopicWrapper>
+              <S.TopicWrapper>
+                <S.TopicSubWrapper>
+                  <S.ToggleTopic>성별</S.ToggleTopic>
+                  <S.ToggleOptional>(선택)</S.ToggleOptional>
+                </S.TopicSubWrapper>
+                <S.TopicGenderSelect>
+                  <S.MaleSelect
+                    onClick={handleMaleClick}
+                    selected={maleSelected}
+                  >
                     남성
-                  </MaleSelect>
-                  <FemaleSelect
+                  </S.MaleSelect>
+                  <S.FemaleSelect
                     onClick={handleFemaleClick}
                     selected={femaleSelected}
                   >
                     여성
-                  </FemaleSelect>
-                </TopicGenderSelect>
-              </TopicWrapper>
-            </TopicTopContainer>
-          </InputWrapper>
-        </NicknameWrapper>
+                  </S.FemaleSelect>
+                </S.TopicGenderSelect>
+              </S.TopicWrapper>
+            </S.TopicTopContainer>
+          </S.InputWrapper>
+        </S.NicknameWrapper>
         {duplicated === true || isValidNickname === false || length === 0 ? (
           <StandardBtn $disabled={true} $background="#E9F6EE">
             다음
@@ -325,13 +166,14 @@ const ServiceName = () => {
         ) : (
           <StandardBtn
             onClick={() => signUp(data)}
+            // onClick={() => console.log(data)}
             $background="#83D0A1"
             $color="#FCFCFF"
           >
             다음
           </StandardBtn>
         )}
-      </MainContent>
+      </S.MainContent>
     </TopContainer>
   );
 };
