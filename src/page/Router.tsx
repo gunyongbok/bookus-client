@@ -11,6 +11,7 @@ import Kakao from "./Login/Kakao";
 // Main
 import Main from "./Main/Main";
 import ServiceInterest from "./Login/ServiceInterest";
+import Logout from "./Login/Logout";
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
         <Route path="kakao" element={<Kakao />} />
         <Route path="main" element={<Main />} />
         <Route path="service/interest" element={<ServiceInterest />} />
+        <Route path="logout" element={<Logout />} />
       </Routes>
     </>
   );

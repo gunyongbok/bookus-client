@@ -160,6 +160,40 @@ const TopicGenderSelect = styled.div`
   height: 40px;
   border-radius: 8px;
   border: 1px solid #4ca771;
+  display: flex;
+`;
+
+const MaleSelect = styled.div<{ selected: boolean }>`
+  cursor: pointer;
+  width: 49%;
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+  background: ${(props) => (props.selected ? " #E9F6EE" : "#fff")};
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #4ca771;
+`;
+
+const FemaleSelect = styled.div<{ selected: boolean }>`
+  cursor: pointer;
+  width: 50%;
+  height: 100%;
+  border-radius: 0 8px 8px 0;
+  background: ${(props) => (props.selected ? " #E9F6EE" : "#fff")};
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ServiceName = () => {
@@ -170,6 +204,21 @@ const ServiceName = () => {
   const [length, setLength] = useState<number>(0);
   const [duplicated, setDuplicated] = useState<boolean>(false);
   const [selectedAge, setSelectedAge] = useState<AgeOption | null>(null);
+  const [maleSelected, setMaleSelected] = useState<boolean>(false);
+  const [femaleSelected, setFemaleSelected] = useState<boolean>(false);
+  const [selectedGenger, setSelectedGender] = useState<string>("NOT_CHOOSE");
+
+  const handleMaleClick = () => {
+    setMaleSelected(!maleSelected);
+    setFemaleSelected(false);
+    setSelectedGender("MALE");
+  };
+
+  const handleFemaleClick = () => {
+    setFemaleSelected(!femaleSelected);
+    setMaleSelected(false);
+    setSelectedGender("FEMALE");
+  };
 
   // AgeSelect에서 선택한 값이 여기로 전달
   const handleAgeSelect = (selectedOption: AgeOption | null) => {
@@ -183,6 +232,12 @@ const ServiceName = () => {
   useEffect(() => {
     data["memberName"] = nickname;
   }, [nickname]);
+
+  useEffect(() => {
+    data["gender"] = selectedGenger;
+    if (maleSelected === false && femaleSelected === false)
+      data["gender"] = "NOT_CHOOSE";
+  }, [maleSelected, femaleSelected]);
 
   // validate input value
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -232,7 +287,9 @@ const ServiceName = () => {
             )}
             {duplicated ? (
               <ErrorMessage>이미 사용중인 닉네임이에요</ErrorMessage>
-            ) : null}
+            ) : (
+              <ErrorMessage>사용 가능한 닉네임이에요</ErrorMessage>
+            )}
             <TopicTopContainer>
               <TopicWrapper>
                 <TopicSubWrapper>
@@ -246,7 +303,17 @@ const ServiceName = () => {
                   <ToggleTopic>성별</ToggleTopic>
                   <ToggleOptional>(선택)</ToggleOptional>
                 </TopicSubWrapper>
-                <TopicGenderSelect />
+                <TopicGenderSelect>
+                  <MaleSelect onClick={handleMaleClick} selected={maleSelected}>
+                    남성
+                  </MaleSelect>
+                  <FemaleSelect
+                    onClick={handleFemaleClick}
+                    selected={femaleSelected}
+                  >
+                    여성
+                  </FemaleSelect>
+                </TopicGenderSelect>
               </TopicWrapper>
             </TopicTopContainer>
           </InputWrapper>
@@ -257,8 +324,7 @@ const ServiceName = () => {
           </StandardBtn>
         ) : (
           <StandardBtn
-            // onClick={() => signUp(data)}
-            onClick={() => console.log(data)}
+            onClick={() => signUp(data)}
             $background="#83D0A1"
             $color="#FCFCFF"
           >

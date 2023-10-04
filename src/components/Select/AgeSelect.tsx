@@ -32,7 +32,6 @@ const StyledSelect = styled(Select)`
     box-shadow: none;
   }
 
-  /* 옵션 스타일 */
   .select__option,
   .select__single-value {
     color: #4ca771;
@@ -54,6 +53,7 @@ const StyledSelect = styled(Select)`
   .select__dropdown-indicator {
     color: #4ca771;
   }
+
   .select__indicator-separator {
     display: none;
   }
