@@ -3,8 +3,8 @@ import Select from "react-select";
 import styled from "styled-components";
 
 export interface AgeOption {
-  label: string;
-  value: string;
+  label?: string;
+  value?: string;
 }
 
 const ageOptions: AgeOption[] = [
