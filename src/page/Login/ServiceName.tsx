@@ -24,6 +24,7 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 // Api
 import signUp from "../../Api/signUp";
 import validateNickname from "../../Api/validateNickname";
+import AgeSelect, { AgeOption } from "../../components/Select/AgeSelect";
 
 const MainContent = styled.div`
   width: 100%;
@@ -115,6 +116,52 @@ const ErrorMessage = styled.div`
   font-weight: 500;
 `;
 
+const TopicTopContainer = styled.div`
+  width: 100%;
+  height: fit-content;
+  gap: 24px;
+  margin-top: 40px;
+  display: flex;
+`;
+
+const TopicSubWrapper = styled.div`
+  width: fit-content;
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+`;
+
+const TopicWrapper = styled.div`
+  width: fit-content;
+  display: flex;
+  gap: 3px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ToggleTopic = styled.div`
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+`;
+
+const ToggleOptional = styled.div`
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+`;
+
+const TopicGenderSelect = styled.div`
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #4ca771;
+`;
+
 const ServiceName = () => {
   const location = useLocation();
   const data = location.state && location.state.data;
@@ -122,6 +169,16 @@ const ServiceName = () => {
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
   const [length, setLength] = useState<number>(0);
   const [duplicated, setDuplicated] = useState<boolean>(false);
+  const [selectedAge, setSelectedAge] = useState<AgeOption | null>(null);
+
+  // AgeSelect에서 선택한 값이 여기로 전달
+  const handleAgeSelect = (selectedOption: AgeOption | null) => {
+    setSelectedAge(selectedOption);
+  };
+
+  useEffect(() => {
+    data["ageBand"] = selectedAge?.value;
+  }, [selectedAge]);
 
   useEffect(() => {
     data["memberName"] = nickname;
@@ -148,8 +205,6 @@ const ServiceName = () => {
     const isDuplicated: boolean = (await validateNickname(nickname)) as boolean;
     setDuplicated(isDuplicated);
   };
-
-  console.log(duplicated);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -178,15 +233,32 @@ const ServiceName = () => {
             {duplicated ? (
               <ErrorMessage>이미 사용중인 닉네임이에요</ErrorMessage>
             ) : null}
+            <TopicTopContainer>
+              <TopicWrapper>
+                <TopicSubWrapper>
+                  <ToggleTopic>연령대</ToggleTopic>
+                  <ToggleOptional>(선택)</ToggleOptional>
+                </TopicSubWrapper>
+                <AgeSelect onAgeChange={handleAgeSelect} />
+              </TopicWrapper>
+              <TopicWrapper>
+                <TopicSubWrapper>
+                  <ToggleTopic>성별</ToggleTopic>
+                  <ToggleOptional>(선택)</ToggleOptional>
+                </TopicSubWrapper>
+                <TopicGenderSelect />
+              </TopicWrapper>
+            </TopicTopContainer>
           </InputWrapper>
         </NicknameWrapper>
-        {!(duplicated || isValidNickname || length === 0) ? (
+        {duplicated === true || isValidNickname === false || length === 0 ? (
           <StandardBtn $disabled={true} $background="#E9F6EE">
             다음
           </StandardBtn>
         ) : (
           <StandardBtn
-            onClick={() => signUp(data)}
+            // onClick={() => signUp(data)}
+            onClick={() => console.log(data)}
             $background="#83D0A1"
             $color="#FCFCFF"
           >
