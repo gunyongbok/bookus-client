@@ -80,6 +80,11 @@ export const DuplicatedBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background: #83d0a1;
+    color: #fcfcff;
+    border: none;
+  }
 `;
 
 export const ErrorMessage = styled.div`

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const Logout = () => {
-  const logout = async () => {
+const Withdraw = () => {
+  const withdraw = async () => {
     const accessTokenHeader = localStorage.getItem("accessToken");
 
     const headers = {
@@ -26,9 +26,9 @@ const Logout = () => {
 
   return (
     <div>
-      <button onClick={logout}>로그아웃</button>
+      <button onClick={withdraw}>로그아웃</button>
     </div>
   );
 };
 
-export default Logout;
+export default Withdraw;
