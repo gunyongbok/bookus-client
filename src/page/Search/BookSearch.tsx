@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -80,7 +82,50 @@ const SearchWordTitle = styled.div`
   font-weight: 500;
 `;
 
+const SearchWordBox = styled.div`
+  width: 100%;
+  height: 78px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+`;
+
+const SearchWordDetail = styled.div`
+  width: fit-content;
+  height: 33px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #e9f6ee;
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
 const BookSearch = () => {
+  const [searchData, setSearchData] = useState<{ bookTitle: string }[]>([]);
+
+  const getPoplularSearch = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/books/search/popular`
+      );
+      const data = response.data.data;
+      setSearchData(data);
+      console.log("Response >>", data);
+    } catch (err) {
+      console.log("Err >>", err);
+    }
+  };
+
+  useEffect(() => {
+    getPoplularSearch();
+  }, []);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -90,6 +135,13 @@ const BookSearch = () => {
         <SearchWordContainer>
           <SearchWordWrapper>
             <SearchWordTitle>인기 검색어 🍏</SearchWordTitle>
+            <SearchWordBox>
+              {searchData.map((item, index) => (
+                <SearchWordDetail key={index}>
+                  {item?.bookTitle}
+                </SearchWordDetail>
+              ))}
+            </SearchWordBox>
           </SearchWordWrapper>
           <SearchWordWrapper></SearchWordWrapper>
         </SearchWordContainer>
