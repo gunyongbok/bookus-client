@@ -10,3 +10,5 @@ export const bookRecommend: string = "도서 추천에 필요해요.";
 export const bookMessage: string = "해당 정보는 외부에 공개되지 않아요.";
 
 export const interestFix: string = "관심 주제는 언제든지 수정 가능해요!";
+
+export const inputPlaceholder: string = "어떤 책을 찾으세요?";
