@@ -11,8 +11,7 @@ import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
 // input
-import { inputPlaceholder } from "../../assets/text/message";
-import bookSearchLogo from "../../assets/svg/BookSearchLogo.svg";
+import BookSearchInput from "../../components/Input/BookSearchInput";
 
 const BookSearchContainer = styled.div`
   width: 100%;
@@ -25,35 +24,6 @@ const BookSearchContainer = styled.div`
   @media (max-width: 599px) {
     height: 80%;
   }
-`;
-
-const BookSearchInput = styled.input`
-  width: 100%;
-  height: 52px;
-  border-radius: 8px;
-  border: none;
-  background: #e9f6ee;
-  padding-left: 16px;
-  box-sizing: border-box;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-weight: 500;
-  position: relative;
-
-  &:focus {
-    outline: none;
-  }
-  &::placeholder {
-    font-weight: 300;
-  }
-`;
-
-const BookSearchLogo = styled.img`
-  position: absolute;
-  right: 20px;
-  top: 14px;
-  cursor: pointer;
 `;
 
 const SearchWordContainer = styled.div`
@@ -130,8 +100,7 @@ const BookSearch = () => {
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <BookSearchContainer>
-        <BookSearchInput type="text" placeholder={inputPlaceholder} />
-        <BookSearchLogo src={bookSearchLogo} />
+        <BookSearchInput />
         <SearchWordContainer>
           <SearchWordWrapper>
             <SearchWordTitle>인기 검색어 🍏</SearchWordTitle>
