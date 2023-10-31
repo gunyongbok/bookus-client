@@ -34,13 +34,31 @@ const BookSearchLogo = styled.img`
   cursor: pointer;
 `;
 
-interface Book {
+interface BookResults {
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  price: number;
+  publisher: string;
+  sale_price: number;
+  status: string;
+  thumbnail: string;
   title: string;
-  author: string;
+  translators: string[];
+  url: string;
 }
 
-const BookSearchInput = () => {
-  const [books, setBooks] = useState<Book[]>([]);
+interface BookSearchInputProps {
+  onInputChange: (inputText: string) => void;
+  onLogoClick: (inputText: string) => void;
+}
+
+const BookSearchInput: React.FC<BookSearchInputProps> = ({
+  onInputChange,
+  onLogoClick,
+}) => {
+  const [books, setBooks] = useState<BookResults[]>([]);
   const [text, setText] = useState<string>("");
   const [query, setQuery] = useState<string>("");
 
@@ -48,6 +66,7 @@ const BookSearchInput = () => {
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setQuery(text);
+      onInputChange(text);
     }
   };
 
@@ -57,8 +76,9 @@ const BookSearchInput = () => {
   };
 
   const onLogoClicked = () => {
-    if (query.length > 0) {
-      bookSearchHttpHandler(query, true, 8);
+    if (text.length > 0) {
+      onLogoClick(text);
+      bookSearchHttpHandler(text, true, 8);
     }
   };
 
@@ -86,7 +106,7 @@ const BookSearchInput = () => {
         setBooks(data.documents);
       }
       setBooks(books.concat(data.documents));
-      console.log(data);
+      console.log(data.documents);
     } catch (error) {
       console.error("Error >>", error);
     }

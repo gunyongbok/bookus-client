@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -12,6 +11,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 
 // input
 import BookSearchInput from "../../components/Input/BookSearchInput";
+import SearchWordWrapper from "../../components/Wrapper/SearchWordWrapper";
 
 const BookSearchContainer = styled.div`
   width: 100%;
@@ -26,94 +26,42 @@ const BookSearchContainer = styled.div`
   }
 `;
 
-const SearchWordContainer = styled.div`
+const SearchResultContainer = styled.div`
   width: 100%;
-  height: 266px;
+  height: fit-content;
   margin-top: 40px;
-  background-color: yellow;
   gap: 40px;
   display: flex;
   flex-direction: column;
+  background-color: yellow;
 `;
 
-const SearchWordWrapper = styled.div`
-  width: 100%;
-  height: 113px;
-  gap: 16px;
-  display: flex;
-  flex-direction: column;
-  background-color: antiquewhite;
-`;
-
-const SearchWordTitle = styled.div`
-  color: #000;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-weight: 500;
-`;
-
-const SearchWordBox = styled.div`
+const Hi = styled.div`
   width: 100%;
   height: 78px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-`;
-
-const SearchWordDetail = styled.div`
-  width: fit-content;
-  height: 33px;
-  padding: 8px 16px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  background: #e9f6ee;
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-weight: 500;
+  background-color: yellow;
 `;
 
 const BookSearch = () => {
-  const [searchData, setSearchData] = useState<{ bookTitle: string }[]>([]);
+  const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
 
-  const getPoplularSearch = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/books/search/popular`
-      );
-      const data = response.data.data;
-      setSearchData(data);
-      console.log("Response >>", data);
-    } catch (err) {
-      console.log("Err >>", err);
-    }
+  const handleInputChange = (inputText: string) => {
+    setIsInputEmpty(!inputText);
+    console.log(isInputEmpty);
+    console.log(inputText);
   };
-
-  useEffect(() => {
-    getPoplularSearch();
-  }, []);
 
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <BookSearchContainer>
-        <BookSearchInput />
-        <SearchWordContainer>
-          <SearchWordWrapper>
-            <SearchWordTitle>인기 검색어 🍏</SearchWordTitle>
-            <SearchWordBox>
-              {searchData.map((item, index) => (
-                <SearchWordDetail key={index}>
-                  {item?.bookTitle}
-                </SearchWordDetail>
-              ))}
-            </SearchWordBox>
-          </SearchWordWrapper>
-          <SearchWordWrapper></SearchWordWrapper>
-        </SearchWordContainer>
+        <BookSearchInput
+          onInputChange={handleInputChange}
+          onLogoClick={handleInputChange}
+        />
+        <SearchResultContainer>
+          {isInputEmpty ? <SearchWordWrapper /> : <Hi />}
+        </SearchResultContainer>
       </BookSearchContainer>
     </TopContainer>
   );
