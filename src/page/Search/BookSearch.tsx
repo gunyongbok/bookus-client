@@ -12,6 +12,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 // input
 import BookSearchInput from "../../components/Input/BookSearchInput";
 import SearchWordWrapper from "../../components/Wrapper/SearchWordWrapper";
+import SearchResultWrapper from "../../components/Wrapper/SearchResultWrapper";
 
 const BookSearchContainer = styled.div`
   width: 100%;
@@ -33,23 +34,38 @@ const SearchResultContainer = styled.div`
   gap: 40px;
   display: flex;
   flex-direction: column;
-  background-color: yellow;
 `;
 
-const Hi = styled.div`
-  width: 100%;
-  height: 78px;
-  background-color: yellow;
-`;
+interface BookResults {
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  price: number;
+  publisher: string;
+  sale_price: number;
+  status: string;
+  thumbnail: string;
+  title: string;
+  translators: string[];
+  url: string;
+}
 
 const BookSearch = () => {
   const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
+  const [books, setBooks] = useState<BookResults[]>([]);
 
   const handleInputChange = (inputText: string) => {
     setIsInputEmpty(!inputText);
     console.log(isInputEmpty);
     console.log(inputText);
   };
+
+  const handleSearchResults = (searchResults: BookResults[]) => {
+    setBooks(searchResults);
+  };
+
+  console.log(books);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -58,9 +74,10 @@ const BookSearch = () => {
         <BookSearchInput
           onInputChange={handleInputChange}
           onLogoClick={handleInputChange}
+          onSearchResults={handleSearchResults}
         />
         <SearchResultContainer>
-          {isInputEmpty ? <SearchWordWrapper /> : <Hi />}
+          {isInputEmpty ? <SearchWordWrapper /> : <SearchResultWrapper />}
         </SearchResultContainer>
       </BookSearchContainer>
     </TopContainer>

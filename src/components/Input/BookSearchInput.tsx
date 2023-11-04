@@ -52,11 +52,13 @@ interface BookResults {
 interface BookSearchInputProps {
   onInputChange: (inputText: string) => void;
   onLogoClick: (inputText: string) => void;
+  onSearchResults: (searchResults: BookResults[]) => void;
 }
 
 const BookSearchInput: React.FC<BookSearchInputProps> = ({
   onInputChange,
   onLogoClick,
+  onSearchResults,
 }) => {
   const [books, setBooks] = useState<BookResults[]>([]);
   const [text, setText] = useState<string>("");
@@ -106,6 +108,7 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
         setBooks(data.documents);
       }
       setBooks(books.concat(data.documents));
+      onSearchResults(data.documents);
       console.log(data.documents);
     } catch (error) {
       console.error("Error >>", error);
