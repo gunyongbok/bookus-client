@@ -17,7 +17,7 @@ import SearchResultWrapper from "../../components/Wrapper/SearchResultWrapper";
 const BookSearchContainer = styled.div`
   width: 100%;
   max-width: 358px;
-  height: 680px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -65,8 +65,6 @@ const BookSearch = () => {
     setBooks(searchResults);
   };
 
-  console.log(books);
-
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -77,7 +75,11 @@ const BookSearch = () => {
           onSearchResults={handleSearchResults}
         />
         <SearchResultContainer>
-          {isInputEmpty ? <SearchWordWrapper /> : <SearchResultWrapper />}
+          {isInputEmpty ? (
+            <SearchWordWrapper />
+          ) : (
+            <SearchResultWrapper books={books} />
+          )}
         </SearchResultContainer>
       </BookSearchContainer>
     </TopContainer>

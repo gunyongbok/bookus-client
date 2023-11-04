@@ -2,19 +2,22 @@ import styled from "styled-components";
 
 const Ul = styled.ul`
   width: 100%;
-  height: fit-content;
+  height: 610px;
   overflow: auto;
-  background-color: blue;
   margin: 0;
   padding: 0;
 `;
 
-const BookSearchResult = styled.li`
+const BookSearchLi = styled.li`
   width: 100%;
   height: 130px;
   gap: 16px;
   display: flex;
   align-items: center;
+  padding-bottom: 12px;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px 0px rgba(233, 246, 238, 0.8);
+  margin-bottom: 20px;
 `;
 
 const BookThumbnail = styled.img`
@@ -70,23 +73,41 @@ const BookIconBox = styled.div`
   background-color: red;
 `;
 
-const SearchResultWrapper = () => {
+interface BookResults {
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  price: number;
+  publisher: string;
+  sale_price: number;
+  status: string;
+  thumbnail: string;
+  title: string;
+  translators: string[];
+  url: string;
+}
+
+const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
+  console.log(books);
   return (
     <Ul>
-      <BookSearchResult>
-        <BookThumbnail />
-        <BookInfoContainer>
-          <BookTitle>노인과 바다</BookTitle>
-          <BookAuther>어니스트 헤밍웨이</BookAuther>
-          <BookPublisher>민음사</BookPublisher>
-          <BookIconContainer>
-            <BookIconBox></BookIconBox>
-            <BookIconBox></BookIconBox>
-            <BookIconBox></BookIconBox>
-            <BookIconBox></BookIconBox>
-          </BookIconContainer>
-        </BookInfoContainer>
-      </BookSearchResult>
+      {books.map((book, index) => (
+        <BookSearchLi key={index}>
+          <BookThumbnail src={book.thumbnail} alt={book.title} />
+          <BookInfoContainer>
+            <BookTitle>{book.title}</BookTitle>
+            <BookAuther>{book.authors.join(", ")}</BookAuther>
+            <BookPublisher>{book.publisher}</BookPublisher>
+            <BookIconContainer>
+              <BookIconBox></BookIconBox>
+              <BookIconBox></BookIconBox>
+              <BookIconBox></BookIconBox>
+              <BookIconBox></BookIconBox>
+            </BookIconContainer>
+          </BookInfoContainer>
+        </BookSearchLi>
+      ))}
     </Ul>
   );
 };

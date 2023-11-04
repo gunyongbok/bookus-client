@@ -109,7 +109,6 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
       }
       setBooks(books.concat(data.documents));
       onSearchResults(data.documents);
-      console.log(data.documents);
     } catch (error) {
       console.error("Error >>", error);
     }
