@@ -15,6 +15,7 @@ import Main from "./Main/Main";
 
 // Search
 import BookSearch from "./Search/BookSearch";
+import BookInfo from "./Book/BookInfo";
 
 const Router = () => {
   return (
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="service/interest" element={<ServiceInterest />} />
         <Route path="logout" element={<Withdraw />} />
         <Route path="search" element={<BookSearch />} />
+        <Route path="bookinfo" element={<BookInfo />} />
       </Routes>
     </>
   );

@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+import icon1 from "../../assets/svg/BookSeachIcon/Icon1.svg";
+import icon2 from "../../assets/svg/BookSeachIcon/Icon2.svg";
+import icon3 from "../../assets/svg/BookSeachIcon/Icon3.svg";
+import icon4 from "../../assets/svg/BookSeachIcon/Icon4.svg";
 
 const Ul = styled.ul`
   width: 100%;
@@ -13,7 +19,6 @@ const BookSearchLi = styled.li`
   height: 130px;
   gap: 16px;
   display: flex;
-  align-items: center;
   padding-bottom: 12px;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px 0px rgba(233, 246, 238, 0.8);
@@ -70,7 +75,15 @@ const BookIconBox = styled.div`
   height: 16px;
   gap: 6px;
   display: flex;
-  background-color: red;
+  align-items: center;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 interface BookResults {
@@ -90,23 +103,29 @@ interface BookResults {
 
 const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
   console.log(books);
+  const iconUrls = [icon1, icon2, icon3, icon4];
   return (
     <Ul>
       {books.map((book, index) => (
-        <BookSearchLi key={index}>
-          <BookThumbnail src={book.thumbnail} alt={book.title} />
-          <BookInfoContainer>
-            <BookTitle>{book.title}</BookTitle>
-            <BookAuther>{book.authors.join(", ")}</BookAuther>
-            <BookPublisher>{book.publisher}</BookPublisher>
-            <BookIconContainer>
-              <BookIconBox></BookIconBox>
-              <BookIconBox></BookIconBox>
-              <BookIconBox></BookIconBox>
-              <BookIconBox></BookIconBox>
-            </BookIconContainer>
-          </BookInfoContainer>
-        </BookSearchLi>
+        <StyledLink key={index} to="/bookinfo" state={book}>
+          <BookSearchLi key={index}>
+            <BookThumbnail src={book.thumbnail} alt={book.title} />
+            <BookInfoContainer>
+              <BookTitle>{book.title}</BookTitle>
+              <BookAuther>{book.authors.join(", ")}</BookAuther>
+              <BookPublisher>
+                {book.publisher} / {book.datetime.slice(0, 4)}
+              </BookPublisher>
+              <BookIconContainer>
+                {iconUrls.map((iconUrl, i) => (
+                  <BookIconBox key={i}>
+                    <img src={iconUrl} alt={`Icon ${i + 1}`} /> 000
+                  </BookIconBox>
+                ))}
+              </BookIconContainer>
+            </BookInfoContainer>
+          </BookSearchLi>
+        </StyledLink>
       ))}
     </Ul>
   );

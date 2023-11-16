@@ -11,6 +11,8 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 
 // input
 import BookSearchInput from "../../components/Input/BookSearchInput";
+
+// Main_Search_Result
 import SearchWordWrapper from "../../components/Wrapper/SearchWordWrapper";
 import SearchResultWrapper from "../../components/Wrapper/SearchResultWrapper";
 
