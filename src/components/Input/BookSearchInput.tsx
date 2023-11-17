@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { inputPlaceholder } from "../../assets/text/message";
 import bookSearchLogo from "../../assets/svg/BookSearchLogo.svg";
-import { bookSearch } from "../../Api/search";
+import { bookSearch } from "../../Api/Search/search";
 
 const Input = styled.input`
   width: 100%;

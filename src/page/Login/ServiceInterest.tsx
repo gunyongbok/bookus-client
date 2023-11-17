@@ -27,7 +27,7 @@ import InterestContents from "../../components/Wrapper/InterestContents";
 import StandardBtn from "../../commons/Button/StandardBtn";
 
 // Api
-import submitInterestData from "../../Api/submitInterestData";
+import submitInterestData from "../../Api/Login/submitInterestData";
 
 const ServiceInterest = () => {
   const [limit, setLimit] = useState<boolean>(false);

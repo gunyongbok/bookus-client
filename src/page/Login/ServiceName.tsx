@@ -25,8 +25,8 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 import AgeSelect, { AgeOption } from "../../components/Select/AgeSelect";
 
 // Api
-import signUp from "../../Api/signUp";
-import validateNickname from "../../Api/validateNickname";
+import signUp from "../../Api/Login/signUp";
+import validateNickname from "../../Api/Login/validateNickname";
 
 const ServiceName = () => {
   const location = useLocation();
