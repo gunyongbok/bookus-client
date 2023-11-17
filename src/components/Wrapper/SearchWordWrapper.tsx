@@ -1,6 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import getPopularSearch from "../../Api/Search/getPopularSearch";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -44,21 +45,11 @@ const SearchWordDetail = styled.div`
 const SearchWordWrapper = () => {
   const [searchData, setSearchData] = useState<{ bookTitle: string }[]>([]);
 
-  const getPoplularSearch = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/books/search/popular`
-      );
-      const data = response.data.data;
-      setSearchData(data);
-      console.log("Response >>", data);
-    } catch (err) {
-      console.log("Err >>", err);
-    }
-  };
-
   useEffect(() => {
-    getPoplularSearch();
+    const handlePopularSearch = async () => {
+      await getPopularSearch(setSearchData);
+    };
+    handlePopularSearch();
   }, []);
 
   return (

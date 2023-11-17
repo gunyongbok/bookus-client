@@ -25,8 +25,6 @@ const BookSearch = () => {
 
   const handleInputChange = (inputText: string) => {
     setIsInputEmpty(!inputText);
-    console.log(isInputEmpty);
-    console.log(inputText);
   };
 
   const handleSearchResults = (searchResults: BookResults[]) => {

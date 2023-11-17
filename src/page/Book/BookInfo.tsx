@@ -176,7 +176,7 @@ const BookInfo = () => {
                 <ImgBox src={price} /> <InfoBox>{book.sale_price}원</InfoBox>
               </BookSubDetail>
               <BookSubDetail>
-                <ImgBox src={page} /> <InfoBox>{book.isbn}</InfoBox>
+                <ImgBox src={isbn} /> <InfoBox>{book.isbn}</InfoBox>
               </BookSubDetail>
             </BookSubDetailInfo>
           </BookSubDetailInfoContainer>

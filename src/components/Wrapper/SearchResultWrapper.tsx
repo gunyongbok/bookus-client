@@ -87,6 +87,7 @@ const BookIconBox = styled.div`
   font-style: normal;
   font-weight: 300;
 `;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
