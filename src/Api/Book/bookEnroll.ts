@@ -1,17 +1,18 @@
-// import axios from "axios";
+import axios from "axios";
+import { BookResults } from "../../types/book";
 
-// const bookEnroll = async (bookInfo : string{}) => {
-//   try {
-//     const response = await axios.post(
-//       `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/interests/enroll`,
-//       array,
+const bookEnroll = async (bookInfo: BookResults) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/books/enroll`,
+      bookInfo
+    );
 
-//     );
+    console.log("response >>", response);
+  } catch (err) {
+    console.log("Err >>", err);
+    console.log(bookInfo);
+  }
+};
 
-//     console.log("response >>", response);
-//   } catch (err) {
-//     console.log("Err >>", err);
-//   }
-// };
-
-// export default bookEnroll;
+export default bookEnroll;

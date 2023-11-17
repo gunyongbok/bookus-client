@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import * as S from "./BookSearch.style";
 import { useState } from "react";
 
 // Container
@@ -16,42 +16,8 @@ import BookSearchInput from "../../components/Input/BookSearchInput";
 import SearchWordWrapper from "../../components/Wrapper/SearchWordWrapper";
 import SearchResultWrapper from "../../components/Wrapper/SearchResultWrapper";
 
-const BookSearchContainer = styled.div`
-  width: 100%;
-  max-width: 358px;
-  height: 700px;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 13%;
-  @media (max-width: 599px) {
-    height: 80%;
-  }
-`;
-
-const SearchResultContainer = styled.div`
-  width: 100%;
-  height: fit-content;
-  margin-top: 40px;
-  gap: 40px;
-  display: flex;
-  flex-direction: column;
-`;
-
-interface BookResults {
-  authors: string[];
-  contents: string;
-  datetime: string;
-  isbn: string;
-  price: number;
-  publisher: string;
-  sale_price: number;
-  status: string;
-  thumbnail: string;
-  title: string;
-  translators: string[];
-  url: string;
-}
+// types
+import { BookResults } from "../../types/book";
 
 const BookSearch = () => {
   const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
@@ -70,20 +36,20 @@ const BookSearch = () => {
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
-      <BookSearchContainer>
+      <S.BookSearchContainer>
         <BookSearchInput
           onInputChange={handleInputChange}
           onLogoClick={handleInputChange}
           onSearchResults={handleSearchResults}
         />
-        <SearchResultContainer>
+        <S.SearchResultContainer>
           {isInputEmpty ? (
             <SearchWordWrapper />
           ) : (
             <SearchResultWrapper books={books} />
           )}
-        </SearchResultContainer>
-      </BookSearchContainer>
+        </S.SearchResultContainer>
+      </S.BookSearchContainer>
     </TopContainer>
   );
 };

@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+// icons
 import icon1 from "../../assets/svg/BookSeachIcon/Icon1.svg";
 import icon2 from "../../assets/svg/BookSeachIcon/Icon2.svg";
 import icon3 from "../../assets/svg/BookSeachIcon/Icon3.svg";
 import icon4 from "../../assets/svg/BookSeachIcon/Icon4.svg";
+
+// types
+import { BookResults } from "../../types/book";
+import bookEnroll from "../../Api/Book/bookEnroll";
 
 const Ul = styled.ul`
   width: 100%;
@@ -86,28 +91,27 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface BookResults {
-  authors: string[];
-  contents: string;
-  datetime: string;
-  isbn: string;
-  price: number;
-  publisher: string;
-  sale_price: number;
-  status: string;
-  thumbnail: string;
-  title: string;
-  translators: string[];
-  url: string;
-}
-
 const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
-  console.log(books);
   const iconUrls = [icon1, icon2, icon3, icon4];
+
+  const modifiedBooks = books.map((book) => {
+    const last13DigitsISBN = book.isbn.substring(book.isbn.length - 13);
+
+    return {
+      ...book,
+      isbn: last13DigitsISBN,
+    };
+  });
+
   return (
     <Ul>
-      {books.map((book, index) => (
-        <StyledLink key={index} to="/bookinfo" state={book}>
+      {modifiedBooks.map((book, index) => (
+        <StyledLink
+          // onClick={() => bookEnroll(book)}
+          key={index}
+          to="/bookinfo"
+          state={book}
+        >
           <BookSearchLi key={index}>
             <BookThumbnail src={book.thumbnail} alt={book.title} />
             <BookInfoContainer>
