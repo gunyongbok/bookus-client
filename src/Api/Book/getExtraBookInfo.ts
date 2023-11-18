@@ -8,7 +8,6 @@ const getExtraBookInfo = async (isbn: string) => {
       }/books/info/extra?isbn=${isbn}`
     );
 
-    console.log("response >>", response);
     return response.data.data;
   } catch (err) {
     console.log("Err >>", err);

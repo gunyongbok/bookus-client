@@ -8,9 +8,15 @@ import TopContainer from "../../components/Wrapper/TopContainer";
 import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
+
 import BookSubDetailInfoWrapper from "../../components/Wrapper/BookSubDetailInfoWrapper";
+
 import StandardBtn from "../../commons/Button/StandardBtn";
+
+// extra
 import { Color } from "../../assets/color/color";
+import arrow from "../../assets/svg/bottomArrow.svg";
+import { useState } from "react";
 
 const BookInfoContainer = styled.div`
   width: 100%;
@@ -67,9 +73,48 @@ const BookAuthor = styled.div`
   margin-bottom: 40px;
 `;
 
+const BookContentsContainer = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+`;
+
+const BookContentsTitle = styled.div`
+  width: 100%;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+const BookContents = styled.div`
+  width: 100%;
+  height: fit-content;
+  color: #0f473f;
+  text-align: justify;
+  font-family: Pretendard;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  padding: 8px;
+  box-sizing: border-box;
+`;
+
 const BookInfo = () => {
   const location = useLocation();
   const book = location.state;
+  const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
+
+  const toggleContentsVisibility = () => {
+    setIsContentsVisible((prev) => !prev);
+  };
+
+  console.log(book);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -85,6 +130,12 @@ const BookInfo = () => {
           <StandardBtn $border={Color.border} $color={Color.color}>
             내 서재에 추가하기
           </StandardBtn>
+          <BookContentsContainer>
+            <BookContentsTitle>
+              책 소개 <img onClick={toggleContentsVisibility} src={arrow} />
+            </BookContentsTitle>
+            {isContentsVisible && <BookContents>{book.contents}</BookContents>}
+          </BookContentsContainer>
         </BookDetailInfoContainer>
       </BookInfoContainer>
     </TopContainer>
