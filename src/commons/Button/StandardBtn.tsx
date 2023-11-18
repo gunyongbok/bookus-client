@@ -5,6 +5,7 @@ interface BtnProps {
   $background?: string;
   $color?: string;
   $disabled?: boolean;
+  $border?: string;
   children?: React.ReactNode;
   onClick?: () => void;
 }
@@ -12,11 +13,11 @@ interface BtnProps {
 const Btn = styled.button<BtnProps>`
   width: 100%;
   height: 56px;
-  border: none;
+  border: ${(props) => props.$border || "none"};
   border-radius: 8px;
   text-align: center;
   font-family: Pretendard;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   background: ${(props) => props.$background || "#FCFCFF"};
@@ -28,6 +29,7 @@ const StandardBtn = ({
   $background,
   $color,
   $disabled,
+  $border,
   children,
   onClick,
 }: BtnProps) => {
@@ -36,6 +38,7 @@ const StandardBtn = ({
       $background={$background}
       $color={$color}
       $disabled={$disabled}
+      $border={$border}
       onClick={onClick}
     >
       {children}

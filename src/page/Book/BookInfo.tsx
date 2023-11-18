@@ -9,6 +9,8 @@ import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 import BookSubDetailInfoWrapper from "../../components/Wrapper/BookSubDetailInfoWrapper";
+import StandardBtn from "../../commons/Button/StandardBtn";
+import { Color } from "../../assets/color/color";
 
 const BookInfoContainer = styled.div`
   width: 100%;
@@ -80,6 +82,9 @@ const BookInfo = () => {
           <BookTitle>{book.title}</BookTitle>
           <BookAuthor>{book.authors}</BookAuthor>
           <BookSubDetailInfoWrapper book={book} />
+          <StandardBtn $border={Color.border} $color={Color.color}>
+            내 서재에 추가하기
+          </StandardBtn>
         </BookDetailInfoContainer>
       </BookInfoContainer>
     </TopContainer>

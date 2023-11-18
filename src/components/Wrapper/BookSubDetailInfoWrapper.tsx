@@ -19,6 +19,7 @@ const BookSubDetailInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 24px;
 `;
 
 const BookSubDetailInfo = styled.div`
