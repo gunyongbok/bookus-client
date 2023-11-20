@@ -8,6 +8,7 @@ import willRead from "../../../assets/svg/BookInfo/willRead.svg";
 import reading from "../../../assets/svg/BookInfo/reading.svg";
 import alreadyRead from "../../../assets/svg/BookInfo/alreadyRead.svg";
 import favorite from "../../../assets/svg/BookInfo/favoriteBook.svg";
+import star from "../../../assets//svg/BookInfo/star.svg";
 
 const BookContents = styled.div`
   width: 100%;
@@ -26,7 +27,14 @@ const BookContents = styled.div`
 
 const BookStars = styled.div`
   height: 20px;
-  background-color: yellow;
+  gap: 6px;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
 `;
 
 const BookStatisticBox = styled.div`
@@ -92,13 +100,14 @@ const StatisticItem = ({
   icon,
   status,
   count,
+  $color,
 }: {
   icon: string;
-  color?: string;
+  $color?: string;
   status: string;
   count: number;
 }) => (
-  <BookStatistic>
+  <BookStatistic $color={$color}>
     <BookIconBox>
       <img src={icon} />
     </BookIconBox>
@@ -128,7 +137,9 @@ const BookStatisticWrapper: React.FC<{ isbn: string }> = ({ isbn }) => {
 
   return (
     <BookContents>
-      <BookStars />
+      <BookStars>
+        <img src={star} /> 리뷰 {statistic?.rating} ({statistic?.ratingCount})
+      </BookStars>
       <BookStatisticBox>
         <StatisticItem
           icon={willRead}
@@ -151,7 +162,7 @@ const BookStatisticWrapper: React.FC<{ isbn: string }> = ({ isbn }) => {
           icon={favorite}
           status="인생 책"
           count={statistic?.favoriteCount || 0}
-          color="#B9DBDA"
+          $color="#B9DBDA"
         />
       </BookStatisticBox>
     </BookContents>

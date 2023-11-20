@@ -93,9 +93,7 @@ const BookSubDetailInfoWrapper: React.FC<{ book: BookResults }> = ({
         <BookSubDetail>
           <ImgBox src={category} />
           <InfoBox>
-            {extraBookInfo?.category === ""
-              ? "등록 예정"
-              : extraBookInfo?.category}
+            {extraBookInfo?.category === "" ? "-" : extraBookInfo?.category}
           </InfoBox>
         </BookSubDetail>
       </BookSubDetailInfo>
