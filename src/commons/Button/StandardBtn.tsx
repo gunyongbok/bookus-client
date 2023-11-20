@@ -23,6 +23,11 @@ const Btn = styled.button<BtnProps>`
   background: ${(props) => props.$background || "#FCFCFF"};
   color: ${(props) => props.$color || "#0F473F"};
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
+
+  &:focus {
+    background: #83d0a1;
+    color: #fcfcff;
+  }
 `;
 
 const StandardBtn = ({

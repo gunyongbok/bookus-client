@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import getExtraBookInfo from "../../Api/Book/getExtraBookInfo";
-import { BookResults } from "../../types/book";
+import getExtraBookInfo from "../../../Api/Book/getExtraBookInfo";
+import { BookResults } from "../../../types/book";
 
 // icons
-import category from "../../assets/svg/BookInfo/category.svg";
-import date from "../../assets/svg/BookInfo/date.svg";
-import isbn from "../../assets/svg/BookInfo/isbn.svg";
-import page from "../../assets/svg/BookInfo/page.svg";
-import price from "../../assets/svg/BookInfo/price.svg";
-import publisher from "../../assets/svg/BookInfo/publisher.svg";
+import category from "../../../assets/svg/BookInfo/category.svg";
+import date from "../../../assets/svg/BookInfo/date.svg";
+import isbn from "../../../assets/svg/BookInfo/isbn.svg";
+import page from "../../../assets/svg/BookInfo/page.svg";
+import price from "../../../assets/svg/BookInfo/price.svg";
+import publisher from "../../../assets/svg/BookInfo/publisher.svg";
 
 const BookSubDetailInfoContainer = styled.div`
   width: 100%;

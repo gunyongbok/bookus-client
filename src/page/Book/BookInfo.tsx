@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -9,23 +10,25 @@ import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
-import BookSubDetailInfoWrapper from "../../components/Wrapper/BookSubDetailInfoWrapper";
+import BookSubDetailInfoWrapper from "../../components/Wrapper/BookInfo/BookSubDetailInfoWrapper";
 
 import StandardBtn from "../../commons/Button/StandardBtn";
 
 // extra
 import { Color } from "../../assets/color/color";
 import arrow from "../../assets/svg/bottomArrow.svg";
-import { useState } from "react";
+
+import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
 
 const BookInfoContainer = styled.div`
   width: 100%;
   max-width: 358px;
-  height: 700px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 11%;
+  overflow: auto;
   @media (max-width: 599px) {
     height: 80%;
   }
@@ -73,14 +76,14 @@ const BookAuthor = styled.div`
   margin-bottom: 40px;
 `;
 
-const BookContentsContainer = styled.div`
+const ContentsContainer = styled.div`
   width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
 `;
 
-const BookContentsTitle = styled.div`
+const ContentsTitle = styled.div`
   width: 100%;
   color: #0f473f;
   font-family: Pretendard;
@@ -103,15 +106,22 @@ const BookContents = styled.div`
   font-weight: 300;
   padding: 8px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `;
 
 const BookInfo = () => {
   const location = useLocation();
   const book = location.state;
   const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
+  const [isStaticsVisible, setIsStaticVisible] = useState<boolean>(true);
 
   const toggleContentsVisibility = () => {
     setIsContentsVisible((prev) => !prev);
+  };
+
+  const toggleStaticsVisibility = () => {
+    setIsStaticVisible((prev) => !prev);
   };
 
   console.log(book);
@@ -130,12 +140,18 @@ const BookInfo = () => {
           <StandardBtn $border={Color.border} $color={Color.color}>
             내 서재에 추가하기
           </StandardBtn>
-          <BookContentsContainer>
-            <BookContentsTitle>
+          <ContentsContainer>
+            <ContentsTitle>
               책 소개 <img onClick={toggleContentsVisibility} src={arrow} />
-            </BookContentsTitle>
+            </ContentsTitle>
             {isContentsVisible && <BookContents>{book.contents}</BookContents>}
-          </BookContentsContainer>
+          </ContentsContainer>
+          <ContentsContainer>
+            <ContentsTitle>
+              통계 보기 <img onClick={toggleStaticsVisibility} src={arrow} />
+            </ContentsTitle>
+            {isStaticsVisible && <BookStatisticWrapper isbn={book.isbn} />}
+          </ContentsContainer>
         </BookDetailInfoContainer>
       </BookInfoContainer>
     </TopContainer>
