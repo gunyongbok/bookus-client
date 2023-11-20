@@ -19,6 +19,7 @@ import { Color } from "../../assets/color/color";
 import arrow from "../../assets/svg/bottomArrow.svg";
 
 import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
+import Modal from "../../components/Model/BookInfo/EnrollBookModel";
 
 const BookInfoContainer = styled.div`
   width: 100%;
@@ -115,6 +116,15 @@ const BookInfo = () => {
   const book = location.state;
   const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
   const [isStaticsVisible, setIsStaticVisible] = useState<boolean>(true);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
 
   const toggleContentsVisibility = () => {
     setIsContentsVisible((prev) => !prev);
@@ -127,7 +137,7 @@ const BookInfo = () => {
   console.log(book);
 
   return (
-    <TopContainer $background="#FCFCFF">
+    <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <BookInfoContainer>
         <BookDetailInfoContainer>
@@ -137,7 +147,11 @@ const BookInfo = () => {
           <BookTitle>{book.title}</BookTitle>
           <BookAuthor>{book.authors}</BookAuthor>
           <BookSubDetailInfoWrapper book={book} />
-          <StandardBtn $border={Color.border} $color={Color.color}>
+          <StandardBtn
+            onClick={openModal}
+            $border={Color.border}
+            $color={Color.color}
+          >
             내 서재에 추가하기
           </StandardBtn>
           <ContentsContainer>
@@ -154,6 +168,7 @@ const BookInfo = () => {
           </ContentsContainer>
         </BookDetailInfoContainer>
       </BookInfoContainer>
+      {isModalVisible && <Modal onClose={closeModal} />}
     </TopContainer>
   );
 };

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 
 interface BtnProps {
   $background?: string;
@@ -10,7 +10,13 @@ interface BtnProps {
   onClick?: () => void;
 }
 
-const Btn = styled.button<BtnProps>`
+const Btn = styled.button<{
+  $background?: string;
+  $color?: string;
+  $disabled?: boolean;
+  $border?: string;
+  $isClicked: boolean;
+}>`
   width: 100%;
   height: 56px;
   border: ${(props) => props.$border || "none"};
@@ -20,8 +26,10 @@ const Btn = styled.button<BtnProps>`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  background: ${(props) => props.$background || "#FCFCFF"};
-  color: ${(props) => props.$color || "#0F473F"};
+  background: ${(props) =>
+    props.$isClicked ? "#83d0a1" : props.$background || "#FCFCFF"};
+  color: ${(props) =>
+    props.$isClicked ? "#fcfcff" : props.$color || "#0F473F"};
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 
   &:focus {
@@ -38,13 +46,21 @@ const StandardBtn = ({
   children,
   onClick,
 }: BtnProps) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+    onClick && onClick();
+  };
+
   return (
     <Btn
       $background={$background}
       $color={$color}
       $disabled={$disabled}
       $border={$border}
-      onClick={onClick}
+      onClick={handleClick}
+      $isClicked={isClicked}
     >
       {children}
     </Btn>
