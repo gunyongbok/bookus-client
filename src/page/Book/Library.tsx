@@ -7,6 +7,7 @@ import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 import styled from "styled-components";
 import { useState } from "react";
+import LibraryTitle from "../../components/Title/LibraryTitle";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -25,6 +26,7 @@ const LibraryCotroller = styled.div`
   width: 100%;
   height: 44px;
   display: flex;
+  margin-bottom: 32px;
 `;
 
 const LibraryController = styled.div<{ $clicked: boolean }>`
@@ -41,6 +43,51 @@ const LibraryController = styled.div<{ $clicked: boolean }>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+const FavoriteBookContainer = styled.div`
+  width: 100%;
+  height: 220px;
+`;
+
+const FavoriteBookBox = styled.div`
+  width: 100%;
+  display: flex;
+  height: 180px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+`;
+
+const FavoriteBook = styled.div`
+  height: 100%;
+  width: 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BookThumbnail = styled.div`
+  width: 100%;
+  height: 142px;
+  background-color: yellow;
+  margin-bottom: 10px;
+`;
+
+const BookTitle = styled.div`
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+`;
+
+const BookAuthor = styled.div`
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
 `;
 
 const Library = () => {
@@ -75,6 +122,26 @@ const Library = () => {
             독서록
           </LibraryController>
         </LibraryCotroller>
+        <FavoriteBookContainer>
+          <LibraryTitle text="나는 북커스 님의 인생책" />
+          <FavoriteBookBox>
+            <FavoriteBook>
+              <BookThumbnail />
+              <BookTitle>제목</BookTitle>
+              <BookAuthor>작가 이름</BookAuthor>
+            </FavoriteBook>
+            <FavoriteBook>
+              <BookThumbnail />
+              <BookTitle>제목</BookTitle>
+              <BookAuthor>작가 이름</BookAuthor>
+            </FavoriteBook>
+            <FavoriteBook>
+              <BookThumbnail />
+              <BookTitle>제목</BookTitle>
+              <BookAuthor>작가 이름</BookAuthor>
+            </FavoriteBook>
+          </FavoriteBookBox>
+        </FavoriteBookContainer>
       </LibraryContainer>
     </TopContainer>
   );
