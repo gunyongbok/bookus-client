@@ -7,9 +7,11 @@ import already from "../../../assets/svg/BookInfo/modalAlready.svg";
 import clickWill from "../../../assets/svg/BookInfo/clickWill.svg";
 import clickIng from "../../../assets/svg/BookInfo/clickIng.svg";
 import clickAlready from "../../../assets/svg/BookInfo/clickAlready.svg";
+import enrollBookToLibrary from "../../../Api/Book/enrollBookToLibrary";
 
 interface ModalProps {
   onClose: (event: MouseEvent) => void;
+  isbn: string;
 }
 
 const ModalOverlay = styled.div`
@@ -93,14 +95,18 @@ const Enroll = styled(CancelEnrollBase)`
   color: #4ca771;
 `;
 
-const Modal: React.FC<ModalProps> = ({ onClose }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, isbn }) => {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
-  console.log(selectedImg);
+
+  const enrollBookStatus = {
+    isbn: isbn,
+    readingStatus: selectedImg,
+  };
 
   const handleImgClick = (imgType: string) => {
     switch (imgType) {
       case "will":
-        setSelectedImg("WANT_TO_READ");
+        setSelectedImg("READY_TO_READ");
         break;
       case "ing":
         setSelectedImg("READING");
@@ -117,7 +123,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
   const getImage = (imgType: string) => {
     switch (imgType) {
       case "will":
-        return selectedImg === "WANT_TO_READ" ? clickWill : will;
+        return selectedImg === "READY_TO_READ" ? clickWill : will;
       case "ing":
         return selectedImg === "READING" ? clickIng : ing;
       case "already":
@@ -159,7 +165,9 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         </LibraryStateContainer>
         <CancelOrEnrollContainer>
           <Cancel onClick={onClose}>취소</Cancel>
-          <Enroll>확인</Enroll>
+          <Enroll onClick={() => enrollBookToLibrary(enrollBookStatus)}>
+            확인
+          </Enroll>
         </CancelOrEnrollContainer>
       </ModalContent>
     </ModalOverlay>

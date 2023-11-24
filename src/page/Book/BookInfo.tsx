@@ -114,6 +114,7 @@ const BookContents = styled.div`
 const BookInfo = () => {
   const location = useLocation();
   const book = location.state;
+
   const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
   const [isStaticsVisible, setIsStaticVisible] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -168,7 +169,7 @@ const BookInfo = () => {
           </ContentsContainer>
         </BookDetailInfoContainer>
       </BookInfoContainer>
-      {isModalVisible && <Modal onClose={closeModal} />}
+      {isModalVisible && <Modal onClose={closeModal} isbn={book.isbn} />}
     </TopContainer>
   );
 };

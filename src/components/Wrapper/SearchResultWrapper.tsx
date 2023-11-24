@@ -97,12 +97,10 @@ const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
 
   const modifiedBooks = books.map((book) => {
     const last13DigitsISBN = book.isbn.substring(book.isbn.length - 13);
-    const formalDate = book.datetime.slice(0, 10);
 
     return {
       ...book,
       isbn: last13DigitsISBN,
-      datetime: formalDate,
     };
   });
 
