@@ -13,7 +13,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 import LibraryTitle from "../../components/Title/LibraryTitle";
 
 // Books
-import ShowThreeBookInRow from "../../components/Wrapper/showThreeBookInRow";
+import ShowThreeBookInRow from "../../components/Wrapper/ShowThreeBookInRow";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -23,6 +23,7 @@ const LibraryContainer = styled.div`
   flex-direction: column;
   position: absolute;
   top: 13%;
+  overflow: auto;
   @media (max-width: 599px) {
     height: 80%;
   }
@@ -33,6 +34,9 @@ const LibraryCotroller = styled.div`
   height: 44px;
   display: flex;
   margin-bottom: 32px;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 `;
 
 const LibraryController = styled.div<{ $clicked: boolean }>`
@@ -54,6 +58,44 @@ const LibraryController = styled.div<{ $clicked: boolean }>`
 const FavoriteBookContainer = styled.div`
   width: 100%;
   height: 220px;
+`;
+
+const BooksInMyLibrary = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+`;
+
+const ArrangeController = styled.div`
+  width: 100%;
+  height: 14px;
+  margin: 26px 0 16px 0;
+  background-color: red;
+`;
+
+const StateControllerBox = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 16px;
+`;
+
+const IndividualState = styled.div`
+  width: fit-content;
+  height: 34px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #e9f6ee;
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
 `;
 
 const Library = () => {
@@ -92,6 +134,19 @@ const Library = () => {
           <LibraryTitle text="나는 북커스 님의 인생책" />
           <ShowThreeBookInRow />
         </FavoriteBookContainer>
+        <BooksInMyLibrary>
+          <LibraryTitle text="나는 북커스 님의 서재" />
+          <StateControllerBox>
+            <IndividualState>전체</IndividualState>
+            <IndividualState>읽을 책</IndividualState>
+            <IndividualState>읽는 책</IndividualState>
+            <IndividualState>읽은 책</IndividualState>
+          </StateControllerBox>
+          <ArrangeController />
+          <ShowThreeBookInRow />
+          <ShowThreeBookInRow />
+          <ShowThreeBookInRow />
+        </BooksInMyLibrary>
       </LibraryContainer>
     </TopContainer>
   );

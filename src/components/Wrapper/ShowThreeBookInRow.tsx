@@ -4,9 +4,9 @@ const BookBox = styled.div`
   width: 100%;
   display: flex;
   height: 180px;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
   gap: 28px;
+  margin-bottom: 32px;
 `;
 
 const Book = styled.div`
