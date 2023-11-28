@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import styled from "styled-components";
+import * as S from "./BookInfo.style";
 import { useEffect, useState } from "react";
 
 // Container
@@ -20,96 +20,6 @@ import Modal from "../../components/Model/BookInfo/EnrollBookModel";
 import isBookInLibrary from "../../Api/Book/isBookInLibrary";
 import BookSubDetailInfoWrapper from "../../components/Wrapper/BookInfo/BookSubDetailInfoWrapper";
 import StandardBtn from "../../commons/Button/StandardBtn";
-
-const BookInfoContainer = styled.div`
-  width: 100%;
-  max-width: 358px;
-  max-height: 700px;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 11%;
-  overflow: auto;
-  @media (max-width: 599px) {
-    height: 80%;
-  }
-`;
-
-const BookDetailInfoContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const BookThumbnailBackground = styled.div`
-  width: 100%;
-  height: 260px;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 32px;
-`;
-
-const BookThumbnail = styled.img`
-  width: 210px;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-`;
-
-const BookTitle = styled.div`
-  color: #0f473f;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
-const BookAuthor = styled.div`
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  margin-bottom: 40px;
-`;
-
-const ContentsContainer = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-`;
-
-const ContentsTitle = styled.div`
-  width: 100%;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const BookContents = styled.div`
-  width: 100%;
-  height: fit-content;
-  color: #0f473f;
-  text-align: justify;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 300;
-  padding: 8px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-`;
 
 const BookInfo = () => {
   const location = useLocation();
@@ -160,13 +70,13 @@ const BookInfo = () => {
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} />
-      <BookInfoContainer>
-        <BookDetailInfoContainer>
-          <BookThumbnailBackground>
-            <BookThumbnail src={book.thumbnail} />
-          </BookThumbnailBackground>
-          <BookTitle>{book.title}</BookTitle>
-          <BookAuthor>{book.authors}</BookAuthor>
+      <S.BookInfoContainer>
+        <S.BookDetailInfoContainer>
+          <S.BookThumbnailBackground>
+            <S.BookThumbnail src={book.thumbnail} />
+          </S.BookThumbnailBackground>
+          <S.BookTitle>{book.title}</S.BookTitle>
+          <S.BookAuthor>{book.authors}</S.BookAuthor>
           <BookSubDetailInfoWrapper book={book} />
           {inLibrary ? (
             <StandardBtn
@@ -185,20 +95,22 @@ const BookInfo = () => {
               내 서재에 추가하기
             </StandardBtn>
           )}
-          <ContentsContainer>
-            <ContentsTitle>
+          <S.ContentsContainer>
+            <S.ContentsTitle>
               책 소개 <img onClick={toggleContentsVisibility} src={arrow} />
-            </ContentsTitle>
-            {isContentsVisible && <BookContents>{book.contents}</BookContents>}
-          </ContentsContainer>
-          <ContentsContainer>
-            <ContentsTitle>
+            </S.ContentsTitle>
+            {isContentsVisible && (
+              <S.BookContents>{book.contents}</S.BookContents>
+            )}
+          </S.ContentsContainer>
+          <S.ContentsContainer>
+            <S.ContentsTitle>
               통계 보기 <img onClick={toggleStaticsVisibility} src={arrow} />
-            </ContentsTitle>
+            </S.ContentsTitle>
             {isStaticsVisible && <BookStatisticWrapper isbn={book.isbn} />}
-          </ContentsContainer>
-        </BookDetailInfoContainer>
-      </BookInfoContainer>
+          </S.ContentsContainer>
+        </S.BookDetailInfoContainer>
+      </S.BookInfoContainer>
       {isModalVisible && (
         <Modal
           onClose={closeModal}
