@@ -10,17 +10,16 @@ import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
-import BookSubDetailInfoWrapper from "../../components/Wrapper/BookInfo/BookSubDetailInfoWrapper";
-
-import StandardBtn from "../../commons/Button/StandardBtn";
-
 // extra
 import { Color } from "../../assets/color/color";
 import arrow from "../../assets/svg/bottomArrow.svg";
 
+// BookInfo
 import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
 import Modal from "../../components/Model/BookInfo/EnrollBookModel";
 import isBookInLibrary from "../../Api/Book/isBookInLibrary";
+import BookSubDetailInfoWrapper from "../../components/Wrapper/BookInfo/BookSubDetailInfoWrapper";
+import StandardBtn from "../../commons/Button/StandardBtn";
 
 const BookInfoContainer = styled.div`
   width: 100%;
@@ -120,7 +119,8 @@ const BookInfo = () => {
   const [isStaticsVisible, setIsStaticVisible] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isBookUpdated, setIsBookUpdated] = useState<boolean>(false);
-  const [newBook, setNewBook] = useState<boolean>(false);
+  const [inLibrary, setInLibrary] = useState<boolean>(false);
+  const [libraryId, setLibraryId] = useState<number>();
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -145,6 +145,8 @@ const BookInfo = () => {
   const BookInLibrary = async () => {
     try {
       const result = await isBookInLibrary(book.isbn);
+      setInLibrary(result.isBookInLibrary);
+      setLibraryId(result.libraryBookId);
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -154,8 +156,6 @@ const BookInfo = () => {
   useEffect(() => {
     BookInLibrary();
   }, [, isBookUpdated]);
-
-  console.log(isBookUpdated);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
@@ -168,13 +168,23 @@ const BookInfo = () => {
           <BookTitle>{book.title}</BookTitle>
           <BookAuthor>{book.authors}</BookAuthor>
           <BookSubDetailInfoWrapper book={book} />
-          <StandardBtn
-            onClick={openModal}
-            $border={Color.border}
-            $color={Color.color}
-          >
-            내 서재에 추가하기
-          </StandardBtn>
+          {inLibrary ? (
+            <StandardBtn
+              onClick={() => console.log("책 상세 페이지")}
+              $border={Color.border}
+              $color={Color.color}
+            >
+              서재로 이동하기
+            </StandardBtn>
+          ) : (
+            <StandardBtn
+              onClick={openModal}
+              $border={Color.border}
+              $color={Color.color}
+            >
+              내 서재에 추가하기
+            </StandardBtn>
+          )}
           <ContentsContainer>
             <ContentsTitle>
               책 소개 <img onClick={toggleContentsVisibility} src={arrow} />

@@ -49,7 +49,7 @@ const StandardBtn = ({
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    setIsClicked(true);
+    setIsClicked((prev) => !prev);
     onClick && onClick();
   };
 
