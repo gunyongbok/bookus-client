@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -20,6 +20,7 @@ import arrow from "../../assets/svg/bottomArrow.svg";
 
 import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
 import Modal from "../../components/Model/BookInfo/EnrollBookModel";
+import isBookInLibrary from "../../Api/Book/isBookInLibrary";
 
 const BookInfoContainer = styled.div`
   width: 100%;
@@ -118,6 +119,8 @@ const BookInfo = () => {
   const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
   const [isStaticsVisible, setIsStaticVisible] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isBookUpdated, setIsBookUpdated] = useState<boolean>(false);
+  const [newBook, setNewBook] = useState<boolean>(false);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -135,7 +138,24 @@ const BookInfo = () => {
     setIsStaticVisible((prev) => !prev);
   };
 
-  console.log(book);
+  const updateBookInfo = () => {
+    setIsBookUpdated((prev) => !prev);
+  };
+
+  const BookInLibrary = async () => {
+    try {
+      const result = await isBookInLibrary(book.isbn);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    BookInLibrary();
+  }, [, isBookUpdated]);
+
+  console.log(isBookUpdated);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
@@ -169,7 +189,13 @@ const BookInfo = () => {
           </ContentsContainer>
         </BookDetailInfoContainer>
       </BookInfoContainer>
-      {isModalVisible && <Modal onClose={closeModal} isbn={book.isbn} />}
+      {isModalVisible && (
+        <Modal
+          onClose={closeModal}
+          isbn={book.isbn}
+          onBookUpdate={updateBookInfo}
+        />
+      )}
     </TopContainer>
   );
 };

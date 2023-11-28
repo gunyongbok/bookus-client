@@ -126,7 +126,6 @@ const BookStatisticWrapper: React.FC<{ isbn: string }> = ({ isbn }) => {
       try {
         const result = await getStatistic(isbn);
         setStatistic(result);
-        console.log(result);
       } catch (error) {
         console.error("Error fetching statistic:", error);
       }

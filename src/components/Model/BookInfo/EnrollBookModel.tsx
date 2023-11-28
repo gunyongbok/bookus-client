@@ -12,6 +12,7 @@ import enrollBookToLibrary from "../../../Api/Book/enrollBookToLibrary";
 interface ModalProps {
   onClose: (event: MouseEvent) => void;
   isbn: string;
+  onBookUpdate: () => void;
 }
 
 const ModalOverlay = styled.div`
@@ -95,7 +96,7 @@ const Enroll = styled(CancelEnrollBase)`
   color: #4ca771;
 `;
 
-const Modal: React.FC<ModalProps> = ({ onClose, isbn }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, isbn, onBookUpdate }) => {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   const enrollBookStatus = {
@@ -165,7 +166,17 @@ const Modal: React.FC<ModalProps> = ({ onClose, isbn }) => {
         </LibraryStateContainer>
         <CancelOrEnrollContainer>
           <Cancel onClick={onClose}>취소</Cancel>
-          <Enroll onClick={() => enrollBookToLibrary(enrollBookStatus)}>
+          <Enroll
+            onClick={async (e) => {
+              try {
+                await enrollBookToLibrary(enrollBookStatus);
+                onBookUpdate();
+                onClose(e);
+              } catch (error) {
+                console.error("An error occurred:", error);
+              }
+            }}
+          >
             확인
           </Enroll>
         </CancelOrEnrollContainer>
