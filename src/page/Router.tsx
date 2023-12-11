@@ -17,6 +17,7 @@ import Main from "./Main/Main";
 import BookSearch from "./Search/BookSearch";
 import BookInfo from "./Book/BookInfo";
 import Library from "./Book/Library";
+import BookDetail from "./Book/BookDetail";
 
 const Router = () => {
   return (
@@ -32,6 +33,7 @@ const Router = () => {
         <Route path="search" element={<BookSearch />} />
         <Route path="bookinfo" element={<BookInfo />} />
         <Route path="library" element={<Library />} />
+        <Route path="bookdetail/:libraryId" element={<BookDetail />} />
       </Routes>
     </>
   );

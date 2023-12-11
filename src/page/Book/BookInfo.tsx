@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./BookInfo.style";
 import { useEffect, useState } from "react";
 
@@ -23,6 +23,7 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 
 const BookInfo = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const book = location.state;
 
   const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
@@ -67,6 +68,14 @@ const BookInfo = () => {
     BookInLibrary();
   }, [, isBookUpdated]);
 
+  const handleButtonClick = () => {
+    if (inLibrary) {
+      navigate(`/bookdetail/${libraryId}`);
+    } else {
+      openModal();
+    }
+  };
+
   console.log(inLibrary, libraryId);
 
   return (
@@ -80,23 +89,13 @@ const BookInfo = () => {
           <S.BookTitle>{book.title}</S.BookTitle>
           <S.BookAuthor>{book.authors}</S.BookAuthor>
           <BookSubDetailInfoWrapper book={book} />
-          {inLibrary ? (
-            <StandardBtn
-              onClick={() => console.log("책 상세 페이지")}
-              $border={Color.border}
-              $color={Color.color}
-            >
-              서재로 이동하기
-            </StandardBtn>
-          ) : (
-            <StandardBtn
-              onClick={openModal}
-              $border={Color.border}
-              $color={Color.color}
-            >
-              내 서재에 추가하기
-            </StandardBtn>
-          )}
+          <StandardBtn
+            onClick={handleButtonClick}
+            $border={Color.border}
+            $color={Color.color}
+          >
+            {inLibrary ? "서재로 이동하기" : "내 서재에 추가하기"}
+          </StandardBtn>
           <S.ContentsContainer>
             <S.ContentsTitle>
               책 소개 <img onClick={toggleContentsVisibility} src={arrow} />
