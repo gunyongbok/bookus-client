@@ -67,6 +67,8 @@ const BookInfo = () => {
     BookInLibrary();
   }, [, isBookUpdated]);
 
+  console.log(inLibrary, libraryId);
+
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} />

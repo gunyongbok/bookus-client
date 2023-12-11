@@ -53,9 +53,9 @@ const LoginTitle = () => {
       <TitleBox>
         <MainTitle>BOOKUS</MainTitle>
         <SubTitle>
-          어플 아이덴티티
+          책과 우리, 북커스
           <br />
-          캐치 프레이즈
+          환영합니다.
         </SubTitle>
       </TitleBox>
     </TitleWrapper>

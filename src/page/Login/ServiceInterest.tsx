@@ -28,10 +28,12 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 
 // Api
 import submitInterestData from "../../Api/Login/submitInterestData";
+import { useNavigate } from "react-router-dom";
 
 const ServiceInterest = () => {
   const [limit, setLimit] = useState<boolean>(false);
   const [array, setArray] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   // 5개 검증
   const handleLimitChange = (newLimit: boolean) => {
@@ -69,7 +71,10 @@ const ServiceInterest = () => {
             </StandardBtn>
           ) : (
             <StandardBtn
-              onClick={() => submitInterestData(array)}
+              onClick={() => {
+                submitInterestData(array);
+                navigate("/search");
+              }}
               $background="#83D0A1"
               $color="#FCFCFF"
             >

@@ -23,6 +23,8 @@ const BookSearch = () => {
   const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
   const [books, setBooks] = useState<BookResults[]>([]);
 
+  console.log(books);
+
   const handleInputChange = (inputText: string) => {
     setIsInputEmpty(!inputText);
   };

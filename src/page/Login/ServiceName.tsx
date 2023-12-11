@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./ServiceName.style";
 
 // Container
@@ -30,6 +30,7 @@ import validateNickname from "../../Api/Login/validateNickname";
 
 const ServiceName = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const data = location.state && location.state.data;
   const [nickname, setNickname] = useState<string>("");
   const [isValidNickname, setIsValidNickname] = useState<boolean>(true);
@@ -165,8 +166,10 @@ const ServiceName = () => {
           </StandardBtn>
         ) : (
           <StandardBtn
-            onClick={() => signUp(data)}
-            // onClick={() => console.log(data)}
+            onClick={() => {
+              signUp(data);
+              navigate("/service/interest");
+            }}
             $background="#83D0A1"
             $color="#FCFCFF"
           >
