@@ -28,7 +28,7 @@ export const BookThumbnailBackground = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 32px;
-  opacity: 0.5;
+  opacity: 1;
   background: linear-gradient(
     180deg,
     rgba(233, 246, 238, 0) 0%,

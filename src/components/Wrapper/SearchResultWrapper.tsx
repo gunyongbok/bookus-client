@@ -9,7 +9,7 @@ import icon4 from "../../assets/svg/BookSeachIcon/Icon4.svg";
 
 // types
 import { BookResults } from "../../types/book";
-import bookEnroll from "../../Api/Book/bookEnroll";
+import firstBookEnroll from "../../Api/Book/firstBookEnroll";
 
 const Ul = styled.ul`
   width: 100%;
@@ -113,7 +113,7 @@ const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
     <Ul>
       {modifiedBooks.map((book, index) => (
         <StyledLink
-          onClick={() => bookEnroll(book)}
+          onClick={() => firstBookEnroll(book)}
           key={index}
           to="/bookinfo"
           state={book}
