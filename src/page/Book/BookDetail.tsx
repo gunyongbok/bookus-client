@@ -15,6 +15,9 @@ import getBookInfoById from "../../Api/Book/getBookInfoById";
 
 // BookDeail
 import BookDetailWrapper from "../../components/Wrapper/BookDetail/BookDetailWrapper";
+import StandardBtn from "../../commons/Button/StandardBtn";
+import { bookState } from "../../assets/svg/BookDetail/bookDetailAsset";
+import ChangeBookStateModal from "../../components/Model/BookDetail/ChangeBookState";
 
 const MainContent = styled.div`
   width: 100%;
@@ -31,6 +34,38 @@ const MainContent = styled.div`
   }
 `;
 
+const BookStateWrapper = styled.div`
+  width: 100%;
+  height: 76px;
+  display: flex;
+  gap: 16px;
+  & > :last-child {
+    position: absolute;
+    right: 0;
+  }
+`;
+
+const BookStateBox = styled.div`
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  color: #bbc2c1;
+  font-family: Pretendard;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+`;
+
+const BookStateString = styled.div`
+  color: #bbc2c1;
+  font-family: Pretendard;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+`;
+
 interface BookProps {
   libraryId: number;
   bookTitle: string;
@@ -41,21 +76,33 @@ interface BookProps {
   rating: number;
   startReadingAt: string;
   endReadingAt: string;
+  thumbnail: string;
 }
 
 const BookDetail = () => {
   const { libraryId } = useParams<{ libraryId?: string }>();
   const [book, setBook] = useState<BookProps>();
+  const [readingStatus, setReadingstatus] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const getBookInfo = async () => {
     try {
       if (libraryId) {
         const result = await getBookInfoById(libraryId);
         setBook(result);
+        setReadingstatus(result.readingStatus);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -63,11 +110,29 @@ const BookDetail = () => {
   }, []);
 
   console.log(book);
+  console.log(readingStatus);
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <MainContent>
         <BookDetailWrapper book={book} />
+        <BookStateWrapper>
+          {bookState.map((state, index) => (
+            <BookStateBox onClick={openModal} key={index}>
+              {state[0] === readingStatus ? (
+                <img src={state[3]} alt={state[1]} />
+              ) : (
+                <img src={state[2]} alt={state[1]} />
+              )}
+
+              <BookStateString>{state[1]}</BookStateString>
+            </BookStateBox>
+          ))}
+        </BookStateWrapper>
+        <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
+          독서록 작성하기
+        </StandardBtn>
+        {isModalOpen && <ChangeBookStateModal onClose={closeModal} />}
       </MainContent>
     </TopContainer>
   );

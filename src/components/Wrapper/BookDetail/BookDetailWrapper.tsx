@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const BookThumbnail = styled.div`
+const BookThumbnail = styled.img`
   width: 45%;
   height: 100%;
   background-color: red;
@@ -66,12 +66,13 @@ interface BookProps {
   rating: number;
   startReadingAt: string;
   endReadingAt: string;
+  thumbnail: string;
 }
 
 const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
   return (
     <Wrapper>
-      <BookThumbnail />
+      <BookThumbnail src={book?.thumbnail} />
       <BookDetailInfo>
         <BookTitle>{book?.bookTitle}</BookTitle>
         <BookAuthor>{book?.author}</BookAuthor>
