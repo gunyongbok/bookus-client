@@ -64,9 +64,11 @@ const OkBtn = styled.button`
 
 interface ModalProps {
   onClose: () => void;
+  selectedBookState: object;
 }
 
-const ChangeBookStateModal = ({ onClose }: ModalProps) => {
+const ChangeBookStateModal = ({ onClose, selectedBookState }: ModalProps) => {
+  console.log(selectedBookState);
   return (
     <ModalWrapper>
       <ModalContent>읽기 상태를 변경하시겠어요?</ModalContent>

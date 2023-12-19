@@ -79,10 +79,19 @@ interface BookProps {
   thumbnail: string;
 }
 
+interface ModalProps {
+  libraryId: string;
+  state: string;
+}
+
 const BookDetail = () => {
   const { libraryId } = useParams<{ libraryId?: string }>();
   const [book, setBook] = useState<BookProps>();
   const [readingStatus, setReadingstatus] = useState<string>("");
+  const [selectedBookState, setSelectedBookState] = useState<ModalProps>({
+    libraryId: "",
+    state: readingStatus,
+  });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const getBookInfo = async () => {
@@ -97,7 +106,8 @@ const BookDetail = () => {
     }
   };
 
-  const openModal = () => {
+  const openModal = (libraryId: string, state: string) => {
+    setSelectedBookState({ libraryId, state });
     setIsModalOpen(true);
   };
 
@@ -118,7 +128,10 @@ const BookDetail = () => {
         <BookDetailWrapper book={book} />
         <BookStateWrapper>
           {bookState.map((state, index) => (
-            <BookStateBox onClick={openModal} key={index}>
+            <BookStateBox
+              onClick={() => openModal(String(book?.libraryId || ""), state[0])}
+              key={index}
+            >
               {state[0] === readingStatus ? (
                 <img src={state[3]} alt={state[1]} />
               ) : (
@@ -132,7 +145,12 @@ const BookDetail = () => {
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
           독서록 작성하기
         </StandardBtn>
-        {isModalOpen && <ChangeBookStateModal onClose={closeModal} />}
+        {isModalOpen && (
+          <ChangeBookStateModal
+            selectedBookState={selectedBookState}
+            onClose={closeModal}
+          />
+        )}
       </MainContent>
     </TopContainer>
   );
