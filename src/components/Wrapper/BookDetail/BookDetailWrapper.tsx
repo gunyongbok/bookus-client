@@ -3,12 +3,14 @@ import styled from "styled-components";
 import report from "../../../assets/svg/BookInfo/BookReport.svg";
 import emptyStar from "../../../assets/svg/BookDetail/emptyStar.svg";
 import fullStar from "../../../assets/svg/BookDetail/fullStar.svg";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 100%;
   height: 233px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 `;
 
 const BookThumbnail = styled.img`
@@ -57,6 +59,21 @@ const BookRating = styled.div`
   height: 18px;
 `;
 
+const BookInfoBtn = styled.button`
+  width: 168px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  background: #e9f6ee;
+  color: #83d0a1;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  position: absolute;
+  bottom: 0;
+`;
+
 interface BookProps {
   libraryId: number;
   bookTitle: string;
@@ -71,6 +88,8 @@ interface BookProps {
 }
 
 const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
+  const navigate = useNavigate();
+
   const stars =
     book?.rating !== undefined
       ? Array.from({ length: 5 }, (_, index) => (
@@ -92,6 +111,9 @@ const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
           <img src={report} /> 독서록 00개
         </BookReportCount>
         <BookRating>{stars}</BookRating>
+        <BookInfoBtn onClick={() => navigate(-1)}>
+          도서 정보 보러가기
+        </BookInfoBtn>
       </BookDetailInfo>
     </Wrapper>
   );
