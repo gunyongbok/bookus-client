@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import report from "../../../assets/svg/BookInfo/BookReport.svg";
+import emptyStar from "../../../assets/svg/BookDetail/emptyStar.svg";
+import fullStar from "../../../assets/svg/BookDetail/fullStar.svg";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -53,7 +55,6 @@ const BookReportCount = styled.div`
 const BookRating = styled.div`
   width: 90px;
   height: 18px;
-  background-color: yellow;
 `;
 
 interface BookProps {
@@ -70,6 +71,17 @@ interface BookProps {
 }
 
 const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
+  const stars =
+    book?.rating !== undefined
+      ? Array.from({ length: 5 }, (_, index) => (
+          <img
+            key={index}
+            src={index < (book?.rating ?? 0) ? fullStar : emptyStar}
+            alt=""
+          />
+        ))
+      : null;
+
   return (
     <Wrapper>
       <BookThumbnail src={book?.thumbnail} />
@@ -79,7 +91,7 @@ const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
         <BookReportCount>
           <img src={report} /> 독서록 00개
         </BookReportCount>
-        <BookRating />
+        <BookRating>{stars}</BookRating>
       </BookDetailInfo>
     </Wrapper>
   );
