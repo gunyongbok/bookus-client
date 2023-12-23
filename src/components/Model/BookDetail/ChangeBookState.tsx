@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import changeBookState from "../../../Api/Book/changeBookState";
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -64,18 +65,30 @@ const OkBtn = styled.button`
 
 interface ModalProps {
   onClose: () => void;
-  selectedBookState: object;
+  selectedBookState: {
+    libraryId: string;
+    state: string;
+  };
 }
 
 const ChangeBookStateModal = ({ onClose, selectedBookState }: ModalProps) => {
   console.log(selectedBookState);
+
+  const handleBookStateChange = () => {
+    changeBookState(selectedBookState.libraryId, {
+      readingStatus: selectedBookState.state,
+    });
+    onClose();
+    window.location.reload();
+  };
+
   return (
     <ModalWrapper>
       <ModalContent>읽기 상태를 변경하시겠어요?</ModalContent>
       <ModalCaution>*입력한 별점과 날짜 정보가 사라져요</ModalCaution>
       <SelectBox>
         <CancelBtn onClick={onClose}>취소</CancelBtn>
-        <OkBtn>변경</OkBtn>
+        <OkBtn onClick={handleBookStateChange}>변경</OkBtn>
       </SelectBox>
     </ModalWrapper>
   );

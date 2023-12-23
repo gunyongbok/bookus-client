@@ -17,6 +17,8 @@ import getBookInfoById from "../../Api/Book/getBookInfoById";
 import BookDetailWrapper from "../../components/Wrapper/BookDetail/BookDetailWrapper";
 import StandardBtn from "../../commons/Button/StandardBtn";
 import { bookState } from "../../assets/svg/BookDetail/bookDetailAsset";
+
+// Modal
 import ChangeBookStateModal from "../../components/Model/BookDetail/ChangeBookState";
 
 const MainContent = styled.div`
@@ -78,6 +80,18 @@ interface BookProps {
   endReadingAt: string;
   thumbnail: string;
 }
+
+// const DateLabel = styled.label`
+//   color: #0f473f;
+//   font-family: Pretendard;
+//   font-size: 14px;
+//   font-style: normal;
+//   font-weight: 500;
+// `;
+
+// const DateInput = styled.input`
+
+// `
 
 interface ModalProps {
   libraryId: string;
