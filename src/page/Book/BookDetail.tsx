@@ -21,6 +21,9 @@ import { bookState } from "../../assets/svg/BookDetail/bookDetailAsset";
 // Modal
 import ChangeBookStateModal from "../../components/Model/BookDetail/ChangeBookState";
 
+// Date
+import DateController from "../../components/Input/BookDetail/DateController";
+
 const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
@@ -81,18 +84,6 @@ interface BookProps {
   thumbnail: string;
 }
 
-// const DateLabel = styled.label`
-//   color: #0f473f;
-//   font-family: Pretendard;
-//   font-size: 14px;
-//   font-style: normal;
-//   font-weight: 500;
-// `;
-
-// const DateInput = styled.input`
-
-// `
-
 interface ModalProps {
   libraryId: string;
   state: string;
@@ -107,6 +98,11 @@ const BookDetail = () => {
     state: readingStatus,
   });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleDateChange = (formattedDate: string) => {
+    // 여기서 formattedDate를 사용
+    console.log("Formatted Date:", formattedDate);
+  };
 
   const getBookInfo = async () => {
     try {
@@ -156,6 +152,7 @@ const BookDetail = () => {
             </BookStateBox>
           ))}
         </BookStateWrapper>
+        <DateController onDateChange={handleDateChange} />
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
           독서록 작성하기
         </StandardBtn>
