@@ -35,7 +35,6 @@ const CustomIcon = styled.span`
   position: absolute;
   top: 50%;
   right: 10px;
-  transform: translateY(-50%);
   cursor: pointer;
   color: #bbc2c1;
   font-family: Pretendard;

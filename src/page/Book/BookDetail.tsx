@@ -20,10 +20,11 @@ import { bookState } from "../../assets/svg/BookDetail/bookDetailAsset";
 
 // Modal
 import ChangeBookStateModal from "../../components/Model/BookDetail/ChangeBookState";
+import DeleteBookModal from "../../components/Model/BookDetail/DeleteBookModal";
 
 // Date
 import DateController from "../../components/Input/BookDetail/DateController";
-import deleteBook from "../../Api/Book/deleteBook";
+import MyBookScore from "../../components/Wrapper/BookDetail/MyBookScore";
 
 const MainContent = styled.div`
   width: 100%;
@@ -72,6 +73,14 @@ const BookStateString = styled.div`
   font-weight: 300;
 `;
 
+const BookDateAndRatingBox = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
 interface BookProps {
   libraryId: number;
   bookTitle: string;
@@ -100,6 +109,7 @@ const BookDetail = () => {
     state: readingStatus,
   });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const handleDateChange = (formattedDate: string) => {
     // 여기서 formattedDate를 사용
@@ -118,16 +128,6 @@ const BookDetail = () => {
     }
   };
 
-  const deleteBookFromLibrary = async () => {
-    try {
-      if (libraryId) {
-        deleteBook(libraryId);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const openModal = (libraryId: string, state: string) => {
     setSelectedBookState({ libraryId, state });
     setIsModalOpen(true);
@@ -135,6 +135,14 @@ const BookDetail = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
   };
 
   useEffect(() => {
@@ -163,8 +171,12 @@ const BookDetail = () => {
               <BookStateString>{state[1]}</BookStateString>
             </BookStateBox>
           ))}
+          {/* 여기 */}
         </BookStateWrapper>
-        <DateController onDateChange={handleDateChange} />
+        <BookDateAndRatingBox>
+          <MyBookScore />
+          <DateController onDateChange={handleDateChange} />
+        </BookDateAndRatingBox>
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
           독서록 작성하기
         </StandardBtn>
@@ -174,8 +186,11 @@ const BookDetail = () => {
             onClose={closeModal}
           />
         )}
+        {isDeleteModalOpen && (
+          <DeleteBookModal libraryId={libraryId} onClose={closeDeleteModal} />
+        )}
         <StandardBtn
-          onClick={deleteBookFromLibrary}
+          onClick={openDeleteModal}
           $color="#BBC2C1"
           $border="1.5px solid  #BBC2C1"
         >
