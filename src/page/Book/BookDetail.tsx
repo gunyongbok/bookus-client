@@ -23,6 +23,7 @@ import ChangeBookStateModal from "../../components/Model/BookDetail/ChangeBookSt
 
 // Date
 import DateController from "../../components/Input/BookDetail/DateController";
+import deleteBook from "../../Api/Book/deleteBook";
 
 const MainContent = styled.div`
   width: 100%;
@@ -81,6 +82,7 @@ interface BookProps {
   rating: number;
   startReadingAt: string;
   endReadingAt: string;
+  staticsRating: number;
   thumbnail: string;
 }
 
@@ -110,6 +112,16 @@ const BookDetail = () => {
         const result = await getBookInfoById(libraryId);
         setBook(result);
         setReadingstatus(result.readingStatus);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteBookFromLibrary = async () => {
+    try {
+      if (libraryId) {
+        deleteBook(libraryId);
       }
     } catch (error) {
       console.log(error);
@@ -162,6 +174,13 @@ const BookDetail = () => {
             onClose={closeModal}
           />
         )}
+        <StandardBtn
+          onClick={deleteBookFromLibrary}
+          $color="#BBC2C1"
+          $border="1.5px solid  #BBC2C1"
+        >
+          내 서재에서 삭제하기
+        </StandardBtn>
       </MainContent>
     </TopContainer>
   );

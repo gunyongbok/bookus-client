@@ -47,7 +47,7 @@ const CustomIcon = styled.span`
 const DatePopup = styled.div`
   position: absolute;
   top: 100%;
-  right: 0;
+  right: -10;
   z-index: 999;
 `;
 

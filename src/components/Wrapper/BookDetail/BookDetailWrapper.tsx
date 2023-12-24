@@ -84,6 +84,7 @@ interface BookProps {
   rating: number;
   startReadingAt: string;
   endReadingAt: string;
+  staticsRating: number;
   thumbnail: string;
 }
 
@@ -91,11 +92,11 @@ const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
   const navigate = useNavigate();
 
   const stars =
-    book?.rating !== undefined
+    book?.staticsRating !== undefined
       ? Array.from({ length: 5 }, (_, index) => (
           <img
             key={index}
-            src={index < (book?.rating ?? 0) ? fullStar : emptyStar}
+            src={index < (book?.staticsRating ?? 0) ? fullStar : emptyStar}
             alt=""
           />
         ))
