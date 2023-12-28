@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const BookSearchContainer = styled.div`
   width: 100%;
   max-width: 358px;
-  height: 700px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 13%;
   @media (max-width: 599px) {
-    height: 80%;
+    height: 700px;
   }
 `;
 

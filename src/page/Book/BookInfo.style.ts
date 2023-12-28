@@ -10,7 +10,7 @@ export const BookInfoContainer = styled.div`
   top: 11%;
   overflow: auto;
   @media (max-width: 599px) {
-    height: 80%;
+    max-height: 88%;
   }
 `;
 
