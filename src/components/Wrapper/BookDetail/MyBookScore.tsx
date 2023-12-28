@@ -1,7 +1,11 @@
 import styled from "styled-components";
+import { useState } from "react";
+
+// icons
 import full from "../../../assets/svg/BookDetail/greenStar.svg";
 import empty from "../../../assets/svg/BookDetail/emptyGreenStar.svg";
-import { useState } from "react";
+
+// Modal
 import BookScoreModal from "../../Model/BookDetail/BookScoreModal";
 
 const Box = styled.div`
@@ -44,6 +48,7 @@ interface Props {
 
 const MyBookScore = ({ libraryId, rating }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [stars, setStars] = useState<number>(0);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -53,19 +58,33 @@ const MyBookScore = ({ libraryId, rating }: Props) => {
     setIsModalOpen(false);
   };
 
-  const starArray = Array.from({ length: 5 }, (_, index) => index + 1);
+  const handleStarsChange = (newRating: number) => {
+    setStars(newRating);
+  };
+
+  const renderStars = () => {
+    const targetRating = stars || rating || 0;
+
+    return Array.from({ length: 5 }, (_, index) => (
+      <img
+        key={index}
+        src={index < targetRating ? full : empty}
+        alt={`star-${index + 1}`}
+      />
+    ));
+  };
 
   return (
     <Box>
       <Label>나의 별점</Label>
-      <StarBox>
-        {starArray.map((index) => (
-          <img key={index} src={index <= (rating ?? 0) ? full : empty} />
-        ))}
-      </StarBox>
+      <StarBox>{renderStars()}</StarBox>
       <CustomIcon onClick={openModal}>수정</CustomIcon>
       {isModalOpen && (
-        <BookScoreModal libraryId={libraryId} onClose={closeModal} />
+        <BookScoreModal
+          onStarsChange={handleStarsChange}
+          libraryId={libraryId}
+          onClose={closeModal}
+        />
       )}
     </Box>
   );

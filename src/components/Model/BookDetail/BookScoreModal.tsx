@@ -61,14 +61,16 @@ const StarContainer = styled.div`
 interface ModalProps {
   onClose: () => void;
   libraryId?: string;
+  onStarsChange: (stars: number) => void;
 }
 
-const BookScoreModal = ({ onClose, libraryId }: ModalProps) => {
+const BookScoreModal = ({ onClose, libraryId, onStarsChange }: ModalProps) => {
   const [selectedStars, setSelectedStars] = useState<number>(0);
 
   const handleStarClick = (starIndex: number) => {
     const newStars = starIndex + 1;
     setSelectedStars(newStars);
+    onStarsChange(newStars);
   };
 
   const enrollScore = async () => {
@@ -85,6 +87,7 @@ const BookScoreModal = ({ onClose, libraryId }: ModalProps) => {
     }
   };
 
+  console.log(selectedStars, libraryId);
   return (
     <ModalWrapper>
       <ModalHeader>
