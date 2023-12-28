@@ -8,6 +8,8 @@ interface BtnProps {
   $border?: string;
   children?: React.ReactNode;
   onClick?: () => void;
+  $clickedBackground?: string;
+  $clickedColor?: string;
 }
 
 const Btn = styled.button<{
@@ -16,6 +18,8 @@ const Btn = styled.button<{
   $disabled?: boolean;
   $border?: string;
   $isClicked: boolean;
+  $clickedBackground?: string;
+  $clickedColor?: string;
 }>`
   width: 100%;
   height: 56px;
@@ -27,14 +31,18 @@ const Btn = styled.button<{
   font-style: normal;
   font-weight: 500;
   background: ${(props) =>
-    props.$isClicked ? "#83d0a1" : props.$background || "#FCFCFF"};
+    props.$isClicked
+      ? props.$clickedBackground || "#83d0a1"
+      : props.$background || "#FCFCFF"};
   color: ${(props) =>
-    props.$isClicked ? "#fcfcff" : props.$color || "#0F473F"};
+    props.$isClicked
+      ? props.$clickedColor || "#fcfcff"
+      : props.$color || "#0F473F"};
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 
   &:focus {
-    background: #83d0a1;
-    color: #fcfcff;
+    background: ${(props) => props.$clickedBackground || "#83d0a1"};
+    color: ${(props) => props.$clickedColor || "#fcfcff"};
   }
 `;
 
@@ -43,6 +51,8 @@ const StandardBtn = ({
   $color,
   $disabled,
   $border,
+  $clickedBackground,
+  $clickedColor,
   children,
   onClick,
 }: BtnProps) => {
@@ -55,6 +65,8 @@ const StandardBtn = ({
 
   return (
     <Btn
+      $clickedBackground={$clickedBackground}
+      $clickedColor={$clickedColor}
       $background={$background}
       $color={$color}
       $disabled={$disabled}

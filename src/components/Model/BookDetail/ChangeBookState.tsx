@@ -3,8 +3,9 @@ import changeBookState from "../../../Api/Book/changeBookState";
 
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 42%;
-  left: 38%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 272px;
   height: 135px;
   border-radius: 16px;

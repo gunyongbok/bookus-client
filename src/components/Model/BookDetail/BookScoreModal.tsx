@@ -1,67 +1,61 @@
 import styled from "styled-components";
-import deleteBook from "../../../Api/Book/deleteBook";
+
+import close from "../../../assets/svg/BookDetail/close.svg";
+import yellowStar from "../../../assets/svg/BookDetail/yellowStar.svg";
+import grayStar from "../../../assets/svg/BookDetail/grayStar.svg";
+import { useState } from "react";
+import enrollBookScore from "../../../Api/Book/enrollBookScore";
 
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 42%;
-  left: 37%;
-  width: 350px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 390px;
   height: 302px;
   border-radius: 16px 16px 0px 0px;
   background: #fcfcff;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
   z-index: 1;
 `;
 
-const ModalContent = styled.div`
+const ModalHeader = styled.div`
+  width: 100%;
+  height: fit-content;
+  padding: 16px 20px 31px 16px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ModalHeaderContent = styled.div`
   color: #0f473f;
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
-  margin: 24px 0 4px 0;
 `;
 
-const ModalCaution = styled.div`
-  color: #83d0a1;
+const ModalContent = styled.div`
+  padding-left: 20px;
+  color: #0f473f;
   font-family: Pretendard;
-  font-size: 14px;
+  font-size: 20px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 500;
 `;
 
-const SelectBox = styled.div`
+const StarContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 40%;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #b9dbda;
-`;
-
-const CancelBtn = styled.button`
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  background-color: transparent;
-  border: none;
-  border-right: 1px solid #b9dbda;
-  width: 50%;
-`;
-
-const OkBtn = styled.button`
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  background-color: transparent;
-  border: none;
-  width: 50%;
+  height: 55px;
+  padding: 0px 45px 0px 46px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
 `;
 
 interface ModalProps {
@@ -70,25 +64,48 @@ interface ModalProps {
 }
 
 const BookScoreModal = ({ onClose, libraryId }: ModalProps) => {
-  const deleteBookFromLibrary = async () => {
+  const [selectedStars, setSelectedStars] = useState<number>(0);
+
+  const handleStarClick = (starIndex: number) => {
+    setSelectedStars(starIndex + 1);
+  };
+
+  const enrollScore = async () => {
     try {
       if (libraryId) {
-        deleteBook(libraryId);
-        onClose();
+        const result = await enrollBookScore(libraryId, {
+          rating: selectedStars,
+        });
+        console.log(result);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log(selectedStars, libraryId);
   return (
     <ModalWrapper>
-      <ModalContent>내 서재에서 삭제하시겠어요?</ModalContent>
-      <ModalCaution>*작성한 독서록 정보가 모두 지워져요</ModalCaution>
-      <SelectBox>
-        <CancelBtn onClick={onClose}>취소</CancelBtn>
-        <OkBtn onClick={deleteBookFromLibrary}>삭제</OkBtn>
-      </SelectBox>
+      <ModalHeader>
+        <ModalHeaderContent>
+          <img onClick={onClose} src={close} alt="close" />
+        </ModalHeaderContent>
+        <ModalHeaderContent onClick={() => enrollScore()}>
+          완료
+        </ModalHeaderContent>
+      </ModalHeader>
+      <ModalContent>해당 책에 대한</ModalContent>
+      <ModalContent>나의 별점을 남겨주세요</ModalContent>
+      <StarContainer>
+        {[0, 1, 2, 3, 4].map((index) => (
+          <img
+            key={index}
+            src={index < selectedStars ? yellowStar : grayStar}
+            alt={`star-${index + 1}`}
+            onClick={() => handleStarClick(index)}
+          />
+        ))}
+      </StarContainer>
     </ModalWrapper>
   );
 };

@@ -174,7 +174,7 @@ const BookDetail = () => {
           {/* 여기 */}
         </BookStateWrapper>
         <BookDateAndRatingBox>
-          <MyBookScore />
+          <MyBookScore libraryId={libraryId} />
           <DateController onDateChange={handleDateChange} />
         </BookDateAndRatingBox>
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
@@ -193,6 +193,8 @@ const BookDetail = () => {
           onClick={openDeleteModal}
           $color="#BBC2C1"
           $border="1.5px solid  #BBC2C1"
+          $clickedBackground="#BBC2C1"
+          $clickedColor="#fff"
         >
           내 서재에서 삭제하기
         </StandardBtn>

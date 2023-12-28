@@ -37,7 +37,7 @@ const CustomIcon = styled.span`
   font-weight: 300;
 `;
 
-const MyBookScore = () => {
+const MyBookScore = ({ libraryId }: { libraryId: string | undefined }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
@@ -59,7 +59,9 @@ const MyBookScore = () => {
         <img src={empty} alt="" />
       </StarBox>
       <CustomIcon onClick={openModal}>수정</CustomIcon>
-      {isModalOpen && <BookScoreModal onClose={closeModal} />}
+      {isModalOpen && (
+        <BookScoreModal libraryId={libraryId} onClose={closeModal} />
+      )}
     </Box>
   );
 };
