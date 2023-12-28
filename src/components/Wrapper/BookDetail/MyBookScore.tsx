@@ -37,7 +37,12 @@ const CustomIcon = styled.span`
   font-weight: 300;
 `;
 
-const MyBookScore = ({ libraryId }: { libraryId: string | undefined }) => {
+interface Props {
+  libraryId?: string;
+  rating?: number;
+}
+
+const MyBookScore = ({ libraryId, rating }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
@@ -48,15 +53,15 @@ const MyBookScore = ({ libraryId }: { libraryId: string | undefined }) => {
     setIsModalOpen(false);
   };
 
+  const starArray = Array.from({ length: 5 }, (_, index) => index + 1);
+
   return (
     <Box>
       <Label>나의 별점</Label>
       <StarBox>
-        <img src={empty} alt="" />
-        <img src={empty} alt="" />
-        <img src={empty} alt="" />
-        <img src={empty} alt="" />
-        <img src={empty} alt="" />
+        {starArray.map((index) => (
+          <img key={index} src={index <= (rating ?? 0) ? full : empty} />
+        ))}
       </StarBox>
       <CustomIcon onClick={openModal}>수정</CustomIcon>
       {isModalOpen && (

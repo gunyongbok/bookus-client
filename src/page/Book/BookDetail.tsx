@@ -174,7 +174,7 @@ const BookDetail = () => {
           {/* 여기 */}
         </BookStateWrapper>
         <BookDateAndRatingBox>
-          <MyBookScore libraryId={libraryId} />
+          <MyBookScore rating={book?.rating} libraryId={libraryId} />
           <DateController onDateChange={handleDateChange} />
         </BookDateAndRatingBox>
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">

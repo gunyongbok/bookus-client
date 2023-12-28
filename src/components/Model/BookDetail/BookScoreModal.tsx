@@ -67,7 +67,8 @@ const BookScoreModal = ({ onClose, libraryId }: ModalProps) => {
   const [selectedStars, setSelectedStars] = useState<number>(0);
 
   const handleStarClick = (starIndex: number) => {
-    setSelectedStars(starIndex + 1);
+    const newStars = starIndex + 1;
+    setSelectedStars(newStars);
   };
 
   const enrollScore = async () => {
@@ -77,13 +78,13 @@ const BookScoreModal = ({ onClose, libraryId }: ModalProps) => {
           rating: selectedStars,
         });
         console.log(result);
+        onClose();
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(selectedStars, libraryId);
   return (
     <ModalWrapper>
       <ModalHeader>
