@@ -87,7 +87,6 @@ const BookScoreModal = ({ onClose, libraryId, onStarsChange }: ModalProps) => {
     }
   };
 
-  console.log(selectedStars, libraryId);
   return (
     <ModalWrapper>
       <ModalHeader>

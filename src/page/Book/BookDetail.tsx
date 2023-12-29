@@ -103,31 +103,20 @@ interface ModalProps {
 
 const BookDetail = () => {
   const { libraryId } = useParams<{ libraryId?: string }>();
-  const [book, setBook] = useState<BookProps>();
-  const [readingStatus, setReadingstatus] = useState<string>("");
-  const [selectedBookState, setSelectedBookState] = useState<ModalProps>({
-    libraryId: "",
-    state: readingStatus,
-  });
+  const [book, setBook] = useState<BookProps | undefined>(undefined);
+  const [readingStatus, setReadingStatus] = useState<string>("");
+  const [selectedBookState, setSelectedBookState] = useState<ModalProps | null>(
+    null
+  );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-
-  const handleDateChange = (formattedDate: string) => {
-    // 여기서 formattedDate를 사용
-    console.log("Formatted Date:", formattedDate);
-  };
-
-  const handleDoubleDateChange = (startDate: string, endDate: string) => {
-    console.log("Start Date:", startDate);
-    console.log("End Date:", endDate);
-  };
 
   const getBookInfo = async () => {
     try {
       if (libraryId) {
         const result = await getBookInfoById(libraryId);
         setBook(result);
-        setReadingstatus(result.readingStatus);
+        setReadingStatus(result.readingStatus);
       }
     } catch (error) {
       console.log(error);
@@ -153,10 +142,8 @@ const BookDetail = () => {
 
   useEffect(() => {
     getBookInfo();
-  }, []);
+  }, [libraryId]);
 
-  console.log(book);
-  console.log(readingStatus);
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -168,32 +155,39 @@ const BookDetail = () => {
               onClick={() => openModal(String(book?.libraryId || ""), state[0])}
               key={index}
             >
-              {state[0] === readingStatus ? (
-                <img src={state[3]} alt={state[1]} />
-              ) : (
-                <img src={state[2]} alt={state[1]} />
-              )}
-
+              <img
+                src={state[0] === readingStatus ? state[3] : state[2]}
+                alt={state[1]}
+              />
               <BookStateString>{state[1]}</BookStateString>
             </BookStateBox>
           ))}
         </BookStateWrapper>
-        <BookDateAndRatingBox>
-          <MyBookScore rating={book?.rating} libraryId={libraryId} />
-          <DateController onDateChange={handleDateChange} />
-          <DoubleDateController onDateChange={handleDoubleDateChange} />
-        </BookDateAndRatingBox>
+        {readingStatus !== "READY_TO_READ" && (
+          <BookDateAndRatingBox>
+            {readingStatus === "READING" && (
+              <DateController libraryId={libraryId} />
+            )}
+            {(readingStatus === "ALREADY_READ" ||
+              readingStatus === "FAVORITE") && (
+              <>
+                <MyBookScore rating={book?.rating} libraryId={libraryId} />
+                <DoubleDateController libraryId={libraryId} />
+              </>
+            )}
+          </BookDateAndRatingBox>
+        )}
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
           독서록 작성하기
         </StandardBtn>
         {isModalOpen && (
           <ChangeBookStateModal
-            selectedBookState={selectedBookState}
+            selectedBookState={selectedBookState!}
             onClose={closeModal}
           />
         )}
         {isDeleteModalOpen && (
-          <DeleteBookModal libraryId={libraryId} onClose={closeDeleteModal} />
+          <DeleteBookModal libraryId={libraryId!} onClose={closeDeleteModal} />
         )}
         <StandardBtn
           onClick={openDeleteModal}

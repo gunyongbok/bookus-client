@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import enrollBookDate from "../../../Api/Book/enrollBookDate";
 
 const DateBox = styled.div`
   width: 100%;
@@ -44,15 +45,11 @@ const CustomIcon = styled.div`
   font-weight: 300;
 `;
 
-interface DateControllerProps {
-  onDateChange: (startDate: string, endDate: string) => void;
-}
-
-const DoubleDateController: React.FC<DateControllerProps> = ({
-  onDateChange,
-}) => {
+const DoubleDateController = ({ libraryId }: { libraryId?: string }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [finalStart, setFinalStart] = useState<string>("");
+  const [finalEnd, setFinalEnd] = useState<string>("");
 
   const formatDate = (originalDate: any) => {
     const date = new Date(originalDate);
@@ -73,14 +70,28 @@ const DoubleDateController: React.FC<DateControllerProps> = ({
     const selectedDate = event.target.value;
     const date = new Date(selectedDate);
     setStartDate(date);
-    onDateChange(formatDate(date), formatDate(endDate));
+    setFinalStart(formatDate(date));
   };
 
   const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedDate = event.target.value;
     const date = new Date(selectedDate);
     setEndDate(date);
-    onDateChange(formatDate(startDate), formatDate(date));
+    setFinalEnd(formatDate(date));
+  };
+
+  const enrollDate = async () => {
+    try {
+      if (libraryId) {
+        const result = await enrollBookDate(libraryId, {
+          startReadingAt: finalStart,
+          endReadingAt: finalEnd,
+        });
+        console.log(result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -97,7 +108,7 @@ const DoubleDateController: React.FC<DateControllerProps> = ({
         value={endDate.toISOString().split("T")[0]}
         onChange={handleEndDateChange}
       />
-      <CustomIcon>완료</CustomIcon>
+      <CustomIcon onClick={enrollDate}>완료</CustomIcon>
     </DateBox>
   );
 };

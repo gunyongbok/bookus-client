@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import enrollBookDate from "../../../Api/Book/enrollBookDate";
 
 const DateBox = styled.div`
   width: 100%;
@@ -39,12 +40,9 @@ const CustomIcon = styled.div`
   font-weight: 300;
 `;
 
-interface DateControllerProps {
-  onDateChange: (formattedDate: string) => void;
-}
-
-const DateController: React.FC<DateControllerProps> = ({ onDateChange }) => {
+const DateController = ({ libraryId }: { libraryId?: string }) => {
   const [today, setToday] = useState(new Date());
+  const [finalDate, setFinalDate] = useState<string>("");
 
   const formatDate = (originalDate: any) => {
     const date = new Date(originalDate);
@@ -65,7 +63,21 @@ const DateController: React.FC<DateControllerProps> = ({ onDateChange }) => {
     const selectedDate = event.target.value;
     const date = new Date(selectedDate);
     setToday(date);
-    onDateChange(formatDate(date));
+    setFinalDate(formatDate(date));
+  };
+
+  const enrollDate = async () => {
+    try {
+      if (libraryId) {
+        const result = await enrollBookDate(libraryId, {
+          startReadingAt: finalDate,
+          endReadingAt: null,
+        });
+        console.log(result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -76,7 +88,7 @@ const DateController: React.FC<DateControllerProps> = ({ onDateChange }) => {
         value={today.toISOString().split("T")[0]}
         onChange={handleDatePickerChange}
       />
-      <CustomIcon>완료</CustomIcon>
+      <CustomIcon onClick={enrollDate}>완료</CustomIcon>
     </DateBox>
   );
 };
