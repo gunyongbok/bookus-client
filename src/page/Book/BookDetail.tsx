@@ -144,6 +144,8 @@ const BookDetail = () => {
     getBookInfo();
   }, [libraryId]);
 
+  console.log(book);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -166,13 +168,20 @@ const BookDetail = () => {
         {readingStatus !== "READY_TO_READ" && (
           <BookDateAndRatingBox>
             {readingStatus === "READING" && (
-              <DateController libraryId={libraryId} />
+              <DateController
+                startReadingAt={book?.startReadingAt}
+                libraryId={libraryId}
+              />
             )}
             {(readingStatus === "ALREADY_READ" ||
               readingStatus === "FAVORITE") && (
               <>
                 <MyBookScore rating={book?.rating} libraryId={libraryId} />
-                <DoubleDateController libraryId={libraryId} />
+                <DoubleDateController
+                  startReadingAt={book?.startReadingAt}
+                  endReadingAt={book?.endReadingAt}
+                  libraryId={libraryId}
+                />
               </>
             )}
           </BookDateAndRatingBox>

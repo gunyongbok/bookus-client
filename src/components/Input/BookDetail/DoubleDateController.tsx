@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
+
+// Api
 import enrollBookDate from "../../../Api/Book/enrollBookDate";
+import { formatDate } from "../../../commons/Text/FormatDate";
 
 const DateBox = styled.div`
   width: 100%;
@@ -45,24 +48,21 @@ const CustomIcon = styled.div`
   font-weight: 300;
 `;
 
-const DoubleDateController = ({ libraryId }: { libraryId?: string }) => {
+interface Props {
+  libraryId?: string;
+  startReadingAt?: string;
+  endReadingAt?: string;
+}
+
+const DoubleDateController = ({
+  libraryId,
+  startReadingAt,
+  endReadingAt,
+}: Props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [finalStart, setFinalStart] = useState<string>("");
   const [finalEnd, setFinalEnd] = useState<string>("");
-
-  const formatDate = (originalDate: any) => {
-    const date = new Date(originalDate);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-    const isoFormatDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000`;
-
-    return isoFormatDate;
-  };
 
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -99,13 +99,21 @@ const DoubleDateController = ({ libraryId }: { libraryId?: string }) => {
       <DateLabel>날짜 기록</DateLabel>
       <DateInput
         type="date"
-        value={startDate.toISOString().split("T")[0]}
+        value={
+          startReadingAt
+            ? new Date(startReadingAt).toISOString().split("T")[0]
+            : startDate.toISOString().split("T")[0]
+        }
         onChange={handleStartDateChange}
       />{" "}
       ~{" "}
       <DateInput
         type="date"
-        value={endDate.toISOString().split("T")[0]}
+        value={
+          endReadingAt
+            ? new Date(endReadingAt).toISOString().split("T")[0]
+            : endDate.toISOString().split("T")[0]
+        }
         onChange={handleEndDateChange}
       />
       <CustomIcon onClick={enrollDate}>완료</CustomIcon>
