@@ -25,6 +25,7 @@ import DeleteBookModal from "../../components/Model/BookDetail/DeleteBookModal";
 // Date
 import DateController from "../../components/Input/BookDetail/DateController";
 import MyBookScore from "../../components/Wrapper/BookDetail/MyBookScore";
+import DoubleDateController from "../../components/Input/BookDetail/DoubleDateController";
 
 const MainContent = styled.div`
   width: 100%;
@@ -116,6 +117,11 @@ const BookDetail = () => {
     console.log("Formatted Date:", formattedDate);
   };
 
+  const handleDoubleDateChange = (startDate: string, endDate: string) => {
+    console.log("Start Date:", startDate);
+    console.log("End Date:", endDate);
+  };
+
   const getBookInfo = async () => {
     try {
       if (libraryId) {
@@ -171,11 +177,11 @@ const BookDetail = () => {
               <BookStateString>{state[1]}</BookStateString>
             </BookStateBox>
           ))}
-          {/* 여기 */}
         </BookStateWrapper>
         <BookDateAndRatingBox>
           <MyBookScore rating={book?.rating} libraryId={libraryId} />
           <DateController onDateChange={handleDateChange} />
+          <DoubleDateController onDateChange={handleDoubleDateChange} />
         </BookDateAndRatingBox>
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
           독서록 작성하기

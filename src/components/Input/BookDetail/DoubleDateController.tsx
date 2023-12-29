@@ -5,6 +5,11 @@ const DateBox = styled.div`
   width: 100%;
   height: 14px;
   position: relative;
+  color: #4ca771;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
 `;
 
 const DateLabel = styled.label`
@@ -23,7 +28,7 @@ const DateInput = styled.input`
   font-style: normal;
   font-weight: 300;
   border: none;
-  padding-right: 30px;
+
   background-color: #fcfcff;
 `;
 
@@ -40,11 +45,14 @@ const CustomIcon = styled.div`
 `;
 
 interface DateControllerProps {
-  onDateChange: (formattedDate: string) => void;
+  onDateChange: (startDate: string, endDate: string) => void;
 }
 
-const DateController: React.FC<DateControllerProps> = ({ onDateChange }) => {
-  const [today, setToday] = useState(new Date());
+const DoubleDateController: React.FC<DateControllerProps> = ({
+  onDateChange,
+}) => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const formatDate = (originalDate: any) => {
     const date = new Date(originalDate);
@@ -59,13 +67,20 @@ const DateController: React.FC<DateControllerProps> = ({ onDateChange }) => {
     return isoFormatDate;
   };
 
-  const handleDatePickerChange = (
+  const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const selectedDate = event.target.value;
     const date = new Date(selectedDate);
-    setToday(date);
-    onDateChange(formatDate(date));
+    setStartDate(date);
+    onDateChange(formatDate(date), formatDate(endDate));
+  };
+
+  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = event.target.value;
+    const date = new Date(selectedDate);
+    setEndDate(date);
+    onDateChange(formatDate(startDate), formatDate(date));
   };
 
   return (
@@ -73,12 +88,18 @@ const DateController: React.FC<DateControllerProps> = ({ onDateChange }) => {
       <DateLabel>날짜 기록</DateLabel>
       <DateInput
         type="date"
-        value={today.toISOString().split("T")[0]}
-        onChange={handleDatePickerChange}
+        value={startDate.toISOString().split("T")[0]}
+        onChange={handleStartDateChange}
+      />{" "}
+      ~{" "}
+      <DateInput
+        type="date"
+        value={endDate.toISOString().split("T")[0]}
+        onChange={handleEndDateChange}
       />
       <CustomIcon>완료</CustomIcon>
     </DateBox>
   );
 };
 
-export default DateController;
+export default DoubleDateController;
