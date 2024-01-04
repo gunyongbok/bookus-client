@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // Api
 import enrollBookDate from "../../../Api/Book/enrollBookDate";
-import { formatDate } from "../../../commons/Text/FormatDate";
+import { formatDate } from "../../../commons/Text/formatDate";
 
 const DateBox = styled.div`
   width: 100%;

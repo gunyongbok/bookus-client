@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import enrollBookDate from "../../../Api/Book/enrollBookDate";
-import { formatDate } from "../../../commons/Text/FormatDate";
+import { formatDate } from "../../../commons/Text/formatDate";
 
 const DateBox = styled.div`
   width: 100%;
@@ -81,7 +81,7 @@ const DateController = ({ libraryId, startReadingAt }: Props) => {
         value={
           startReadingAt
             ? new Date(startReadingAt).toISOString().split("T")[0]
-            : today.toISOString().split("T")[0]
+            : ""
         }
         onChange={handleDatePickerChange}
       />
