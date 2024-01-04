@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import enrollBookDate from "../../../Api/Book/enrollBookDate";
 import { formatDate } from "../../../commons/Text/formatDate";
 
@@ -7,6 +7,8 @@ const DateBox = styled.div`
   width: 100%;
   height: 14px;
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const DateLabel = styled.label`
@@ -31,7 +33,6 @@ const DateInput = styled.input`
 
 const CustomIcon = styled.div`
   position: absolute;
-  top: 30%;
   right: 10px;
   cursor: pointer;
   color: #bbc2c1;
@@ -47,23 +48,27 @@ interface Props {
 }
 
 const DateController = ({ libraryId, startReadingAt }: Props) => {
-  const [today, setToday] = useState(new Date());
-  const [finalDate, setFinalDate] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>(
+    startReadingAt ? new Date(startReadingAt).toISOString().split("T")[0] : ""
+  );
+
+  useEffect(() => {
+    setSelectedDate(
+      startReadingAt ? new Date(startReadingAt).toISOString().split("T")[0] : ""
+    );
+  }, [startReadingAt]);
 
   const handleDatePickerChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const selectedDate = event.target.value;
-    const date = new Date(selectedDate);
-    setToday(date);
-    setFinalDate(formatDate(date));
+    setSelectedDate(event.target.value);
   };
 
   const enrollDate = async () => {
     try {
       if (libraryId) {
         const result = await enrollBookDate(libraryId, {
-          startReadingAt: finalDate,
+          startReadingAt: formatDate(selectedDate),
           endReadingAt: null,
         });
         console.log(result);
@@ -78,11 +83,7 @@ const DateController = ({ libraryId, startReadingAt }: Props) => {
       <DateLabel>날짜 기록</DateLabel>
       <DateInput
         type="date"
-        value={
-          startReadingAt
-            ? new Date(startReadingAt).toISOString().split("T")[0]
-            : ""
-        }
+        value={selectedDate}
         onChange={handleDatePickerChange}
       />
       <CustomIcon onClick={enrollDate}>완료</CustomIcon>

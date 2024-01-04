@@ -1,10 +1,22 @@
 import styled from "styled-components";
+import { useState } from "react";
 
+// icons
 import close from "../../../assets/svg/BookDetail/close.svg";
 import yellowStar from "../../../assets/svg/BookDetail/yellowStar.svg";
 import grayStar from "../../../assets/svg/BookDetail/grayStar.svg";
-import { useState } from "react";
+
 import enrollBookScore from "../../../Api/Book/enrollBookScore";
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+`;
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -17,8 +29,7 @@ const ModalWrapper = styled.div`
   background: #fcfcff;
   display: flex;
   flex-direction: column;
-
-  z-index: 1;
+  z-index: 2;
 `;
 
 const ModalHeader = styled.div`
@@ -36,6 +47,7 @@ const ModalHeaderContent = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
+  cursor: pointer;
 `;
 
 const ModalContent = styled.div`
@@ -88,28 +100,29 @@ const BookScoreModal = ({ onClose, libraryId, onStarsChange }: ModalProps) => {
   };
 
   return (
-    <ModalWrapper>
-      <ModalHeader>
-        <ModalHeaderContent>
-          <img onClick={onClose} src={close} alt="close" />
-        </ModalHeaderContent>
-        <ModalHeaderContent onClick={() => enrollScore()}>
-          완료
-        </ModalHeaderContent>
-      </ModalHeader>
-      <ModalContent>해당 책에 대한</ModalContent>
-      <ModalContent>나의 별점을 남겨주세요</ModalContent>
-      <StarContainer>
-        {[0, 1, 2, 3, 4].map((index) => (
-          <img
-            key={index}
-            src={index < selectedStars ? yellowStar : grayStar}
-            alt={`star-${index + 1}`}
-            onClick={() => handleStarClick(index)}
-          />
-        ))}
-      </StarContainer>
-    </ModalWrapper>
+    <>
+      <Overlay onClick={onClose} />
+      <ModalWrapper>
+        <ModalHeader>
+          <ModalHeaderContent onClick={onClose}>
+            <img src={close} alt="close" />
+          </ModalHeaderContent>
+          <ModalHeaderContent onClick={enrollScore}>완료</ModalHeaderContent>
+        </ModalHeader>
+        <ModalContent>해당 책에 대한</ModalContent>
+        <ModalContent>나의 별점을 남겨주세요</ModalContent>
+        <StarContainer>
+          {[0, 1, 2, 3, 4].map((index) => (
+            <img
+              key={index}
+              src={index < selectedStars ? yellowStar : grayStar}
+              alt={`star-${index + 1}`}
+              onClick={() => handleStarClick(index)}
+            />
+          ))}
+        </StarContainer>
+      </ModalWrapper>
+    </>
   );
 };
 

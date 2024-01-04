@@ -1,6 +1,16 @@
 import styled from "styled-components";
 import changeBookState from "../../../Api/Book/changeBookState";
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 999;
+`;
+
 const ModalWrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -13,6 +23,7 @@ const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1000;
 `;
 
 const ModalContent = styled.div`
@@ -84,14 +95,17 @@ const ChangeBookStateModal = ({ onClose, selectedBookState }: ModalProps) => {
   };
 
   return (
-    <ModalWrapper>
-      <ModalContent>읽기 상태를 변경하시겠어요?</ModalContent>
-      <ModalCaution>*입력한 별점과 날짜 정보가 사라져요</ModalCaution>
-      <SelectBox>
-        <CancelBtn onClick={onClose}>취소</CancelBtn>
-        <OkBtn onClick={handleBookStateChange}>변경</OkBtn>
-      </SelectBox>
-    </ModalWrapper>
+    <>
+      <Overlay />
+      <ModalWrapper>
+        <ModalContent>읽기 상태를 변경하시겠어요?</ModalContent>
+        <ModalCaution>*입력한 별점과 날짜 정보가 사라져요</ModalCaution>
+        <SelectBox>
+          <CancelBtn onClick={onClose}>취소</CancelBtn>
+          <OkBtn onClick={handleBookStateChange}>변경</OkBtn>
+        </SelectBox>
+      </ModalWrapper>
+    </>
   );
 };
 

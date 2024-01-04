@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
-
-// Api
+import { useState, useEffect } from "react";
 import enrollBookDate from "../../../Api/Book/enrollBookDate";
 import { formatDate } from "../../../commons/Text/formatDate";
 
@@ -9,11 +7,8 @@ const DateBox = styled.div`
   width: 100%;
   height: 14px;
   position: relative;
-  color: #4ca771;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 300;
+  display: flex;
+  align-items: center;
 `;
 
 const DateLabel = styled.label`
@@ -32,13 +27,19 @@ const DateInput = styled.input`
   font-style: normal;
   font-weight: 300;
   border: none;
-
   background-color: #fcfcff;
+`;
+
+const DateDiv = styled.div`
+  color: #4ca771;
+  padding: 0 10px 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CustomIcon = styled.div`
   position: absolute;
-  top: 30%;
   right: 10px;
   cursor: pointer;
   color: #bbc2c1;
@@ -59,33 +60,38 @@ const DoubleDateController = ({
   startReadingAt,
   endReadingAt,
 }: Props) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [finalStart, setFinalStart] = useState<string>("");
-  const [finalEnd, setFinalEnd] = useState<string>("");
+  const [selectedStart, setSelectedStart] = useState<string>(
+    startReadingAt ? new Date(startReadingAt).toISOString().split("T")[0] : ""
+  );
+  const [selectedEnd, setSelectedEnd] = useState<string>(
+    endReadingAt ? new Date(endReadingAt).toISOString().split("T")[0] : ""
+  );
+
+  useEffect(() => {
+    setSelectedStart(
+      startReadingAt ? new Date(startReadingAt).toISOString().split("T")[0] : ""
+    );
+    setSelectedEnd(
+      endReadingAt ? new Date(endReadingAt).toISOString().split("T")[0] : ""
+    );
+  }, [startReadingAt, endReadingAt]);
 
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const selectedDate = event.target.value;
-    const date = new Date(selectedDate);
-    setStartDate(date);
-    setFinalStart(formatDate(date));
+    setSelectedStart(event.target.value);
   };
 
   const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = event.target.value;
-    const date = new Date(selectedDate);
-    setEndDate(date);
-    setFinalEnd(formatDate(date));
+    setSelectedEnd(event.target.value);
   };
 
   const enrollDate = async () => {
     try {
       if (libraryId) {
         const result = await enrollBookDate(libraryId, {
-          startReadingAt: finalStart,
-          endReadingAt: finalEnd,
+          startReadingAt: formatDate(selectedStart),
+          endReadingAt: formatDate(selectedEnd),
         });
         console.log(result);
       }
@@ -99,21 +105,13 @@ const DoubleDateController = ({
       <DateLabel>날짜 기록</DateLabel>
       <DateInput
         type="date"
-        value={
-          startReadingAt
-            ? new Date(startReadingAt).toISOString().split("T")[0]
-            : startDate.toISOString().split("T")[0]
-        }
+        value={selectedStart}
         onChange={handleStartDateChange}
-      />{" "}
-      ~{" "}
+      />
+      <DateDiv>~</DateDiv>
       <DateInput
         type="date"
-        value={
-          endReadingAt
-            ? new Date(endReadingAt).toISOString().split("T")[0]
-            : endDate.toISOString().split("T")[0]
-        }
+        value={selectedEnd}
         onChange={handleEndDateChange}
       />
       <CustomIcon onClick={enrollDate}>완료</CustomIcon>

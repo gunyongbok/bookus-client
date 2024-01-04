@@ -31,7 +31,6 @@ const StarBox = styled.div`
 
 const CustomIcon = styled.span`
   position: absolute;
-  top: 30%;
   right: 10px;
   cursor: pointer;
   color: #bbc2c1;

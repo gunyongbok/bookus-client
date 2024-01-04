@@ -1,6 +1,16 @@
 import styled from "styled-components";
 import deleteBook from "../../../Api/Book/deleteBook";
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 999;
+`;
+
 const ModalWrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -13,6 +23,7 @@ const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1000;
 `;
 
 const ModalContent = styled.div`
@@ -82,14 +93,17 @@ const DeleteBookModal = ({ onClose, libraryId }: ModalProps) => {
   };
 
   return (
-    <ModalWrapper>
-      <ModalContent>내 서재에서 삭제하시겠어요?</ModalContent>
-      <ModalCaution>*작성한 독서록 정보가 모두 지워져요</ModalCaution>
-      <SelectBox>
-        <CancelBtn onClick={onClose}>취소</CancelBtn>
-        <OkBtn onClick={deleteBookFromLibrary}>삭제</OkBtn>
-      </SelectBox>
-    </ModalWrapper>
+    <>
+      <Overlay />
+      <ModalWrapper>
+        <ModalContent>내 서재에서 삭제하시겠어요?</ModalContent>
+        <ModalCaution>*작성한 독서록 정보가 모두 지워져요</ModalCaution>
+        <SelectBox>
+          <CancelBtn onClick={onClose}>취소</CancelBtn>
+          <OkBtn onClick={deleteBookFromLibrary}>삭제</OkBtn>
+        </SelectBox>
+      </ModalWrapper>
+    </>
   );
 };
 
