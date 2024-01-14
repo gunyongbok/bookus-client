@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import * as S from "./BookDetail.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -26,61 +26,6 @@ import DeleteBookModal from "../../components/Model/BookDetail/DeleteBookModal";
 import DateController from "../../components/Input/BookDetail/DateController";
 import MyBookScore from "../../components/Wrapper/BookDetail/MyBookScore";
 import DoubleDateController from "../../components/Input/BookDetail/DoubleDateController";
-
-const MainContent = styled.div`
-  width: 100%;
-  max-width: 358px;
-  height: fit-content;
-  min-height: 430px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  position: absolute;
-  top: 11%;
-  @media (max-width: 599px) {
-    height: 80%;
-  }
-`;
-
-const BookStateWrapper = styled.div`
-  width: 100%;
-  height: 76px;
-  display: flex;
-  gap: 16px;
-  & > :last-child {
-    position: absolute;
-    right: 0;
-  }
-`;
-
-const BookStateBox = styled.div`
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
-  color: #bbc2c1;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 300;
-`;
-
-const BookStateString = styled.div`
-  color: #bbc2c1;
-  font-family: Pretendard;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 300;
-`;
-
-const BookDateAndRatingBox = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
 
 interface BookProps {
   libraryId: number;
@@ -149,11 +94,11 @@ const BookDetail = () => {
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
-      <MainContent>
+      <S.MainContent>
         <BookDetailWrapper book={book} />
-        <BookStateWrapper>
+        <S.BookStateWrapper>
           {bookState.map((state, index) => (
-            <BookStateBox
+            <S.BookStateBox
               onClick={() => openModal(String(book?.libraryId || ""), state[0])}
               key={index}
             >
@@ -161,12 +106,12 @@ const BookDetail = () => {
                 src={state[0] === readingStatus ? state[3] : state[2]}
                 alt={state[1]}
               />
-              <BookStateString>{state[1]}</BookStateString>
-            </BookStateBox>
+              <S.BookStateString>{state[1]}</S.BookStateString>
+            </S.BookStateBox>
           ))}
-        </BookStateWrapper>
+        </S.BookStateWrapper>
         {readingStatus !== "READY_TO_READ" && (
-          <BookDateAndRatingBox>
+          <S.BookDateAndRatingBox>
             {readingStatus === "READING" && (
               <DateController
                 startReadingAt={book?.startReadingAt}
@@ -184,7 +129,7 @@ const BookDetail = () => {
                 />
               </>
             )}
-          </BookDateAndRatingBox>
+          </S.BookDateAndRatingBox>
         )}
         <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
           독서록 작성하기
@@ -207,7 +152,7 @@ const BookDetail = () => {
         >
           내 서재에서 삭제하기
         </StandardBtn>
-      </MainContent>
+      </S.MainContent>
     </TopContainer>
   );
 };

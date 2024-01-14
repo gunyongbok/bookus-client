@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+
 import enrollBookDate from "../../../Api/Book/enrollBookDate";
 import { formatDate } from "../../../commons/Text/formatDate";
 
@@ -29,6 +30,8 @@ const DateInput = styled.input`
   border: none;
   padding-right: 30px;
   background-color: #fcfcff;
+  display: flex;
+  align-items: center;
 `;
 
 const CustomIcon = styled.div`
