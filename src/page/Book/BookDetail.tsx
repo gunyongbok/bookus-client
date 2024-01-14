@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as S from "./BookDetail.style";
 
@@ -26,20 +26,7 @@ import DeleteBookModal from "../../components/Model/BookDetail/DeleteBookModal";
 import DateController from "../../components/Input/BookDetail/DateController";
 import MyBookScore from "../../components/Wrapper/BookDetail/MyBookScore";
 import DoubleDateController from "../../components/Input/BookDetail/DoubleDateController";
-
-interface BookProps {
-  libraryId: number;
-  bookTitle: string;
-  author: string[];
-  bookId: number;
-  isbn: string;
-  readingStatus: string;
-  rating: number;
-  startReadingAt: string;
-  endReadingAt: string;
-  staticsRating: number;
-  thumbnail: string;
-}
+import { BookInfoProps } from "../../types/book";
 
 interface ModalProps {
   libraryId: string;
@@ -47,8 +34,9 @@ interface ModalProps {
 }
 
 const BookDetail = () => {
+  const navigate = useNavigate();
   const { libraryId } = useParams<{ libraryId?: string }>();
-  const [book, setBook] = useState<BookProps | undefined>(undefined);
+  const [book, setBook] = useState<BookInfoProps | undefined>(undefined);
   const [readingStatus, setReadingStatus] = useState<string>("");
   const [selectedBookState, setSelectedBookState] = useState<ModalProps | null>(
     null
@@ -65,6 +53,12 @@ const BookDetail = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleWriteBookReportClick = () => {
+    if (libraryId) {
+      navigate(`/bookreport/${libraryId}`);
     }
   };
 
@@ -131,7 +125,11 @@ const BookDetail = () => {
             )}
           </S.BookDateAndRatingBox>
         )}
-        <StandardBtn $color="#83D0A1" $border="1.5px solid  #83D0A1">
+        <StandardBtn
+          onClick={handleWriteBookReportClick}
+          $color="#83D0A1"
+          $border="1.5px solid  #83D0A1"
+        >
           독서록 작성하기
         </StandardBtn>
         {isModalOpen && (

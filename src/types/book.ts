@@ -12,3 +12,17 @@ export interface BookResults {
   translators: string[];
   url: string;
 }
+
+export interface BookInfoProps {
+  libraryId: number;
+  bookTitle: string;
+  author: string[];
+  bookId: number;
+  isbn: string;
+  readingStatus: string;
+  rating: number;
+  startReadingAt: string;
+  endReadingAt: string;
+  staticsRating: number;
+  thumbnail: string;
+}
