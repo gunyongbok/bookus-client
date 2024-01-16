@@ -19,6 +19,7 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 // Api
 import getBookInfoById from "../../Api/Book/getBookInfoById";
 import submitBookReport from "../../Api/Book/report/submitBookReport";
+import validateToken from "../../Api/token/validateToken";
 
 const MainContent = styled.div`
   width: 100%;
@@ -158,6 +159,7 @@ const BookReport = () => {
 
   useEffect(() => {
     getBookInfo();
+    validateToken();
   }, []);
 
   return (
