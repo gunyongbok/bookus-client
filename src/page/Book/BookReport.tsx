@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 // Props
 import { BookInfoProps } from "../../types/book";
@@ -12,10 +13,12 @@ import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
+// Btn
+import StandardBtn from "../../commons/Button/StandardBtn";
+
 // Api
 import getBookInfoById from "../../Api/Book/getBookInfoById";
-import styled from "styled-components";
-import StandardBtn from "../../commons/Button/StandardBtn";
+import submitBookReport from "../../Api/Book/report/submitBookReport";
 
 const MainContent = styled.div`
   width: 100%;
@@ -115,19 +118,14 @@ const ButtonContainer = styled.div`
   padding-top: 32px;
   display: flex;
   justify-content: center;
-
   gap: 24px;
 `;
-
-interface BodyProps {
-  libraryBookId: number;
-  title: string;
-  contents: string;
-}
 
 const BookReport = () => {
   const { libraryId } = useParams<{ libraryId?: string }>();
   const [book, setBook] = useState<BookInfoProps | undefined>(undefined);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   const getBookInfo = async () => {
     try {
@@ -140,7 +138,23 @@ const BookReport = () => {
     }
   };
 
-  console.log(book);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
+
+  const submitBookReportController = () => {
+    if (libraryId) {
+      submitBookReport({
+        libraryBookId: parseInt(libraryId, 10),
+        title: title,
+        contents: content,
+      });
+    }
+  };
 
   useEffect(() => {
     getBookInfo();
@@ -154,8 +168,16 @@ const BookReport = () => {
           <BookTitle>{book?.bookTitle}</BookTitle>
           <BookAuthor>{book?.author}</BookAuthor>
         </BookInfoContainer>
-        <TitleInput placeholder="제목" />
-        <ContentInput placeholder="본문을 입력해주세요." />
+        <TitleInput
+          placeholder="제목"
+          onChange={handleTitleChange}
+          value={title}
+        />
+        <ContentInput
+          placeholder="본문을 입력해주세요."
+          onChange={handleContentChange}
+          value={content}
+        />
         <OptionContainer />
         <ButtonContainer>
           <StandardBtn
@@ -171,6 +193,7 @@ const BookReport = () => {
             $width="206px"
             $color="#83D0A1"
             $border="1.5px solid  #83D0A1"
+            onClick={submitBookReportController}
           >
             독서록 작성하기
           </StandardBtn>
