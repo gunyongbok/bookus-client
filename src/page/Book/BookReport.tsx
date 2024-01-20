@@ -19,20 +19,19 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 // Api
 import getBookInfoById from "../../Api/Book/getBookInfoById";
 import submitBookReport from "../../Api/Book/report/submitBookReport";
-import validateToken from "../../Api/token/validateToken";
+import Write from "../../components/Input/textEditor/Write";
 
 const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
-  height: fit-content;
-  min-height: 730px;
+  max-height: 730px;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 11%;
-
+  overflow: auto;
   @media (max-width: 599px) {
-    height: 80%;
+    max-height: 88%;
   }
 `;
 
@@ -86,39 +85,12 @@ const TitleInput = styled.input`
   }
 `;
 
-const OptionContainer = styled.div`
-  width: 100%;
-  height: 54px;
-  border-bottom: 1px solid #b9dbda;
-`;
-
-const ContentInput = styled.textarea`
-  width: 100%;
-  height: 450px;
-  padding: 20px 0 35px 0;
-  box-sizing: border-box;
-  background-color: #fcfcff;
-  color: #0f473f;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  border: none;
-  border-bottom: 1px solid #b9dbda;
-  &::placeholder {
-    color: #bbc2c1;
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
 const ButtonContainer = styled.div`
   width: 100%;
-  height: fit-content;
-  padding-top: 32px;
+  height: 120px;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 24px;
 `;
 
@@ -143,8 +115,8 @@ const BookReport = () => {
     setTitle(e.target.value);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleContentChange = (content: string) => {
+    setContent(content);
   };
 
   const submitBookReportController = () => {
@@ -157,9 +129,10 @@ const BookReport = () => {
     }
   };
 
+  console.log(content);
+
   useEffect(() => {
     getBookInfo();
-    validateToken();
   }, []);
 
   return (
@@ -175,12 +148,14 @@ const BookReport = () => {
           onChange={handleTitleChange}
           value={title}
         />
-        <ContentInput
+        {/* <ContentInput
           placeholder="본문을 입력해주세요."
           onChange={handleContentChange}
           value={content}
-        />
-        <OptionContainer />
+        /> */}
+
+        <Write value={content} onChange={handleContentChange} />
+
         <ButtonContainer>
           <StandardBtn
             $width="112px"
