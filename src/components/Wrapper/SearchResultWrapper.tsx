@@ -10,6 +10,8 @@ import icon4 from "../../assets/svg/BookSeachIcon/Icon4.svg";
 // types
 import { BookResults } from "../../types/book";
 import firstBookEnroll from "../../Api/Book/firstBookEnroll";
+import { useEffect, useState } from "react";
+import getBookStatistic from "../../Api/Search/getBookStatistic";
 
 const Ul = styled.ul`
   width: 100%;
@@ -92,8 +94,32 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+interface StatisticProps {
+  isbn: string;
+  readyToReadCount: number;
+  readingCount: number;
+  readCount: number;
+  favoriteCount: number;
+}
+
+const getKey = (index: number): keyof StatisticProps => {
+  switch (index) {
+    case 0:
+      return "readyToReadCount";
+    case 1:
+      return "readingCount";
+    case 2:
+      return "readCount";
+    case 3:
+      return "favoriteCount";
+    default:
+      throw new Error("Invalid index");
+  }
+};
+
 const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
   const iconUrls = [icon1, icon2, icon3, icon4];
+  const [statistic, setStatistic] = useState<StatisticProps[]>([]);
 
   const modifiedBooks = books.map((book) => {
     const last13DigitsISBN = book.isbn.substring(book.isbn.length - 13);
@@ -108,6 +134,34 @@ const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
       datetime: modifiedDateTime,
     };
   });
+
+  const fillWithZeros = (value?: string | number): string => {
+    const parsedValue = typeof value === "string" ? parseInt(value, 10) : value;
+    return parsedValue !== undefined
+      ? String(parsedValue).padStart(3, "0")
+      : "000";
+  };
+
+  useEffect(() => {
+    const fetchBookStatistic = async () => {
+      try {
+        if (books.length > 0) {
+          const concatenatedISBNs = books
+            .map((book) => book.isbn.substring(book.isbn.length - 13))
+            .join(",");
+
+          const result = await getBookStatistic(concatenatedISBNs);
+          setStatistic(result);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchBookStatistic();
+  }, [books]);
+
+  console.log(statistic);
 
   return (
     <Ul>
@@ -129,7 +183,8 @@ const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
               <BookIconContainer>
                 {iconUrls.map((iconUrl, i) => (
                   <BookIconBox key={i}>
-                    <img src={iconUrl} alt={`Icon ${i + 1}`} /> 000
+                    <img src={iconUrl} alt={`Icon ${i + 1}`} />{" "}
+                    {fillWithZeros(statistic[index]?.[getKey(i)])}
                   </BookIconBox>
                 ))}
               </BookIconContainer>

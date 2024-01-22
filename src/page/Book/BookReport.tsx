@@ -129,7 +129,7 @@ const BookReport = () => {
     }
   };
 
-  console.log(content);
+  console.log(title, content);
 
   useEffect(() => {
     getBookInfo();

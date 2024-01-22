@@ -1,4 +1,3 @@
-// externalFile.ts
 import axios from "axios";
 
 const getPopularSearch = async (
