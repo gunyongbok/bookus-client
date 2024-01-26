@@ -26,3 +26,10 @@ export interface BookInfoProps {
   staticsRating: number;
   thumbnail: string;
 }
+
+export interface BookReport {
+  id: number;
+  title: string;
+  contents: string;
+  createdAt: string;
+}

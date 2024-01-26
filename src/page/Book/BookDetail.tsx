@@ -32,66 +32,12 @@ import DoubleDateController from "../../components/Input/BookDetail/DoubleDateCo
 import BookReportBox from "../../components/Wrapper/BookDetail/BookReportBox";
 
 // types
-import { BookInfoProps } from "../../types/book";
-import styled from "styled-components";
+import { BookInfoProps, BookReport } from "../../types/book";
 
 interface ModalProps {
   libraryId: string;
   state: string;
 }
-
-interface BookReport {
-  id: number;
-  title: string;
-  contents: string;
-  createdAt: string;
-}
-
-const BookReportsContainer = styled.div`
-  width: 100%;
-  max-height: 210px;
-  overflow: auto;
-`;
-
-const BookReportContainer = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 12px;
-  margin-bottom: 40px;
-`;
-
-const LeftBookReportContainer = styled.div`
-  width: 50%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  & > *:nth-child(even) {
-    background-color: #d6ece6;
-  }
-
-  & > *:nth-child(odd) {
-    background-color: #e9f6ee;
-  }
-`;
-
-const RightBookReportContainer = styled.div`
-  width: 50%;
-  height: fit-content;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  & > *:nth-child(odd) {
-    background-color: #d6ece6;
-  }
-
-  & > *:nth-child(even) {
-    background-color: #e9f6ee;
-  }
-`;
 
 const formatDate = (inputDate: string) => {
   const date = new Date(inputDate);
@@ -219,9 +165,9 @@ const BookDetail = () => {
         >
           독서록 작성하기
         </StandardBtn>
-        <BookReportsContainer>
-          <BookReportContainer>
-            <LeftBookReportContainer>
+        <S.BookReportsContainer>
+          <S.BookReportContainer>
+            <S.LeftBookReportContainer>
               {oddBookReports.map((report) => (
                 <BookReportBox
                   key={report.id}
@@ -230,8 +176,8 @@ const BookDetail = () => {
                   content={report.contents}
                 />
               ))}
-            </LeftBookReportContainer>
-            <RightBookReportContainer>
+            </S.LeftBookReportContainer>
+            <S.RightBookReportContainer>
               {evenBookReports.map((report) => (
                 <BookReportBox
                   key={report.id}
@@ -240,8 +186,8 @@ const BookDetail = () => {
                   content={report.contents}
                 />
               ))}
-            </RightBookReportContainer>
-          </BookReportContainer>
+            </S.RightBookReportContainer>
+          </S.BookReportContainer>
           <StandardBtn
             onClick={openDeleteModal}
             $color="#BBC2C1"
@@ -251,8 +197,7 @@ const BookDetail = () => {
           >
             내 서재에서 삭제하기
           </StandardBtn>
-        </BookReportsContainer>
-
+        </S.BookReportsContainer>
         {isModalOpen && (
           <ChangeBookStateModal
             selectedBookState={selectedBookState!}

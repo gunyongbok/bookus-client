@@ -54,3 +54,49 @@ export const BookDateAndRatingBox = styled.div`
   flex-direction: column;
   gap: 16px;
 `;
+
+export const BookReportsContainer = styled.div`
+  width: 100%;
+  max-height: 210px;
+  overflow: auto;
+`;
+
+export const BookReportContainer = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+`;
+
+export const LeftBookReportContainer = styled.div`
+  width: 50%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  & > *:nth-child(even) {
+    background-color: #d6ece6;
+  }
+
+  & > *:nth-child(odd) {
+    background-color: #e9f6ee;
+  }
+`;
+
+export const RightBookReportContainer = styled.div`
+  width: 50%;
+  height: fit-content;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  & > *:nth-child(odd) {
+    background-color: #d6ece6;
+  }
+
+  & > *:nth-child(even) {
+    background-color: #e9f6ee;
+  }
+`;
