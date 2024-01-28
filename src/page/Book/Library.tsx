@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 // Container
@@ -14,6 +14,9 @@ import LibraryTitle from "../../components/Title/LibraryTitle";
 
 // Books
 import ShowThreeBookInRow from "../../components/Wrapper/ShowThreeBookInRow";
+import { FavoriteBookProps } from "../../types/book";
+import getFavoriteBooks from "../../Api/Book/library/getFavoriteBooks";
+import Navbar from "../../components/Navigation/Navbar";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -36,7 +39,8 @@ const LibraryCotroller = styled.div`
   margin-bottom: 32px;
   position: sticky;
   top: 0;
-  background-color: #fff;
+
+  background-color: #fcfcff;
 `;
 
 const LibraryController = styled.div<{ $clicked: boolean }>`
@@ -101,6 +105,7 @@ const IndividualState = styled.div`
 const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
+  const [favorite, setFavorite] = useState<FavoriteBookProps[]>([]);
 
   const handleLibraryController = () => {
     setLibraryClicked((prev) => !prev);
@@ -112,6 +117,20 @@ const Library = () => {
     setLibraryClicked((prev) => !prev);
   };
 
+  const getFavoriteBookData = async () => {
+    try {
+      const result = await getFavoriteBooks();
+      setFavorite(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFavoriteBookData();
+  }, []);
+
+  console.log(favorite);
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -148,6 +167,7 @@ const Library = () => {
           <ShowThreeBookInRow />
         </BooksInMyLibrary>
       </LibraryContainer>
+      <Navbar />
     </TopContainer>
   );
 };

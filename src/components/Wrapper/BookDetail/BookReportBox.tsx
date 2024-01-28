@@ -45,7 +45,7 @@ const TitleBox = styled.div`
 
 const ContentBox = styled.div`
   width: 100%;
-  height: 13px;
+  height: 130px;
   overflow: hidden;
   color: #4ca771;
   text-overflow: ellipsis;

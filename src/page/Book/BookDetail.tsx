@@ -168,7 +168,7 @@ const BookDetail = () => {
         <S.BookReportsContainer>
           <S.BookReportContainer>
             <S.LeftBookReportContainer>
-              {oddBookReports.map((report) => (
+              {evenBookReports.map((report) => (
                 <BookReportBox
                   key={report.id}
                   date={formatDate(report.createdAt)}
@@ -178,7 +178,7 @@ const BookDetail = () => {
               ))}
             </S.LeftBookReportContainer>
             <S.RightBookReportContainer>
-              {evenBookReports.map((report) => (
+              {oddBookReports.map((report) => (
                 <BookReportBox
                   key={report.id}
                   date={formatDate(report.createdAt)}

@@ -33,3 +33,10 @@ export interface BookReport {
   contents: string;
   createdAt: string;
 }
+
+export interface FavoriteBookProps {
+  id: string;
+  thumbnail: string;
+  title: string;
+  authors: string[];
+}
