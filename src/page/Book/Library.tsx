@@ -69,7 +69,7 @@ const BooksInMyLibrary = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-top: 32px;
+  margin: 32px 0 60px 0;
 `;
 
 const ArrangeController = styled.div`
@@ -106,7 +106,7 @@ const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
   const [favorite, setFavorite] = useState<FavoriteBookProps[]>([]);
-
+  console.log(window.location.pathname);
   const handleLibraryController = () => {
     setLibraryClicked((prev) => !prev);
     setBookReportClicked((prev) => !prev);

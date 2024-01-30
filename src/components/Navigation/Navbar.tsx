@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link, useLocation } from "react-router-dom";
 
 // icons
 import home1 from "../../assets/svg/library/IC_NAV_HOME.svg";
@@ -22,17 +23,32 @@ const NavBar = styled.div`
   padding: 12px 23px 34px 23px;
   box-sizing: border-box;
   display: flex;
-  gap: 30px;
+  gap: 36px;
 `;
 
+const Img = styled.img`
+  width: 40px;
+  height: 53px;
+`;
+
+const Icons = [
+  [home1, home, "/main"],
+  [book1, book, "/library"],
+  [search1, search, "/search"],
+  [social1, social, "/social"],
+  [profile1, profile, "/profile"],
+];
+
 const Navbar = () => {
+  const location = useLocation();
+
   return (
     <NavBar>
-      <img src={home1} alt="" />
-      <img src={book1} alt="" />
-      <img src={search1} alt="" />
-      <img src={social1} alt="" />
-      <img src={profile1} alt="" />
+      {Icons.map(([normal, clicked, route], index) => (
+        <Link to={route} key={index}>
+          <Img src={location.pathname === route ? clicked : normal} alt="" />
+        </Link>
+      ))}
     </NavBar>
   );
 };

@@ -147,14 +147,14 @@ const BookStatisticWrapper: React.FC<{ isbn: string }> = ({ isbn }) => {
         />
         <StatisticItem
           icon={reading}
-          status="읽는 책"
+          status="읽고 있는 책"
           count={statistic?.readingCount || 0}
         />
       </BookStatisticBox>
       <BookStatisticBox>
         <StatisticItem
           icon={alreadyRead}
-          status="읽은 책"
+          status="다 읽은 책"
           count={statistic?.readCount || 0}
         />
         <StatisticItem

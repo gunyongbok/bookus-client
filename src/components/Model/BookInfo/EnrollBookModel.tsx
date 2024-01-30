@@ -153,7 +153,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, isbn, onBookUpdate }) => {
               alt="ing"
               onClick={() => handleImgClick("ing")}
             />
-            <IndividualStateWord>읽는 책</IndividualStateWord>
+            <IndividualStateWord>읽고 읽는 책</IndividualStateWord>
           </IndividualState>
           <IndividualState>
             <img
@@ -161,7 +161,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, isbn, onBookUpdate }) => {
               alt="already"
               onClick={() => handleImgClick("already")}
             />
-            <IndividualStateWord>읽은 책</IndividualStateWord>
+            <IndividualStateWord>다 읽은 책</IndividualStateWord>
           </IndividualState>
         </LibraryStateContainer>
         <CancelOrEnrollContainer>
