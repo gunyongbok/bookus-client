@@ -13,7 +13,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 import LibraryTitle from "../../components/Title/LibraryTitle";
 
 // Books
-import ShowThreeBookInRow from "../../components/Wrapper/ShowThreeBookInRow";
+import ShowFavoriteBooks from "../../components/Wrapper/\bShowFavoriteBooks";
 import { FavoriteBookProps } from "../../types/book";
 import getFavoriteBooks from "../../Api/Book/library/getFavoriteBooks";
 import Navbar from "../../components/Navigation/Navbar";
@@ -106,7 +106,8 @@ const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
   const [favorite, setFavorite] = useState<FavoriteBookProps[]>([]);
-  console.log(window.location.pathname);
+
+  // 서재 및 독서록 선택 바
   const handleLibraryController = () => {
     setLibraryClicked((prev) => !prev);
     setBookReportClicked((prev) => !prev);
@@ -117,6 +118,7 @@ const Library = () => {
     setLibraryClicked((prev) => !prev);
   };
 
+  // 인생 책 조회
   const getFavoriteBookData = async () => {
     try {
       const result = await getFavoriteBooks();
@@ -130,7 +132,6 @@ const Library = () => {
     getFavoriteBookData();
   }, []);
 
-  console.log(favorite);
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -151,7 +152,7 @@ const Library = () => {
         </LibraryCotroller>
         <FavoriteBookContainer>
           <LibraryTitle text="나는 북커스 님의 인생책" />
-          <ShowThreeBookInRow />
+          <ShowFavoriteBooks favorite={favorite} />
         </FavoriteBookContainer>
         <BooksInMyLibrary>
           <LibraryTitle text="나는 북커스 님의 서재" />
@@ -162,9 +163,9 @@ const Library = () => {
             <IndividualState>읽은 책</IndividualState>
           </StateControllerBox>
           <ArrangeController />
+          {/* <ShowThreeBookInRow />
           <ShowThreeBookInRow />
-          <ShowThreeBookInRow />
-          <ShowThreeBookInRow />
+          <ShowThreeBookInRow /> */}
         </BooksInMyLibrary>
       </LibraryContainer>
       <Navbar />
