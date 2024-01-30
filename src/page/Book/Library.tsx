@@ -68,6 +68,7 @@ const LibraryController = styled.div<{ $clicked: boolean }>`
 const FavoriteBookContainer = styled.div`
   width: 100%;
   height: 220px;
+  margin-bottom: 32px;
 `;
 
 const BooksInMyLibrary = styled.div`
@@ -75,7 +76,7 @@ const BooksInMyLibrary = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin: 32px 0 60px 0;
+  margin: 0px 0 60px 0;
 `;
 
 const ArrangeController = styled.div`
@@ -156,10 +157,12 @@ const Library = () => {
             독서록
           </LibraryController>
         </LibraryCotroller>
-        <FavoriteBookContainer>
-          <LibraryTitle text="나는 북커스 님의 인생책" />
-          <ShowFavoriteBooksInRow favorite={favorite} />
-        </FavoriteBookContainer>
+        {favorite.length === 0 ? null : (
+          <FavoriteBookContainer>
+            <LibraryTitle text="나는 북커스 님의 인생책" />
+            <ShowFavoriteBooksInRow favorite={favorite} />
+          </FavoriteBookContainer>
+        )}
         <BooksInMyLibrary>
           <LibraryTitle text="나는 북커스 님의 서재" />
           <StateControllerBox>

@@ -6,7 +6,6 @@ const BookBox = styled.div`
   width: 100%;
   display: flex;
   height: 180px;
-  justify-content: space-between;
   gap: 28px;
   margin-bottom: 32px;
 `;
@@ -22,7 +21,6 @@ const Book = styled.div`
 const BookThumbnail = styled.img`
   width: 100%;
   height: 142px;
-  background-color: yellow;
   margin-bottom: 10px;
 `;
 
@@ -51,12 +49,20 @@ const StyledLink = styled(Link)`
   text-decoration-line: none;
 `;
 
+const EmptyBox = styled.div`
+  width: 100%;
+  height: 142px;
+  background: #eff2f2;
+`;
+
 const ShowFavoriteBooksInRow = ({
   favorite,
 }: {
   favorite: FavoriteBookProps[];
 }) => {
   console.log(favorite);
+  const emptyBoxCount = 3 - (favorite?.length || 0);
+
   return (
     <BookBox>
       {favorite?.map((book) => (
@@ -71,6 +77,9 @@ const ShowFavoriteBooksInRow = ({
             <BookAuthor>{book.authors}</BookAuthor>
           </Book>
         </StyledLink>
+      ))}
+      {[...Array(emptyBoxCount)].map((_, index) => (
+        <EmptyBox key={`empty-${index}`} />
       ))}
     </BookBox>
   );
