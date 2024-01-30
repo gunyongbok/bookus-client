@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { FavoriteBookProps } from "../../types/book";
+import { FavoriteBookProps } from "../../../types/book";
+import { Link } from "react-router-dom";
 
 const BookBox = styled.div`
   width: 100%;
@@ -35,6 +36,7 @@ const BookTitle = styled.div`
   font-weight: 700;
   display: flex;
   justify-content: center;
+  margin-bottom: 3px;
 `;
 
 const BookAuthor = styled.div`
@@ -45,23 +47,33 @@ const BookAuthor = styled.div`
   font-weight: 300;
 `;
 
-const ShowFavoriteBooks = ({ favorite }: { favorite: FavoriteBookProps[] }) => {
+const StyledLink = styled(Link)`
+  text-decoration-line: none;
+`;
+
+const ShowFavoriteBooksInRow = ({
+  favorite,
+}: {
+  favorite: FavoriteBookProps[];
+}) => {
   console.log(favorite);
   return (
     <BookBox>
-      {favorite.map((book) => (
-        <Book key={book.id}>
-          <BookThumbnail src={book.thumbnail} />
-          <BookTitle>
-            {book.title.length > 8
-              ? `${book.title.slice(0, 8)}...`
-              : book.title}
-          </BookTitle>
-          <BookAuthor>{book.authors}</BookAuthor>
-        </Book>
+      {favorite?.map((book) => (
+        <StyledLink key={book.id} to={`/bookdetail/${book.id}`}>
+          <Book>
+            <BookThumbnail src={book.thumbnail} />
+            <BookTitle>
+              {book.title.length > 8
+                ? `${book.title.slice(0, 8)}...`
+                : book.title}
+            </BookTitle>
+            <BookAuthor>{book.authors}</BookAuthor>
+          </Book>
+        </StyledLink>
       ))}
     </BookBox>
   );
 };
 
-export default ShowFavoriteBooks;
+export default ShowFavoriteBooksInRow;

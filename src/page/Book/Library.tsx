@@ -13,10 +13,16 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 import LibraryTitle from "../../components/Title/LibraryTitle";
 
 // Books
-import ShowFavoriteBooks from "../../components/Wrapper/\bShowFavoriteBooks";
-import { FavoriteBookProps } from "../../types/book";
+import ShowFavoriteBooksInRow from "../../components/Wrapper/Library/ShowFavoriteBooksInRow";
+
+// Api
 import getFavoriteBooks from "../../Api/Book/library/getFavoriteBooks";
+
+// Navbar
 import Navbar from "../../components/Navigation/Navbar";
+
+// Props
+import { FavoriteBookProps } from "../../types/book";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -152,7 +158,7 @@ const Library = () => {
         </LibraryCotroller>
         <FavoriteBookContainer>
           <LibraryTitle text="나는 북커스 님의 인생책" />
-          <ShowFavoriteBooks favorite={favorite} />
+          <ShowFavoriteBooksInRow favorite={favorite} />
         </FavoriteBookContainer>
         <BooksInMyLibrary>
           <LibraryTitle text="나는 북커스 님의 서재" />
