@@ -113,6 +113,12 @@ const ControllBtn = styled.button`
   text-align: center;
 `;
 
+const ContentBox = styled.div`
+  width: 100%;
+  border: none;
+  height: fit-content;
+`;
+
 const BookReportView = () => {
   const { reportId } = useParams();
   const [report, setReport] = useState<IndividualBookReportProps>();
@@ -157,6 +163,9 @@ const BookReportView = () => {
           <BookAuthor>{report?.authors}</BookAuthor>
         </BookInfoContainer>
         <ReportTitle>{report?.title}</ReportTitle>
+        <ContentBox
+          dangerouslySetInnerHTML={{ __html: report?.contents || "" }}
+        />
       </MainContent>
       <Navbar />
       {isModalOpen && (
