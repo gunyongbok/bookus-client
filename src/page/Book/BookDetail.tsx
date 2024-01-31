@@ -122,6 +122,9 @@ const BookDetail = () => {
 
   console.log(book);
 
+  // html의 모든 태그를 제거해주는 정규식
+  const reg = /<[^>]*>?/g;
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -178,7 +181,7 @@ const BookDetail = () => {
                   key={report.id}
                   date={formatDate(report.createdAt)}
                   title={report.title}
-                  content={report.contents}
+                  content={report.contents.replace(reg, "")}
                 />
               ))}
             </S.LeftBookReportContainer>
@@ -189,7 +192,7 @@ const BookDetail = () => {
                   key={report.id}
                   date={formatDate(report.createdAt)}
                   title={report.title}
-                  content={report.contents}
+                  content={report.contents.replace(reg, "")}
                 />
               ))}
             </S.RightBookReportContainer>
