@@ -6,7 +6,7 @@ import full from "../../../assets/svg/BookDetail/greenStar.svg";
 import empty from "../../../assets/svg/BookDetail/emptyGreenStar.svg";
 
 // Modal
-import BookScoreModal from "../../Model/BookDetail/BookScoreModal";
+import BookScoreModal from "../../Modal/BookDetail/BookScoreModal";
 
 const Box = styled.div`
   width: 100%;

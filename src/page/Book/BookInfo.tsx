@@ -16,7 +16,7 @@ import arrow from "../../assets/svg/bottomArrow.svg";
 
 // BookInfo
 import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
-import Modal from "../../components/Model/BookInfo/EnrollBookModel";
+import Modal from "../../components/Modal/BookInfo/EnrollBookModel";
 import isBookInLibrary from "../../Api/Book/isBookInLibrary";
 import BookSubDetailInfoWrapper from "../../components/Wrapper/BookInfo/BookSubDetailInfoWrapper";
 import StandardBtn from "../../commons/Button/StandardBtn";

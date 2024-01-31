@@ -18,6 +18,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 
 // Navbar
 import Navbar from "../../components/Navigation/Navbar";
+import BookReportDeleteModal from "../../components/Modal/BookReport/BookReportDeleteModal";
 
 const MainContent = styled.div`
   width: 100%;
@@ -115,6 +116,7 @@ const ControllBtn = styled.button`
 const BookReportView = () => {
   const { reportId } = useParams();
   const [report, setReport] = useState<IndividualBookReportProps>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const getBookReport = async () => {
     try {
@@ -123,6 +125,14 @@ const BookReportView = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   console.log(report);
@@ -139,7 +149,7 @@ const BookReportView = () => {
           <DateBox>{report?.createdAt.split("T")[0]}</DateBox>
           <DeleteAndEditBox>
             <ControllBtn>편집</ControllBtn>
-            <ControllBtn>삭제</ControllBtn>
+            <ControllBtn onClick={() => openModal()}>삭제</ControllBtn>
           </DeleteAndEditBox>
         </BookReportControllerBox>
         <BookInfoContainer>
@@ -149,6 +159,9 @@ const BookReportView = () => {
         <ReportTitle>{report?.title}</ReportTitle>
       </MainContent>
       <Navbar />
+      {isModalOpen && (
+        <BookReportDeleteModal onClose={closeModal} reportId={reportId} />
+      )}
     </TopContainer>
   );
 };

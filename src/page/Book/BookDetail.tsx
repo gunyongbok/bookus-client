@@ -20,8 +20,8 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 import { bookState } from "../../assets/svg/BookDetail/bookDetailAsset";
 
 // Modal
-import ChangeBookStateModal from "../../components/Model/BookDetail/ChangeBookState";
-import DeleteBookModal from "../../components/Model/BookDetail/DeleteBookModal";
+import ChangeBookStateModal from "../../components/Modal/BookDetail/ChangeBookState";
+import DeleteBookModal from "../../components/Modal/BookDetail/DeleteBookModal";
 
 // Date
 import DateController from "../../components/Input/BookDetail/DateController";
