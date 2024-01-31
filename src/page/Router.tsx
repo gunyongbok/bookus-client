@@ -15,10 +15,15 @@ import Main from "./Main/Main";
 
 // Search
 import BookSearch from "./Search/BookSearch";
+
+// Book
 import BookInfo from "./Book/BookInfo";
 import Library from "./Book/Library";
 import BookDetail from "./Book/BookDetail";
+
+// Report
 import BookReport from "./Book/BookReport";
+import BookReportView from "./Book/BookReportView";
 
 const Router = () => {
   return (
@@ -36,6 +41,7 @@ const Router = () => {
         <Route path="library" element={<Library />} />
         <Route path="bookdetail/:libraryId" element={<BookDetail />} />
         <Route path="bookreport/:libraryId" element={<BookReport />} />
+        <Route path="bookreportview/:reportId" element={<BookReportView />} />
       </Routes>
     </>
   );

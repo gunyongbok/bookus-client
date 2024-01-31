@@ -6,6 +6,7 @@ interface BookReportBoxProps {
   date: string;
   title: string;
   content: string;
+  onClick: () => void;
 }
 
 const Box = styled.div<{ backgroundColor?: string }>`
@@ -61,9 +62,10 @@ const BookReportBox: React.FC<BookReportBoxProps> = ({
   date,
   title,
   content,
+  onClick,
 }) => {
   return (
-    <Box backgroundColor={backgroundColor}>
+    <Box onClick={onClick} backgroundColor={backgroundColor}>
       <DateBox>{date}</DateBox>
       <TitleBox>{title}</TitleBox>
       <ContentBox>{content}</ContentBox>

@@ -40,3 +40,14 @@ export interface FavoriteBookProps {
   title: string;
   authors: string[];
 }
+
+export interface IndividualBookReportProps {
+  id: number;
+  bookTitle: string;
+  authors: string;
+  title: string;
+  contents: string;
+  createdAt: string;
+  updatedAt: string;
+  isOwner: boolean;
+}

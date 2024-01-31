@@ -111,6 +111,10 @@ const BookDetail = () => {
     setIsDeleteModalOpen(false);
   };
 
+  const navigateToReportViewPage = (bookReportId: number) => {
+    navigate(`/bookreportview/${bookReportId}`);
+  };
+
   useEffect(() => {
     getBookInfo();
     getBookReports();
@@ -170,6 +174,7 @@ const BookDetail = () => {
             <S.LeftBookReportContainer>
               {evenBookReports.map((report) => (
                 <BookReportBox
+                  onClick={() => navigateToReportViewPage(report.id)}
                   key={report.id}
                   date={formatDate(report.createdAt)}
                   title={report.title}
@@ -180,6 +185,7 @@ const BookDetail = () => {
             <S.RightBookReportContainer>
               {oddBookReports.map((report) => (
                 <BookReportBox
+                  onClick={() => navigateToReportViewPage(report.id)}
                   key={report.id}
                   date={formatDate(report.createdAt)}
                   title={report.title}

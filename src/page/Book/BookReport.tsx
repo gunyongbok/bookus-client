@@ -148,11 +148,6 @@ const BookReport = () => {
           onChange={handleTitleChange}
           value={title}
         />
-        {/* <ContentInput
-          placeholder="본문을 입력해주세요."
-          onChange={handleContentChange}
-          value={content}
-        /> */}
 
         <Write value={content} onChange={handleContentChange} />
 
