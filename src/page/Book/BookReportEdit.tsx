@@ -19,6 +19,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 // Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
 import Write from "../../components/Input/textEditor/Write";
+import editBookReport from "../../Api/Book/report/editBookReport";
 
 const MainContent = styled.div`
   width: 100%;
@@ -116,12 +117,13 @@ const BookReportEdit = () => {
     setContent(content);
   };
 
+  const submitBookReportEdit = () => {
+    editBookReport(reportId, { title: title, contents: content });
+  };
+
   useEffect(() => {
     getBookReport();
   }, []);
-
-  console.log(title);
-  console.log(content);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -153,7 +155,7 @@ const BookReportEdit = () => {
             $width="206px"
             $color="#83D0A1"
             $border="1.5px solid  #83D0A1"
-            // onClick={submitBookReportController}
+            onClick={() => submitBookReportEdit()}
           >
             독서록 수정하기
           </StandardBtn>

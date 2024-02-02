@@ -11,7 +11,7 @@ const BookReportEditModal = ({ onClose, reportId }: ModalProps) => {
 
   const deleteReport = () => {
     onClose();
-    navigate(`/main`);
+    navigate(`/bookreportedit/${reportId}`);
   };
 
   return (

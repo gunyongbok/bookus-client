@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -18,7 +18,10 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 
 // Navbar
 import Navbar from "../../components/Navigation/Navbar";
+
+// Modal
 import BookReportDeleteModal from "../../components/Modal/BookReport/BookReportDeleteModal";
+import BookReportEditModal from "../../components/Modal/BookReport/BookReportEditModal";
 
 const MainContent = styled.div`
   width: 100%;
@@ -121,9 +124,9 @@ const ContentBox = styled.div`
 
 const BookReportView = () => {
   const { reportId } = useParams();
-  const navigate = useNavigate();
   const [report, setReport] = useState<IndividualBookReportProps>();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [delModalOpen, setDelModalOpen] = useState<boolean>(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 
   const getBookReport = async () => {
     try {
@@ -134,12 +137,20 @@ const BookReportView = () => {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openDelModal = () => {
+    setDelModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeDelModal = () => {
+    setDelModalOpen(false);
+  };
+
+  const openEditModal = () => {
+    setEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
   };
 
   console.log(report);
@@ -155,14 +166,8 @@ const BookReportView = () => {
         <BookReportControllerBox>
           <DateBox>{report?.createdAt.split("T")[0]}</DateBox>
           <DeleteAndEditBox>
-            <ControllBtn
-              onClick={() => {
-                navigate(`/bookreportedit/${reportId}`);
-              }}
-            >
-              편집
-            </ControllBtn>
-            <ControllBtn onClick={() => openModal()}>삭제</ControllBtn>
+            <ControllBtn onClick={() => openEditModal()}>편집</ControllBtn>
+            <ControllBtn onClick={() => openDelModal()}>삭제</ControllBtn>
           </DeleteAndEditBox>
         </BookReportControllerBox>
         <BookInfoContainer>
@@ -175,8 +180,11 @@ const BookReportView = () => {
         />
       </MainContent>
       <Navbar />
-      {isModalOpen && (
-        <BookReportDeleteModal onClose={closeModal} reportId={reportId} />
+      {editModalOpen && (
+        <BookReportEditModal onClose={closeEditModal} reportId={reportId} />
+      )}
+      {delModalOpen && (
+        <BookReportDeleteModal onClose={closeDelModal} reportId={reportId} />
       )}
     </TopContainer>
   );
