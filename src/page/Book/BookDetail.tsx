@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import * as S from "./BookDetail.style";
+import * as S from "./style/BookDetail.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";

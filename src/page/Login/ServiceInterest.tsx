@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as S from "./ServiceInterest.style";
+import * as S from "./style/ServiceInterest.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";

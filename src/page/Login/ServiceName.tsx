@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import * as S from "./ServiceName.style";
+import * as S from "./style/ServiceName.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";

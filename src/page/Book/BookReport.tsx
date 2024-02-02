@@ -19,6 +19,8 @@ import StandardBtn from "../../commons/Button/StandardBtn";
 // Api
 import getBookInfoById from "../../Api/Book/getBookInfoById";
 import submitBookReport from "../../Api/Book/report/submitBookReport";
+
+// TextEditor
 import Write from "../../components/Input/textEditor/Write";
 
 const MainContent = styled.div`

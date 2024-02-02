@@ -1,4 +1,4 @@
-import * as S from "./Login.style";
+import * as S from "./style/Login.style";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";

@@ -1,4 +1,4 @@
-import * as S from "./BookSearch.style";
+import * as S from "./style/BookSearch.style";
 import { useState } from "react";
 
 // Container

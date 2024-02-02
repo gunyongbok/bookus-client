@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import * as S from "./BookInfo.style";
+import * as S from "./style/BookInfo.style";
 import { useEffect, useState } from "react";
 
 // Container
