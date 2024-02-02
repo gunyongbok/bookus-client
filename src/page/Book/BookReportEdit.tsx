@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -16,9 +16,9 @@ import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
-// Navbar
-import Navbar from "../../components/Navigation/Navbar";
-import BookReportDeleteModal from "../../components/Modal/BookReport/BookReportDeleteModal";
+// Btn
+import StandardBtn from "../../commons/Button/StandardBtn";
+import Write from "../../components/Input/textEditor/Write";
 
 const MainContent = styled.div`
   width: 100%;
@@ -64,7 +64,7 @@ const BookAuthor = styled.div`
   margin-bottom: 24px;
 `;
 
-const ReportTitle = styled.div`
+const TitleInput = styled.input`
   width: 100%;
   padding: 16px 0 16px 0;
   box-sizing: border-box;
@@ -76,54 +76,28 @@ const ReportTitle = styled.div`
   font-weight: 500;
   border: none;
   border-bottom: 1px solid #b9dbda;
+  &::placeholder {
+    color: #bbc2c1;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
-const BookReportControllerBox = styled.div`
+const ButtonContainer = styled.div`
   width: 100%;
-  height: 19px;
-  margin-bottom: 12px;
+  height: 120px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
 `;
 
-const DateBox = styled.div`
-  color: #bbc2c1;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-`;
-
-const DeleteAndEditBox = styled.div`
-  width: fit-content;
-  display: flex;
-  gap: 10px;
-`;
-
-const ControllBtn = styled.button`
-  color: #bbc2c1;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  width: fit-content;
-  height: 19px;
-  background-color: transparent;
-  border: none;
-  text-align: center;
-`;
-
-const ContentBox = styled.div`
-  width: 100%;
-  border: none;
-  height: fit-content;
-`;
-
-const BookReportView = () => {
+const BookReportEdit = () => {
   const { reportId } = useParams();
-  const navigate = useNavigate();
   const [report, setReport] = useState<IndividualBookReportProps>();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   const getBookReport = async () => {
     try {
@@ -134,52 +108,59 @@ const BookReportView = () => {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleContentChange = (content: string) => {
+    setContent(content);
   };
-
-  console.log(report);
 
   useEffect(() => {
     getBookReport();
   }, []);
 
+  console.log(title);
+  console.log(content);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <MainContent>
-        <BookReportControllerBox>
-          <DateBox>{report?.createdAt.split("T")[0]}</DateBox>
-          <DeleteAndEditBox>
-            <ControllBtn
-              onClick={() => {
-                navigate(`/bookreportedit/${reportId}`);
-              }}
-            >
-              편집
-            </ControllBtn>
-            <ControllBtn onClick={() => openModal()}>삭제</ControllBtn>
-          </DeleteAndEditBox>
-        </BookReportControllerBox>
         <BookInfoContainer>
           <BookTitle>{report?.bookTitle}</BookTitle>
           <BookAuthor>{report?.authors}</BookAuthor>
         </BookInfoContainer>
-        <ReportTitle>{report?.title}</ReportTitle>
-        <ContentBox
-          dangerouslySetInnerHTML={{ __html: report?.contents || "" }}
+        <TitleInput onChange={handleTitleChange} defaultValue={report?.title} />
+
+        <Write
+          defaultValue={report?.contents}
+          value={content}
+          onChange={handleContentChange}
         />
+
+        <ButtonContainer>
+          <StandardBtn
+            $width="112px"
+            $color="#BBC2C1"
+            $border="1.5px solid  #BBC2C1"
+            $clickedBackground="#BBC2C1"
+            $clickedColor="#fff"
+          >
+            취소
+          </StandardBtn>
+          <StandardBtn
+            $width="206px"
+            $color="#83D0A1"
+            $border="1.5px solid  #83D0A1"
+            // onClick={submitBookReportController}
+          >
+            독서록 수정하기
+          </StandardBtn>
+        </ButtonContainer>
       </MainContent>
-      <Navbar />
-      {isModalOpen && (
-        <BookReportDeleteModal onClose={closeModal} reportId={reportId} />
-      )}
     </TopContainer>
   );
 };
 
-export default BookReportView;
+export default BookReportEdit;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import "react-quill/dist/quill.snow.css";
 import QuillToolbar, { fontSize } from "./toolbar";
@@ -33,23 +33,34 @@ const StyledQuillWrapper = styled.div`
 interface WriteProps {
   value: string;
   onChange: (content: string) => void;
+  defaultValue?: string; // Add defaultValue prop
 }
 
-const Write: React.FC<WriteProps> = ({ value, onChange }) => {
+const Write: React.FC<WriteProps> = ({ onChange, defaultValue }) => {
   const Size = Quill.import("attributors/style/size");
   Size.whitelist = fontSize;
   Quill.register(Size, true);
 
-  const Font = Quill.import("attributors/class/font");
-  Font.whitelist = ["arial", "buri", "gangwon"];
-  Quill.register(Font, true);
+  const [content, setContent] = React.useState<string>(defaultValue || "");
+
+  useEffect(() => {
+    if (defaultValue) {
+      setContent(defaultValue);
+      onChange(defaultValue);
+    }
+  }, [defaultValue]);
+
+  useEffect(() => {
+    onChange(content);
+  }, [content, onChange]);
+
   return (
     <StyledQuillWrapper>
       <QuillToolbar />
       <ReactQuill
         theme="snow"
-        value={value}
-        onChange={onChange}
+        value={content}
+        onChange={(newContent) => setContent(newContent)}
         modules={{
           toolbar: {
             container: "#toolbar",
