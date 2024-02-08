@@ -34,6 +34,9 @@ import BookReportBox from "../../components/Wrapper/BookDetail/BookReportBox";
 // types
 import { BookInfoProps, BookReport } from "../../types/book";
 
+// icons
+import NoBook from "../../assets/svg/BookDetail/NoBookReportIcon.svg";
+
 interface ModalProps {
   libraryId: string;
   state: string;
@@ -86,7 +89,7 @@ const BookDetail = () => {
     }
   };
 
-  console.log(bookReport);
+  console.log(bookReport.length);
 
   const handleWriteBookReportClick = () => {
     if (libraryId) {
@@ -165,38 +168,51 @@ const BookDetail = () => {
             )}
           </S.BookDateAndRatingBox>
         )}
-        <StandardBtn
-          onClick={handleWriteBookReportClick}
-          $color="#83D0A1"
-          $border="1.5px solid  #83D0A1"
-        >
-          독서록 작성하기
-        </StandardBtn>
+
         <S.BookReportsContainer>
-          <S.BookReportContainer>
-            <S.LeftBookReportContainer>
-              {evenBookReports.map((report) => (
-                <BookReportBox
-                  onClick={() => navigateToReportViewPage(report.id)}
-                  key={report.id}
-                  date={formatDate(report.createdAt)}
-                  title={report.title}
-                  content={report.contents.replace(reg, "")}
-                />
-              ))}
-            </S.LeftBookReportContainer>
-            <S.RightBookReportContainer>
-              {oddBookReports.map((report) => (
-                <BookReportBox
-                  onClick={() => navigateToReportViewPage(report.id)}
-                  key={report.id}
-                  date={formatDate(report.createdAt)}
-                  title={report.title}
-                  content={report.contents.replace(reg, "")}
-                />
-              ))}
-            </S.RightBookReportContainer>
-          </S.BookReportContainer>
+          <StandardBtn
+            onClick={handleWriteBookReportClick}
+            $color="#83D0A1"
+            $border="1.5px solid  #83D0A1"
+          >
+            독서록 작성하기
+          </StandardBtn>
+          {bookReport.length === 0 ? (
+            <S.ShowNoBookReportContainer>
+              <img src={NoBook} alt="nobook" />
+              <S.ShowNoBookTitle>작성한 독서록이 없습니다</S.ShowNoBookTitle>
+              <S.ShowNoBookSubTitle>
+                책을 읽고 독서록을 작성해주세요
+                <br />
+                해당 책에 대한 나의 기록들을 모아볼 수 있습니다.
+              </S.ShowNoBookSubTitle>
+            </S.ShowNoBookReportContainer>
+          ) : (
+            <S.BookReportContainer>
+              <S.LeftBookReportContainer>
+                {evenBookReports.map((report) => (
+                  <BookReportBox
+                    onClick={() => navigateToReportViewPage(report.id)}
+                    key={report.id}
+                    date={formatDate(report.createdAt)}
+                    title={report.title}
+                    content={report.contents.replace(reg, "")}
+                  />
+                ))}
+              </S.LeftBookReportContainer>
+              <S.RightBookReportContainer>
+                {oddBookReports.map((report) => (
+                  <BookReportBox
+                    onClick={() => navigateToReportViewPage(report.id)}
+                    key={report.id}
+                    date={formatDate(report.createdAt)}
+                    title={report.title}
+                    content={report.contents.replace(reg, "")}
+                  />
+                ))}
+              </S.RightBookReportContainer>
+            </S.BookReportContainer>
+          )}
           <StandardBtn
             onClick={openDeleteModal}
             $color="#BBC2C1"

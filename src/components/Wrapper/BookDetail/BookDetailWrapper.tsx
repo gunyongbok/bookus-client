@@ -106,7 +106,7 @@ const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
     <Wrapper>
       <BookThumbnail src={book?.thumbnail} />
       <BookDetailInfo>
-        <BookTitle>{book?.bookTitle}</BookTitle>
+        <BookTitle>{book?.bookTitle.slice(0, 35) + "..."}</BookTitle>
         <BookAuthor>{book?.author}</BookAuthor>
         <BookReportCount>
           <img src={report} /> 독서록 00개
