@@ -51,3 +51,8 @@ export interface IndividualBookReportProps {
   updatedAt: string;
   isOwner: boolean;
 }
+
+export interface BookStateSelectModalProps {
+  libraryId: string;
+  state: string;
+}

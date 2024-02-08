@@ -126,4 +126,5 @@ export const ShowNoBookSubTitle = styled.div`
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
+  white-space: pre-line;
 `;

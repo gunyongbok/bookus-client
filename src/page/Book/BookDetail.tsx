@@ -32,15 +32,22 @@ import DoubleDateController from "../../components/Input/BookDetail/DoubleDateCo
 import BookReportBox from "../../components/Wrapper/BookDetail/BookReportBox";
 
 // types
-import { BookInfoProps, BookReport } from "../../types/book";
+import {
+  BookInfoProps,
+  BookReport,
+  BookStateSelectModalProps,
+} from "../../types/book";
 
 // icons
 import NoBook from "../../assets/svg/BookDetail/NoBookReportIcon.svg";
 
-interface ModalProps {
-  libraryId: string;
-  state: string;
-}
+// Message
+import {
+  deleteBookBtnMsg,
+  noBookReportDetailMsg,
+  noBookReportMessage,
+  writeBookReport,
+} from "../../assets/text/message";
 
 const formatDate = (inputDate: string) => {
   const date = new Date(inputDate);
@@ -56,9 +63,8 @@ const BookDetail = () => {
   const { libraryId } = useParams<{ libraryId?: string }>();
   const [book, setBook] = useState<BookInfoProps | undefined>(undefined);
   const [readingStatus, setReadingStatus] = useState<string>("");
-  const [selectedBookState, setSelectedBookState] = useState<ModalProps | null>(
-    null
-  );
+  const [selectedBookState, setSelectedBookState] =
+    useState<BookStateSelectModalProps | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [bookReport, setBookReport] = useState<BookReport[]>([]);
@@ -175,16 +181,14 @@ const BookDetail = () => {
             $color="#83D0A1"
             $border="1.5px solid  #83D0A1"
           >
-            독서록 작성하기
+            {writeBookReport}
           </StandardBtn>
           {bookReport.length === 0 ? (
             <S.ShowNoBookReportContainer>
               <img src={NoBook} alt="nobook" />
-              <S.ShowNoBookTitle>작성한 독서록이 없습니다</S.ShowNoBookTitle>
+              <S.ShowNoBookTitle>{noBookReportMessage}</S.ShowNoBookTitle>
               <S.ShowNoBookSubTitle>
-                책을 읽고 독서록을 작성해주세요
-                <br />
-                해당 책에 대한 나의 기록들을 모아볼 수 있습니다.
+                {noBookReportDetailMsg}
               </S.ShowNoBookSubTitle>
             </S.ShowNoBookReportContainer>
           ) : (
@@ -220,7 +224,7 @@ const BookDetail = () => {
             $clickedBackground="#BBC2C1"
             $clickedColor="#fff"
           >
-            내 서재에서 삭제하기
+            {deleteBookBtnMsg}
           </StandardBtn>
         </S.BookReportsContainer>
         {isModalOpen && (

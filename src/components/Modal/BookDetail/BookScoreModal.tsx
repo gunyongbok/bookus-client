@@ -7,6 +7,7 @@ import yellowStar from "../../../assets/svg/BookDetail/yellowStar.svg";
 import grayStar from "../../../assets/svg/BookDetail/grayStar.svg";
 
 import enrollBookScore from "../../../Api/Book/enrollBookScore";
+import { getBookStarRatingMsg } from "../../../assets/text/message";
 
 const Overlay = styled.div`
   position: fixed;
@@ -57,6 +58,7 @@ const ModalContent = styled.div`
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
+  white-space: pre-line;
 `;
 
 const StarContainer = styled.div`
@@ -109,8 +111,8 @@ const BookScoreModal = ({ onClose, libraryId, onStarsChange }: ModalProps) => {
           </ModalHeaderContent>
           <ModalHeaderContent onClick={enrollScore}>완료</ModalHeaderContent>
         </ModalHeader>
-        <ModalContent>해당 책에 대한</ModalContent>
-        <ModalContent>나의 별점을 남겨주세요</ModalContent>
+        <ModalContent>{getBookStarRatingMsg}</ModalContent>
+
         <StarContainer>
           {[0, 1, 2, 3, 4].map((index) => (
             <img
