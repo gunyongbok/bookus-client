@@ -34,11 +34,18 @@ export interface BookReport {
   createdAt: string;
 }
 
-export interface FavoriteBookProps {
+export interface BookProps {
   id: string;
   thumbnail: string;
   title: string;
   authors: string[];
+}
+
+export interface MyBooksProps {
+  content: object[];
+  hasNext: boolean;
+  pageNumber: number;
+  size: number;
 }
 
 export interface IndividualBookReportProps {

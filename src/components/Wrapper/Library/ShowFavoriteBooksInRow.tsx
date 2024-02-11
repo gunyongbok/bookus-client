@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { FavoriteBookProps } from "../../../types/book";
+
 import { Link } from "react-router-dom";
+import { BookProps } from "../../../types/book";
 
 const BookBox = styled.div`
   width: 100%;
@@ -55,11 +56,7 @@ const EmptyBox = styled.div`
   background: #eff2f2;
 `;
 
-const ShowFavoriteBooksInRow = ({
-  favorite,
-}: {
-  favorite: FavoriteBookProps[];
-}) => {
+const ShowFavoriteBooksInRow = ({ favorite }: { favorite: BookProps[] }) => {
   console.log(favorite);
   const emptyBoxCount = 3 - (favorite?.length || 0);
 

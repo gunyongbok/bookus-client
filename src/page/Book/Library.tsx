@@ -22,7 +22,8 @@ import getFavoriteBooks from "../../Api/Book/library/getFavoriteBooks";
 import Navbar from "../../components/Navigation/Navbar";
 
 // Props
-import { FavoriteBookProps } from "../../types/book";
+import { BookProps, MyBooksProps } from "../../types/book";
+import getMyBooks from "../../Api/Book/library/getMyBooks";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -82,8 +83,27 @@ const BooksInMyLibrary = styled.div`
 const ArrangeController = styled.div`
   width: 100%;
   height: 14px;
-  margin: 26px 0 16px 0;
-  background-color: red;
+  margin: 26px 0 16px 3px;
+  display: flex;
+  gap: 10px;
+`;
+
+const ArrangeBox = styled.div`
+  width: fit-content;
+  color: #bbc2c1;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+`;
+
+const ArrangeUpdateBox = styled.div`
+  width: fit-content;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
 `;
 
 const StateControllerBox = styled.div`
@@ -91,7 +111,6 @@ const StateControllerBox = styled.div`
   display: flex;
   gap: 16px;
 `;
-
 const IndividualState = styled.div`
   width: fit-content;
   height: 34px;
@@ -107,12 +126,30 @@ const IndividualState = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    background: #83d0a1;
+    color: #fcfcff;
+  }
 `;
+
+const InfiniteScrollContainer = styled.div`
+  position: relative;
+  height: 100%; // or any desired height
+  overflow: auto;
+`;
+
+const stateArr = ["전체", "읽을 책", "읽는 책", "다 읽은 책"];
 
 const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
-  const [favorite, setFavorite] = useState<FavoriteBookProps[]>([]);
+  const [favorite, setFavorite] = useState<BookProps[]>([]);
+  const [books, setBooks] = useState<MyBooksProps[]>([]);
+  const [myBooks, setMyBooks] = useState<BookProps[]>([]);
+  const [bookState, setBookState] = useState<string>(stateArr[0]);
+  const [pageNumber, setPageNumber] = useState<number>(0);
 
   // 서재 및 독서록 선택 바
   const handleLibraryController = () => {
@@ -135,9 +172,28 @@ const Library = () => {
     }
   };
 
+  const getBooks = async () => {
+    try {
+      const result = await getMyBooks({ pageNumber: String(pageNumber) });
+      console.log(result);
+      setBooks(result);
+      setMyBooks((prev) => [...prev, ...result.content]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleBookState = (state: string) => {
+    setBookState(state);
+  };
+
+  console.log(myBooks);
+  console.log(books);
+
   useEffect(() => {
     getFavoriteBookData();
-  }, []);
+    getBooks();
+  }, [pageNumber]);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -166,15 +222,22 @@ const Library = () => {
         <BooksInMyLibrary>
           <LibraryTitle text="나는 북커스 님의 서재" />
           <StateControllerBox>
-            <IndividualState>전체</IndividualState>
-            <IndividualState>읽을 책</IndividualState>
-            <IndividualState>읽는 책</IndividualState>
-            <IndividualState>읽은 책</IndividualState>
+            {stateArr.map((state, index) => (
+              <IndividualState
+                key={index}
+                onClick={() => handleBookState(state)}
+              >
+                {state}
+              </IndividualState>
+            ))}
           </StateControllerBox>
-          <ArrangeController />
-          {/* <ShowThreeBookInRow />
-          <ShowThreeBookInRow />
-          <ShowThreeBookInRow /> */}
+          <ArrangeController>
+            <ArrangeBox>정렬</ArrangeBox>
+            <ArrangeUpdateBox>업데이트순</ArrangeUpdateBox>
+          </ArrangeController>
+          <InfiniteScrollContainer>
+            <ShowFavoriteBooksInRow favorite={myBooks} />
+          </InfiniteScrollContainer>
         </BooksInMyLibrary>
       </LibraryContainer>
       <Navbar />
