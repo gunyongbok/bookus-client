@@ -10,7 +10,7 @@ const getFavoriteBooks = async () => {
       `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/libraries/favorite`,
       { headers }
     );
-    console.log(response);
+
     return response.data.data;
   } catch (err) {
     console.log("Err >>", err);

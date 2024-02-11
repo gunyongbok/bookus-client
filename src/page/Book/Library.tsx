@@ -24,6 +24,7 @@ import Navbar from "../../components/Navigation/Navbar";
 // Props
 import { BookProps, MyBooksProps } from "../../types/book";
 import getMyBooks from "../../Api/Book/library/getMyBooks";
+import _debounce from "lodash/debounce";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -111,7 +112,7 @@ const StateControllerBox = styled.div`
   display: flex;
   gap: 16px;
 `;
-const IndividualState = styled.div`
+const IndividualState = styled.div<{ $isActive: boolean }>`
   width: fit-content;
   height: 34px;
   padding: 8px 16px;
@@ -120,8 +121,8 @@ const IndividualState = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: #e9f6ee;
-  color: #4ca771;
+  background: ${(props) => (props.$isActive ? "#83d0a1" : "#e9f6ee")};
+  color: ${(props) => (props.$isActive ? "#fcfcff" : "#4ca771")};
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
@@ -135,8 +136,6 @@ const IndividualState = styled.div`
 `;
 
 const InfiniteScrollContainer = styled.div`
-  height: 100%; // or any desired height
-  overflow: auto;
   display: flex;
   flex-direction: column;
 `;
@@ -147,9 +146,10 @@ const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
   const [favoriteBooks, setFavoriteBooks] = useState<BookProps[]>([]);
-  const [books, setBooks] = useState<MyBooksProps[]>([]);
+  const [books, setBooks] = useState<MyBooksProps>();
   const [myBooks, setMyBooks] = useState<BookProps[]>([]);
   const [bookState, setBookState] = useState<string>(stateArr[0]);
+  const [activeStateIndex, setActiveStateIndex] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   // 서재 및 독서록 선택 바
@@ -184,22 +184,40 @@ const Library = () => {
     }
   };
 
-  const handleBookState = (state: string) => {
-    setBookState(state);
+  const handleBookState = (index: number) => {
+    setBookState(stateArr[index]);
+    setActiveStateIndex(index);
   };
 
-  console.log(myBooks);
-  console.log(books);
+  const handleScroll = _debounce(() => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+      if (books?.hasNext) {
+        setPageNumber((prev) => prev + 1);
+      }
+    }
+  }, 100);
 
   useEffect(() => {
     getFavoriteBookData();
     getBooks();
   }, [pageNumber]);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    console.log("updating");
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [books?.hasNext]);
+
+  console.log(bookState);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
-      <LibraryContainer>
+      <LibraryContainer onScroll={handleScroll}>
         <LibraryCotroller>
           <LibraryController
             $clicked={libraryClicked}
@@ -226,7 +244,8 @@ const Library = () => {
             {stateArr.map((state, index) => (
               <IndividualState
                 key={index}
-                onClick={() => handleBookState(state)}
+                onClick={() => handleBookState(index)}
+                $isActive={index === activeStateIndex}
               >
                 {state}
               </IndividualState>
