@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { BookProps } from "../../../types/book";
 
 const BookBox = styled.div`
-  width: 100%;
+  max-width: 100%;
   display: flex;
-  height: 180px;
+  flex-wrap: wrap;
   gap: 28px;
   margin-bottom: 32px;
 `;
@@ -51,18 +51,18 @@ const StyledLink = styled(Link)`
 `;
 
 const EmptyBox = styled.div`
-  width: 100%;
+  width: 95px;
   height: 142px;
   background: #eff2f2;
 `;
 
-const ShowFavoriteBooksInRow = ({ favorite }: { favorite: BookProps[] }) => {
-  console.log(favorite);
-  const emptyBoxCount = 3 - (favorite?.length || 0);
+const ShowBooksInRow = ({ books }: { books: BookProps[] }) => {
+  const maxBooksPerRow = 3;
+  const emptyBoxCount = maxBooksPerRow - (books?.length % maxBooksPerRow || 0);
 
   return (
     <BookBox>
-      {favorite?.map((book) => (
+      {books?.map((book) => (
         <StyledLink key={book.id} to={`/bookdetail/${book.id}`}>
           <Book>
             <BookThumbnail src={book.thumbnail} />
@@ -75,11 +75,13 @@ const ShowFavoriteBooksInRow = ({ favorite }: { favorite: BookProps[] }) => {
           </Book>
         </StyledLink>
       ))}
-      {[...Array(emptyBoxCount)].map((_, index) => (
-        <EmptyBox key={`empty-${index}`} />
-      ))}
+      {emptyBoxCount % 3 === 0
+        ? null
+        : [...Array(emptyBoxCount)].map((_, index) => (
+            <EmptyBox key={`empty-${index}`} />
+          ))}
     </BookBox>
   );
 };
 
-export default ShowFavoriteBooksInRow;
+export default ShowBooksInRow;

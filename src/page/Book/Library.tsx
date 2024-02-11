@@ -13,7 +13,7 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 import LibraryTitle from "../../components/Title/LibraryTitle";
 
 // Books
-import ShowFavoriteBooksInRow from "../../components/Wrapper/Library/ShowFavoriteBooksInRow";
+import ShowBooksInRow from "../../components/Wrapper/Library/ShowBooksInRow";
 
 // Api
 import getFavoriteBooks from "../../Api/Book/library/getFavoriteBooks";
@@ -135,9 +135,10 @@ const IndividualState = styled.div`
 `;
 
 const InfiniteScrollContainer = styled.div`
-  position: relative;
   height: 100%; // or any desired height
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const stateArr = ["전체", "읽을 책", "읽는 책", "다 읽은 책"];
@@ -145,7 +146,7 @@ const stateArr = ["전체", "읽을 책", "읽는 책", "다 읽은 책"];
 const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
-  const [favorite, setFavorite] = useState<BookProps[]>([]);
+  const [favoriteBooks, setFavoriteBooks] = useState<BookProps[]>([]);
   const [books, setBooks] = useState<MyBooksProps[]>([]);
   const [myBooks, setMyBooks] = useState<BookProps[]>([]);
   const [bookState, setBookState] = useState<string>(stateArr[0]);
@@ -166,7 +167,7 @@ const Library = () => {
   const getFavoriteBookData = async () => {
     try {
       const result = await getFavoriteBooks();
-      setFavorite(result);
+      setFavoriteBooks(result);
     } catch (error) {
       console.log(error);
     }
@@ -213,10 +214,10 @@ const Library = () => {
             독서록
           </LibraryController>
         </LibraryCotroller>
-        {favorite.length === 0 ? null : (
+        {favoriteBooks.length === 0 ? null : (
           <FavoriteBookContainer>
             <LibraryTitle text="나는 북커스 님의 인생책" />
-            <ShowFavoriteBooksInRow favorite={favorite} />
+            <ShowBooksInRow books={favoriteBooks} />
           </FavoriteBookContainer>
         )}
         <BooksInMyLibrary>
@@ -236,7 +237,7 @@ const Library = () => {
             <ArrangeUpdateBox>업데이트순</ArrangeUpdateBox>
           </ArrangeController>
           <InfiniteScrollContainer>
-            <ShowFavoriteBooksInRow favorite={myBooks} />
+            <ShowBooksInRow books={myBooks} />
           </InfiniteScrollContainer>
         </BooksInMyLibrary>
       </LibraryContainer>

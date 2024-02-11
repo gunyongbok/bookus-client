@@ -8,7 +8,7 @@ interface Props {
 const buildBooksApiUrl = ({ pageNumber, readingStatus }: Props) => {
   let url = `${
     import.meta.env.VITE_APP_DEFAULT_SERVER_URL
-  }/libraries/my/books?sort=CREATED_AT&page=${pageNumber}&size=3`;
+  }/libraries/my/books?sort=CREATED_AT&page=${pageNumber}&size=6`;
 
   if (readingStatus) {
     url += `&readingStatus=${readingStatus}`;
