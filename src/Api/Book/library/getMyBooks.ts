@@ -13,6 +13,7 @@ const buildBooksApiUrl = ({ pageNumber, readingStatus }: Props) => {
   if (readingStatus) {
     url += `&readingStatus=${readingStatus}`;
   }
+  console.log(url);
 
   return url;
 };

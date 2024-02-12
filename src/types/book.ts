@@ -35,7 +35,7 @@ export interface BookReport {
 }
 
 export interface BookProps {
-  id: string;
+  id: number;
   thumbnail: string;
   title: string;
   authors: string[];

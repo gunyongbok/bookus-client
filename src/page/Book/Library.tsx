@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 // Container
@@ -124,7 +124,7 @@ const IndividualState = styled.div<{ $isActive: boolean }>`
   background: ${(props) => (props.$isActive ? "#83d0a1" : "#e9f6ee")};
   color: ${(props) => (props.$isActive ? "#fcfcff" : "#4ca771")};
   font-family: Pretendard;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 500;
   cursor: pointer;
@@ -140,17 +140,36 @@ const InfiniteScrollContainer = styled.div`
   flex-direction: column;
 `;
 
-const stateArr = ["전체", "읽을 책", "읽는 책", "다 읽은 책"];
+const stateViewArr = ["전체", "읽을 책", "읽고 있는 책", "다 읽은 책"];
+const stateServerArr = ["", "READY_TO_READ", "READING", "ALREADY_READ"];
+
+const removeDuplicateById = (booksArray: BookProps[]): BookProps[] => {
+  const uniqueIds = new Set<number>();
+  return booksArray.filter((book) => {
+    if (!uniqueIds.has(book.id)) {
+      uniqueIds.add(book.id);
+      return true;
+    }
+    return false;
+  });
+};
 
 const Library = () => {
   const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
   const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
   const [favoriteBooks, setFavoriteBooks] = useState<BookProps[]>([]);
+
   const [books, setBooks] = useState<MyBooksProps>();
   const [myBooks, setMyBooks] = useState<BookProps[]>([]);
-  const [bookState, setBookState] = useState<string>(stateArr[0]);
+  const [bookState, setBookState] = useState<string>(stateViewArr[0]);
+  const [bookServerState, setBookServerState] = useState<string>(
+    stateServerArr[0]
+  );
+
   const [activeStateIndex, setActiveStateIndex] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(0);
+
+  const filteredMyBooks = removeDuplicateById(myBooks);
 
   // 서재 및 독서록 선택 바
   const handleLibraryController = () => {
@@ -175,7 +194,10 @@ const Library = () => {
 
   const getBooks = async () => {
     try {
-      const result = await getMyBooks({ pageNumber: String(pageNumber) });
+      const result = await getMyBooks({
+        pageNumber: String(pageNumber),
+        readingStatus: bookServerState,
+      });
       console.log(result);
       setBooks(result);
       setMyBooks((prev) => [...prev, ...result.content]);
@@ -184,9 +206,27 @@ const Library = () => {
     }
   };
 
+  console.log(bookState, bookServerState);
+
   const handleBookState = (index: number) => {
-    setBookState(stateArr[index]);
+    setBookState(stateViewArr[index]);
+    setBookServerState(stateServerArr[index]);
     setActiveStateIndex(index);
+    setPageNumber(0);
+  };
+
+  const getBooksWhenBookStateChanged = async () => {
+    try {
+      const result = await getMyBooks({
+        pageNumber: String(pageNumber),
+        readingStatus: bookServerState,
+      });
+      console.log(result);
+      setBooks(result);
+      setMyBooks(result?.content);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleScroll = _debounce(() => {
@@ -199,20 +239,35 @@ const Library = () => {
     }
   }, 100);
 
+  const isInitialRender = useRef(false);
+
   useEffect(() => {
     getFavoriteBookData();
-    getBooks();
+  }, []);
+
+  useEffect(() => {
+    if (isInitialRender.current) {
+      getBooksWhenBookStateChanged();
+    } else {
+      isInitialRender.current = true;
+    }
+  }, [bookState, bookServerState, activeStateIndex]);
+
+  useEffect(() => {
+    if (isInitialRender.current) {
+      getBooks();
+    } else {
+      isInitialRender.current = true;
+    }
   }, [pageNumber]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    console.log("updating");
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [books?.hasNext]);
-
-  console.log(bookState);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -241,7 +296,7 @@ const Library = () => {
         <BooksInMyLibrary>
           <LibraryTitle text="나는 북커스 님의 서재" />
           <StateControllerBox>
-            {stateArr.map((state, index) => (
+            {stateViewArr.map((state, index) => (
               <IndividualState
                 key={index}
                 onClick={() => handleBookState(index)}
@@ -256,7 +311,7 @@ const Library = () => {
             <ArrangeUpdateBox>업데이트순</ArrangeUpdateBox>
           </ArrangeController>
           <InfiniteScrollContainer>
-            <ShowBooksInRow books={myBooks} />
+            <ShowBooksInRow books={filteredMyBooks} />
           </InfiniteScrollContainer>
         </BooksInMyLibrary>
       </LibraryContainer>
