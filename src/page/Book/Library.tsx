@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import _debounce from "lodash/debounce";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -17,14 +18,14 @@ import ShowBooksInRow from "../../components/Wrapper/Library/ShowBooksInRow";
 
 // Api
 import getFavoriteBooks from "../../Api/Book/library/getFavoriteBooks";
+import getMyBooks from "../../Api/Book/library/getMyBooks";
 
 // Navbar
 import Navbar from "../../components/Navigation/Navbar";
 
 // Props
 import { BookProps, MyBooksProps } from "../../types/book";
-import getMyBooks from "../../Api/Book/library/getMyBooks";
-import _debounce from "lodash/debounce";
+import SelectBookState from "../../components/Wrapper/Library/SelectBookState";
 
 const LibraryContainer = styled.div`
   width: 100%;
@@ -40,14 +41,13 @@ const LibraryContainer = styled.div`
   }
 `;
 
-const LibraryCotroller = styled.div`
+const LibraryBox = styled.div`
   width: 100%;
-  height: 44px;
+  min-height: 44px;
   display: flex;
   margin-bottom: 32px;
   position: sticky;
   top: 0;
-
   background-color: #fcfcff;
 `;
 
@@ -112,28 +112,6 @@ const StateControllerBox = styled.div`
   display: flex;
   gap: 16px;
 `;
-const IndividualState = styled.div<{ $isActive: boolean }>`
-  width: fit-content;
-  height: 34px;
-  padding: 8px 16px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  background: ${(props) => (props.$isActive ? "#83d0a1" : "#e9f6ee")};
-  color: ${(props) => (props.$isActive ? "#fcfcff" : "#4ca771")};
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  cursor: pointer;
-
-  &:hover {
-    background: #83d0a1;
-    color: #fcfcff;
-  }
-`;
 
 const InfiniteScrollContainer = styled.div`
   display: flex;
@@ -181,6 +159,8 @@ const Library = () => {
     setBookReportClicked((prev) => !prev);
     setLibraryClicked((prev) => !prev);
   };
+
+  console.log(libraryClicked, bookReportClicked);
 
   // 인생 책 조회
   const getFavoriteBookData = async () => {
@@ -273,7 +253,7 @@ const Library = () => {
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <LibraryContainer onScroll={handleScroll}>
-        <LibraryCotroller>
+        <LibraryBox>
           <LibraryController
             $clicked={libraryClicked}
             onClick={handleLibraryController}
@@ -286,34 +266,57 @@ const Library = () => {
           >
             독서록
           </LibraryController>
-        </LibraryCotroller>
-        {favoriteBooks.length === 0 ? null : (
-          <FavoriteBookContainer>
-            <LibraryTitle text="나는 북커스 님의 인생책" />
-            <ShowBooksInRow books={favoriteBooks} />
-          </FavoriteBookContainer>
+        </LibraryBox>
+        {libraryClicked ? (
+          <BooksInMyLibrary>
+            <LibraryTitle text="나는 북커스 님의 서재" />
+            <StateControllerBox>
+              {stateViewArr.map((state, index) => (
+                <SelectBookState
+                  key={index}
+                  onClick={() => handleBookState(index)}
+                  isActive={index === activeStateIndex}
+                >
+                  {state}
+                </SelectBookState>
+              ))}
+            </StateControllerBox>
+            <ArrangeController>
+              <ArrangeBox>정렬</ArrangeBox>
+              <ArrangeUpdateBox>업데이트순</ArrangeUpdateBox>
+            </ArrangeController>
+          </BooksInMyLibrary>
+        ) : (
+          <>
+            {favoriteBooks.length === 0 ? null : (
+              <FavoriteBookContainer>
+                <LibraryTitle text="나는 북커스 님의 인생책" />
+                <ShowBooksInRow books={favoriteBooks} />
+              </FavoriteBookContainer>
+            )}
+            <BooksInMyLibrary>
+              <LibraryTitle text="나는 북커스 님의 서재" />
+              <StateControllerBox>
+                {stateViewArr.map((state, index) => (
+                  <SelectBookState
+                    key={index}
+                    onClick={() => handleBookState(index)}
+                    isActive={index === activeStateIndex}
+                  >
+                    {state}
+                  </SelectBookState>
+                ))}
+              </StateControllerBox>
+              <ArrangeController>
+                <ArrangeBox>정렬</ArrangeBox>
+                <ArrangeUpdateBox>업데이트순</ArrangeUpdateBox>
+              </ArrangeController>
+              <InfiniteScrollContainer>
+                <ShowBooksInRow books={filteredMyBooks} />
+              </InfiniteScrollContainer>
+            </BooksInMyLibrary>
+          </>
         )}
-        <BooksInMyLibrary>
-          <LibraryTitle text="나는 북커스 님의 서재" />
-          <StateControllerBox>
-            {stateViewArr.map((state, index) => (
-              <IndividualState
-                key={index}
-                onClick={() => handleBookState(index)}
-                $isActive={index === activeStateIndex}
-              >
-                {state}
-              </IndividualState>
-            ))}
-          </StateControllerBox>
-          <ArrangeController>
-            <ArrangeBox>정렬</ArrangeBox>
-            <ArrangeUpdateBox>업데이트순</ArrangeUpdateBox>
-          </ArrangeController>
-          <InfiniteScrollContainer>
-            <ShowBooksInRow books={filteredMyBooks} />
-          </InfiniteScrollContainer>
-        </BooksInMyLibrary>
       </LibraryContainer>
       <Navbar />
     </TopContainer>
