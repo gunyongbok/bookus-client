@@ -48,6 +48,15 @@ export interface MyBooksProps {
   size: number;
 }
 
+export interface MyBookReportProps {
+  id: number;
+  bookTitle: string;
+  thumbnail: string;
+  createdAt: string;
+  title: string;
+  contents: string;
+}
+
 export interface IndividualBookReportProps {
   id: number;
   bookTitle: string;

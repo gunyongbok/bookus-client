@@ -8,7 +8,7 @@ interface Props {
 const buildBooksApiUrl = ({ pageNumber, readingStatus }: Props) => {
   let url = `${
     import.meta.env.VITE_APP_DEFAULT_SERVER_URL
-  }/libraries/my/books?sort=CREATED_AT&page=${pageNumber}&size=6`;
+  }/book-reports/my?sort=CREATED_AT&page=${pageNumber}&size=6`;
 
   if (readingStatus) {
     url += `&readingStatus=${readingStatus}`;
@@ -17,7 +17,7 @@ const buildBooksApiUrl = ({ pageNumber, readingStatus }: Props) => {
   return url;
 };
 
-const getMyBooks = async ({ pageNumber, readingStatus }: Props) => {
+const getMyBookReports = async ({ pageNumber, readingStatus }: Props) => {
   const accessTokenHeader = localStorage.getItem("accessToken");
   const headers = {
     "Access-token": `${accessTokenHeader}`,
@@ -34,4 +34,4 @@ const getMyBooks = async ({ pageNumber, readingStatus }: Props) => {
   }
 };
 
-export default getMyBooks;
+export default getMyBookReports;
