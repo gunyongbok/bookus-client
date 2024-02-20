@@ -4,6 +4,7 @@ import report from "../../../assets/svg/BookInfo/BookReport.svg";
 import emptyStar from "../../../assets/svg/BookDetail/emptyStar.svg";
 import fullStar from "../../../assets/svg/BookDetail/fullStar.svg";
 import { useNavigate } from "react-router-dom";
+import { BookInfoProps } from "../../../types/book";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -74,21 +75,13 @@ const BookInfoBtn = styled.button`
   bottom: 0;
 `;
 
-interface BookProps {
-  libraryId: number;
-  bookTitle: string;
-  author: string[];
-  bookId: number;
-  isbn: string;
-  readingStatus: string;
-  rating: number;
-  startReadingAt: string;
-  endReadingAt: string;
-  staticsRating: number;
-  thumbnail: string;
-}
-
-const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
+const BookDetailWrapper = ({
+  book,
+  count,
+}: {
+  book?: BookInfoProps;
+  count: number;
+}) => {
   const navigate = useNavigate();
 
   const stars =
@@ -109,7 +102,7 @@ const BookDetailWrapper = ({ book }: { book?: BookProps }) => {
         <BookTitle>{book?.bookTitle.slice(0, 35) + "..."}</BookTitle>
         <BookAuthor>{book?.author}</BookAuthor>
         <BookReportCount>
-          <img src={report} /> 독서록 00개
+          <img src={report} /> 독서록 {count}개
         </BookReportCount>
         <BookRating>{stars}</BookRating>
         <BookInfoBtn onClick={() => navigate(-1)}>

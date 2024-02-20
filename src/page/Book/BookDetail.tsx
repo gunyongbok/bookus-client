@@ -71,6 +71,7 @@ const BookDetail = () => {
 
   const evenBookReports = bookReport.filter((_, index) => index % 2 === 0);
   const oddBookReports = bookReport.filter((_, index) => index % 2 !== 0);
+  const bookReportCount = bookReport.length;
 
   const getBookInfo = async () => {
     try {
@@ -142,7 +143,7 @@ const BookDetail = () => {
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <S.MainContent>
-        <BookDetailWrapper book={book} />
+        <BookDetailWrapper count={bookReportCount} book={book} />
         <S.BookStateWrapper>
           {bookState.map((state, index) => (
             <S.BookStateBox
