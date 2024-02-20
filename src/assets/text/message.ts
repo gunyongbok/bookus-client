@@ -1,4 +1,4 @@
-export const startWithKakaoAccount: string = "카카오 계쩡으로 시작하기";
+export const startWithKakaoAccount: string = "카카오 계정으로 시작하기";
 
 export const agreeMessage: string =
   "가입 시 BOOKUS의 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.";

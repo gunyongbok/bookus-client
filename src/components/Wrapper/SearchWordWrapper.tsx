@@ -57,7 +57,14 @@ const SearchWordWrapper = () => {
       <SearchWordTitle>인기 검색어 🍏</SearchWordTitle>
       <SearchWordBox>
         {searchData.map((item, index) => (
-          <SearchWordDetail key={index}>{item?.bookTitle}</SearchWordDetail>
+          <SearchWordDetail
+            onClick={() => {
+              console.log(item.bookTitle);
+            }}
+            key={index}
+          >
+            {item?.bookTitle}
+          </SearchWordDetail>
         ))}
       </SearchWordBox>
     </Wrapper>

@@ -5,15 +5,20 @@ import deleteBookReport from "../../../Api/Book/report/deleteBookReport";
 interface ModalProps {
   onClose: () => void;
   reportId: string | undefined;
+  libraryId: string;
 }
 
-const BookReportDeleteModal = ({ onClose, reportId }: ModalProps) => {
+const BookReportDeleteModal = ({
+  libraryId,
+  onClose,
+  reportId,
+}: ModalProps) => {
   const navigate = useNavigate();
 
   const deleteReport = () => {
     deleteBookReport(reportId);
     onClose();
-    navigate(`/main`);
+    navigate(`/bookdetail/${libraryId}`);
   };
 
   return (

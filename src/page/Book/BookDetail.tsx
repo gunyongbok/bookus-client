@@ -121,7 +121,11 @@ const BookDetail = () => {
   };
 
   const navigateToReportViewPage = (bookReportId: number) => {
-    navigate(`/bookreportview/${bookReportId}`);
+    navigate(`/bookreportview/${bookReportId}`, {
+      state: {
+        libraryId: libraryId,
+      },
+    });
   };
 
   useEffect(() => {

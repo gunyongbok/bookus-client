@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -98,6 +98,7 @@ const ButtonContainer = styled.div`
 
 const BookReport = () => {
   const { libraryId } = useParams<{ libraryId?: string }>();
+  const navigate = useNavigate();
   const [book, setBook] = useState<BookInfoProps | undefined>(undefined);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -128,6 +129,7 @@ const BookReport = () => {
         title: title,
         contents: content,
       });
+      navigate(`/bookdetail/${libraryId}`);
     }
   };
 
@@ -160,6 +162,9 @@ const BookReport = () => {
             $border="1.5px solid  #BBC2C1"
             $clickedBackground="#BBC2C1"
             $clickedColor="#fff"
+            onClick={() => {
+              navigate(`/bookdetail/${libraryId}`);
+            }}
           >
             취소
           </StandardBtn>

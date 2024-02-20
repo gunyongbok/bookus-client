@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -98,6 +98,7 @@ const ButtonContainer = styled.div`
 
 const BookReportEdit = () => {
   const { reportId } = useParams();
+  const navigate = useNavigate();
   const [report, setReport] = useState<IndividualBookReportProps>();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -122,10 +123,15 @@ const BookReportEdit = () => {
 
   const openUploadModal = () => {
     setUploadModalOpen(true);
+    navigateToBookReportView();
   };
 
   const closeUploadModal = () => {
     setUploadModalOpen(false);
+  };
+
+  const navigateToBookReportView = () => {
+    navigate(`/bookreportview/${reportId}`);
   };
 
   const body = { title: title, contents: content };
@@ -161,6 +167,7 @@ const BookReportEdit = () => {
             $border="1.5px solid  #BBC2C1"
             $clickedBackground="#BBC2C1"
             $clickedColor="#fff"
+            onClick={navigateToBookReportView}
           >
             취소
           </StandardBtn>

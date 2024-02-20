@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -124,9 +124,12 @@ const ContentBox = styled.div`
 
 const BookReportView = () => {
   const { reportId } = useParams();
+  const location = useLocation();
   const [report, setReport] = useState<IndividualBookReportProps>();
   const [delModalOpen, setDelModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+
+  const libraryId = location?.state?.libraryId;
 
   const getBookReport = async () => {
     try {
@@ -184,7 +187,11 @@ const BookReportView = () => {
         <BookReportEditModal onClose={closeEditModal} reportId={reportId} />
       )}
       {delModalOpen && (
-        <BookReportDeleteModal onClose={closeDelModal} reportId={reportId} />
+        <BookReportDeleteModal
+          libraryId={libraryId}
+          onClose={closeDelModal}
+          reportId={reportId}
+        />
       )}
     </TopContainer>
   );
