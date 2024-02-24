@@ -18,6 +18,7 @@ import SearchResultWrapper from "../../components/Wrapper/SearchResultWrapper";
 
 // types
 import { BookResults } from "../../types/book";
+import Navbar from "../../components/Navigation/Navbar";
 
 const BookSearch = () => {
   const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
@@ -50,6 +51,7 @@ const BookSearch = () => {
           )}
         </S.SearchResultContainer>
       </S.BookSearchContainer>
+      <Navbar />
     </TopContainer>
   );
 };

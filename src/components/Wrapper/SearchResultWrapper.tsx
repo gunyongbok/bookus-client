@@ -15,7 +15,7 @@ import getBookStatistic from "../../Api/Search/getBookStatistic";
 
 const Ul = styled.ul`
   width: 100%;
-  height: 610px;
+  height: 550px;
   overflow: auto;
   margin: 0;
   padding: 0;

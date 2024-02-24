@@ -72,3 +72,17 @@ export interface BookStateSelectModalProps {
   libraryId: string;
   state: string;
 }
+
+export interface FiveFavoriteProps {
+  bookId: number;
+  imageUrl: string;
+  isbn: string;
+}
+
+export interface HighRatingBookProps {
+  isbn: string;
+  title: string;
+  authors: string[];
+  thumbnail: string;
+  rating: number;
+}

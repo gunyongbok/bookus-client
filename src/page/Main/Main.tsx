@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -7,14 +8,26 @@ import TopContainer from "../../components/Wrapper/TopContainer";
 import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
+
+// Api
 import getTopFiveFavoriteBooks from "../../Api/Book/Main/getTopFiveFavoriteBooks";
-import { useEffect, useState } from "react";
+import getHighRatingBooks from "../../Api/Book/Main/getHighRatingBooks";
+
+// Navbar
 import Navbar from "../../components/Navigation/Navbar";
+
+// Props
+import { FiveFavoriteProps, HighRatingBookProps } from "../../types/book";
+
+// svg
+import threeStar from "../../assets/svg/Main/threeStar.svg";
+import fourStar from "../../assets/svg/Main/fourStar.svg";
+import fiveStar from "../../assets/svg/Main/fiveStar.svg";
 
 export const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
-  height: 720px;
+  max-height: 630px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -22,7 +35,7 @@ export const MainContent = styled.div`
   top: 11%;
   overflow: auto;
   @media (max-width: 599px) {
-    height: 80%;
+    max-height: 70%;
   }
 `;
 
@@ -30,7 +43,7 @@ const TopFiveBookContainer = styled.div`
   width: 100%;
   height: 485px;
   gap: 20px;
-
+  margin-bottom: 35px;
   display: flex;
   flex-direction: column;
 `;
@@ -49,6 +62,12 @@ const TopFiveBookImgBox = styled.div`
   display: flex;
   gap: 24px;
   overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const TopFiveBookImg = styled.img`
@@ -57,19 +76,13 @@ const TopFiveBookImg = styled.img`
   border-radius: 20px;
 `;
 
-interface FiveFavoriteProps {
-  bookId: number;
-  imageUrl: string;
-  isbn: string;
-}
-
 const CategoryContainer = styled.div`
   width: 100%;
   height: 190px;
-
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 20px;
 `;
 
 const CategoryBox = styled.div`
@@ -79,6 +92,12 @@ const CategoryBox = styled.div`
   gap: 20px;
   overflow-x: auto;
   white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Category = styled.div`
@@ -104,8 +123,107 @@ const Category = styled.div`
   }
 `;
 
+const HighRatingBookContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const HighRatingBoxWrapper = styled.div`
+  min-width: 100%;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const HighRatingBookBox = styled.div`
+  flex: 0 0 350px;
+  height: 165px;
+  border-radius: 8px;
+  background: #83d0a1;
+  padding: 16px 20px 16px 20px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`;
+
+const RatingImg = styled.img`
+  width: 90px;
+  height: 133px;
+  border-radius: 5px;
+`;
+
+const RatingBookInfoBox = styled.div`
+  width: 210px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 10px 0;
+  box-sizing: border-box;
+`;
+
+const TitleAndAuthorBox = styled.div`
+  width: 210px;
+  height: fit-content;
+  margin-bottom: 37px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`;
+
+const Title = styled.div`
+  width: 100%;
+  height: 17px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+`;
+
+const Author = styled.div`
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+`;
+
+const RatingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 2px;
+`;
+
+const Rating = styled.div`
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+`;
+
+const RatingStar = styled.img``;
+
 const Main = () => {
   const [favorite, setFavorite] = useState<FiveFavoriteProps[]>([]);
+  const [highRating, setHighRating] = useState<HighRatingBookProps[]>([]);
+
   const category = [
     "자기개발",
     "인문학",
@@ -117,7 +235,7 @@ const Main = () => {
     "역사/교육",
   ];
 
-  const getFavoirteBooks = async () => {
+  const handleFavoirteBooks = async () => {
     try {
       const result = await getTopFiveFavoriteBooks();
       setFavorite(result);
@@ -127,8 +245,19 @@ const Main = () => {
     }
   };
 
+  const handleHighRatingBooks = async () => {
+    try {
+      const result = await getHighRatingBooks();
+      setHighRating(result);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    getFavoirteBooks();
+    handleFavoirteBooks();
+    handleHighRatingBooks();
   }, []);
 
   return (
@@ -151,6 +280,35 @@ const Main = () => {
             ))}
           </CategoryBox>
         </CategoryContainer>
+        <HighRatingBookContainer>
+          <TitleBox>🌿 별점 높은 책</TitleBox>
+          <HighRatingBoxWrapper>
+            {highRating?.map((rating) => (
+              <HighRatingBookBox key={rating?.isbn}>
+                <RatingImg src={rating.thumbnail} />
+                <RatingBookInfoBox>
+                  <TitleAndAuthorBox>
+                    <Title>{rating.title}</Title>
+                    <Author>{rating.authors}</Author>
+                  </TitleAndAuthorBox>
+                  <RatingBox>
+                    <Rating>{rating.rating}</Rating>
+                    <RatingStar
+                      src={
+                        rating.rating === 3
+                          ? threeStar
+                          : rating.rating === 4
+                          ? fourStar
+                          : fiveStar
+                      }
+                      alt={`${rating.rating}-star`}
+                    />
+                  </RatingBox>
+                </RatingBookInfoBox>
+              </HighRatingBookBox>
+            ))}
+          </HighRatingBoxWrapper>
+        </HighRatingBookContainer>
       </MainContent>
       <Navbar />
     </TopContainer>
