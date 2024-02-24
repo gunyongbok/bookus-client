@@ -26,3 +26,9 @@ export const deleteBookBtnMsg: string = "내 서재에서 삭제하기";
 
 export const getBookStarRatingMsg: string =
   "해당 책에 대한\n나의 별점을 남겨주세요";
+
+export const TopFiveBookTitle: string = "🍀 현재 인기 순위 TOP 5";
+
+export const Categoty: string = "🌱 카테고리";
+
+export const TopRatingBookTitle: string = "🌿 별점 높은 책";
