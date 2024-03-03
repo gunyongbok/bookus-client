@@ -1,3 +1,6 @@
-export const handleLogin = () => {
-  window.location.href = import.meta.env.VITE_APP_KAKAO_AUTH_URL;
+import getRedirectUrl from "../Api/Login/getRedirectUrl";
+
+export const handleLogin = async () => {
+  const kakaoAuthUrl = await getRedirectUrl();
+  window.location.href = kakaoAuthUrl;
 };
