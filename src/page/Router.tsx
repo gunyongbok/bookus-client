@@ -1,5 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 
+// Root
+import RootPage from "./Login/RootPage";
+
 // Login , Wtihdraw
 import Login from "./Login/Login";
 import Withdraw from "./Login/Withdraw";
@@ -30,6 +33,7 @@ const Router = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<RootPage />} />
         <Route path="login" element={<Login />} />
         <Route path="service/agree" element={<ServiceAgree />} />
         <Route path="service/nickname" element={<ServiceName />} />
