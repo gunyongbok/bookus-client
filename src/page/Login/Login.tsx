@@ -15,8 +15,13 @@ import KakaoLoginBtn from "../../components/Button/KakaoLoginBtn";
 
 // util
 import { handleLogin } from "../../utils/handleLogin";
+// import { useEffect } from "react";
+// import validateToken from "../../Api/token/validateToken";
 
 const Login = () => {
+  // useEffect(() => {
+  //   validateToken();
+  // }, []);
   return (
     <TopContainer>
       <LoginTitle />

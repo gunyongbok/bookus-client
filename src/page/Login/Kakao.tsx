@@ -22,11 +22,12 @@ const Kakao = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      console.log;
+      console.log(data.isNewMemebr);
       if (data.isNewMember) {
         navigate("/service/agree");
+      } else {
+        navigate("/main");
       }
-      navigate("/main");
     } catch (err) {
       console.log("Err >>", err);
     }
