@@ -30,10 +30,15 @@ import {
   TopFiveBookTitle,
   TopRatingBookTitle,
 } from "../../assets/text/message";
+import { useRecoilValue } from "recoil";
+import { LoginState } from "../../states/LoginState";
 
 const Main = () => {
   const [favorite, setFavorite] = useState<FiveFavoriteProps[]>([]);
   const [highRating, setHighRating] = useState<HighRatingBookProps[]>([]);
+  const loginState = useRecoilValue(LoginState);
+
+  console.log(loginState);
 
   const category = [
     "자기개발",

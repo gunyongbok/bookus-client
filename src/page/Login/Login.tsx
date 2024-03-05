@@ -15,13 +15,13 @@ import KakaoLoginBtn from "../../components/Button/KakaoLoginBtn";
 
 // util
 import { handleLogin } from "../../utils/handleLogin";
-// import { useEffect } from "react";
-// import validateToken from "../../Api/token/validateToken";
+import { useRecoilValue } from "recoil";
+import { LoginState } from "../../states/LoginState";
 
 const Login = () => {
-  // useEffect(() => {
-  //   validateToken();
-  // }, []);
+  const loginState = useRecoilValue(LoginState);
+
+  console.log(loginState);
   return (
     <TopContainer>
       <LoginTitle />
