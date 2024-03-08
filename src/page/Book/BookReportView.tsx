@@ -57,8 +57,6 @@ const BookReportView = () => {
     setEditModalOpen(false);
   };
 
-  console.log(report);
-
   useEffect(() => {
     getBookReport();
   }, []);

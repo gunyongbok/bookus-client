@@ -12,10 +12,13 @@ const validateToken = async (navigate: NavigateFunction) => {
       { headers }
     );
 
-    console.log(response);
+    if (window.location.pathname === "/" || "/login") {
+      navigate("/main");
+    }
+
     return response;
   } catch (err) {
-    navigate("/login");
+    navigate("/");
     return err;
   }
 };

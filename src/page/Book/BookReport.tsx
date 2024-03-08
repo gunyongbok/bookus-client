@@ -60,8 +60,6 @@ const BookReport = () => {
     }
   };
 
-  console.log(title, content);
-
   useEffect(() => {
     getBookInfo();
   }, []);

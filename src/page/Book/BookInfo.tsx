@@ -58,7 +58,6 @@ const BookInfo = () => {
       const result = await isBookInLibrary(book.isbn);
       setInLibrary(result.isBookInLibrary);
       setLibraryId(result.libraryBookId);
-      console.log(result);
     } catch (error) {
       console.log(error);
     }

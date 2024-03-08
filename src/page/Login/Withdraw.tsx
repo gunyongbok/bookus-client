@@ -10,7 +10,6 @@ const Withdraw = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/oauth/kakao/withdraw`,
-        {},
         { headers }
       );
       console.log("response >>", response);

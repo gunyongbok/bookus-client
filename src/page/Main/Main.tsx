@@ -50,7 +50,6 @@ const Main = () => {
     try {
       const result = await getTopFiveFavoriteBooks();
       setFavorite(result);
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +59,6 @@ const Main = () => {
     try {
       const result = await getHighRatingBooks();
       setHighRating(result);
-      console.log(result);
     } catch (error) {
       console.log(error);
     }

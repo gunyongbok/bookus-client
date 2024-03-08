@@ -38,6 +38,7 @@ const Router = () => {
     // validateToken 함수에 navigate 함수를 전달하여 호출합니다.
     validateToken(navigate);
   }, [navigate]);
+
   return (
     <>
       <Routes>

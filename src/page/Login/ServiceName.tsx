@@ -96,8 +96,6 @@ const ServiceName = () => {
     setSelectedGender("FEMALE");
   };
 
-  console.log(data);
-
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={secondProgress} />

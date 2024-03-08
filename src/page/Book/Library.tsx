@@ -97,7 +97,7 @@ const Library = () => {
         pageNumber: String(pageNumber),
         readingStatus: bookServerState,
       });
-      console.log(result);
+
       setBooks(result);
       setMyBooks((prev) => [...prev, ...result.content]);
       if (bookServerState !== prevBookServerState) {
@@ -119,7 +119,7 @@ const Library = () => {
         pageNumber: String(pageNumber),
         readingStatus: bookReportServerState,
       });
-      console.log(result);
+
       setBookReports(result);
       if (bookReportServerState !== prevBookReportServerState) {
         setMyBookReports(result.content);
