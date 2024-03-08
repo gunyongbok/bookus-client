@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 // Root
 import RootPage from "./Login/RootPage";
@@ -28,8 +28,16 @@ import BookDetail from "./Book/BookDetail";
 import BookReport from "./Book/BookReport";
 import BookReportView from "./Book/BookReportView";
 import BookReportEdit from "./Book/BookReportEdit";
+import { useEffect } from "react";
+import validateToken from "../Api/token/validateToken";
 
 const Router = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // validateToken 함수에 navigate 함수를 전달하여 호출합니다.
+    validateToken(navigate);
+  }, [navigate]);
   return (
     <>
       <Routes>

@@ -1,16 +1,12 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { LoginState } from "../../states/LoginState";
 
 const Kakao = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const code = searchParams.get("code");
   const navigate = useNavigate();
-  const [loginState, setLoginState] = useRecoilState(LoginState);
-  // const setLoginState = useSetRecoilState(LoginState);
 
   const kakaoLogin = async () => {
     try {
@@ -26,13 +22,6 @@ const Kakao = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-
-      setLoginState({
-        name: "LoginState",
-        status: true,
-      });
-
-      console.log(loginState);
 
       if (data.isNewMember) {
         navigate("/service/agree");

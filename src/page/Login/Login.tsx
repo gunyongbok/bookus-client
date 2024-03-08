@@ -15,13 +15,8 @@ import KakaoLoginBtn from "../../components/Button/KakaoLoginBtn";
 
 // util
 import { handleLogin } from "../../utils/handleLogin";
-import { useRecoilValue } from "recoil";
-import { LoginState } from "../../states/LoginState";
 
 const Login = () => {
-  const loginState = useRecoilValue(LoginState);
-
-  console.log(loginState);
   return (
     <TopContainer>
       <LoginTitle />

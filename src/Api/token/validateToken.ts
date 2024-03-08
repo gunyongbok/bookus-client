@@ -1,7 +1,7 @@
 import axios from "axios";
-import reissueToken from "./reissueToken";
+import { NavigateFunction } from "react-router-dom";
 
-const validateToken = async () => {
+const validateToken = async (navigate: NavigateFunction) => {
   const accessTokenHeader = localStorage.getItem("accessToken");
   const headers = {
     "Access-token": `${accessTokenHeader}`,
@@ -11,10 +11,12 @@ const validateToken = async () => {
       `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/auth/token/validation`,
       { headers }
     );
-    console.log("response >>", response);
+
+    console.log(response);
+    return response;
   } catch (err) {
-    console.log("Err >>", err);
-    reissueToken();
+    navigate("/login");
+    return err;
   }
 };
 

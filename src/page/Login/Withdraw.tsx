@@ -1,9 +1,6 @@
 import axios from "axios";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { LoginState } from "../../states/LoginState";
 
 const Withdraw = () => {
-  const [loginState, setLoginState] = useRecoilState(LoginState);
   const withdraw = async () => {
     const accessTokenHeader = localStorage.getItem("accessToken");
 
@@ -22,13 +19,6 @@ const Withdraw = () => {
       localStorage.removeItem("email");
       localStorage.removeItem("id");
       localStorage.removeItem("userName");
-
-      setLoginState({
-        name: "LoginState",
-        status: false,
-      });
-
-      console.log(loginState);
     } catch (err) {
       console.log("Err >>", err);
     }
