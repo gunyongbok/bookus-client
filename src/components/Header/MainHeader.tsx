@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 interface HeaderProps {
@@ -15,10 +16,11 @@ const Header = styled.div`
 `;
 
 const MainHeader = ({ src1, src2 }: HeaderProps) => {
+  const navigate = useNavigate();
   return (
     <Header>
-      <img src={src1} />
-      <img src={src2} />
+      <img src={src1} onClick={() => navigate(-1)} />
+      <img src={src2} onClick={() => navigate("/profile")} />
     </Header>
   );
 };

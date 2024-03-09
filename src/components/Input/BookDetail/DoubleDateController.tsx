@@ -29,6 +29,7 @@ const DateInput = styled.input`
   font-weight: 300;
   border: none;
   background-color: #fcfcff;
+  outline: none;
 `;
 
 const DateDiv = styled.div`

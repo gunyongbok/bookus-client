@@ -32,6 +32,7 @@ const DateInput = styled.input`
   background-color: #fcfcff;
   display: flex;
   align-items: center;
+  outline: none;
 `;
 
 const CustomIcon = styled.div`
