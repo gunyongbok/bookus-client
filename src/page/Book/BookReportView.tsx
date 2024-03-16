@@ -32,6 +32,8 @@ const BookReportView = () => {
 
   const libraryId = location?.state?.libraryId;
 
+  console.log(report);
+
   const getBookReport = async () => {
     try {
       const result = await getIndividualBookReport(reportId);

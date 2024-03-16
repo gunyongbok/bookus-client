@@ -19,7 +19,7 @@ export const TopFiveBookContainer = styled.div`
   width: 100%;
   height: 485px;
   gap: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 10%;
   display: flex;
   flex-direction: column;
 `;

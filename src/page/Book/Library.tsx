@@ -112,6 +112,22 @@ const Library = () => {
     }
   };
 
+  // 독서록 항목 추가 시 중복을 제거하고 추가하는 함수
+  const addBookReport = (newBookReport: MyBookReportProps) => {
+    // 이미 존재하는지 확인
+    const isAlreadyExists = myBookReports.some(
+      (bookReport) => bookReport.id === newBookReport.id
+    );
+
+    // 존재하지 않는 경우에만 추가
+    if (!isAlreadyExists) {
+      setMyBookReports((prevBookReports) => [
+        ...prevBookReports,
+        newBookReport,
+      ]);
+    }
+  };
+
   // 유저가 담은 독서록 조회
   const getBookReports = async () => {
     try {
@@ -122,9 +138,13 @@ const Library = () => {
 
       setBookReports(result);
       if (bookReportServerState !== prevBookReportServerState) {
+        // 새로 받은 독서록으로 갱신
         setMyBookReports(result.content);
       } else {
-        setMyBookReports((prev) => [...prev, ...result.content]);
+        // 중복된 항목 제거 후 새로운 독서록 추가
+        result.content.forEach((newBookReport: MyBookReportProps) => {
+          addBookReport(newBookReport);
+        });
       }
 
       setPrevBookReportServerState(bookReportServerState);
