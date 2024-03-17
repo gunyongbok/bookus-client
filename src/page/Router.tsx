@@ -29,13 +29,18 @@ import BookReport from "./Book/BookReport";
 import BookReportView from "./Book/BookReportView";
 import BookReportEdit from "./Book/BookReportEdit";
 import { useEffect } from "react";
+
+// Profile
+import ProfileMain from "./Profile/ProfileMain";
+
+// API
 import validateToken from "../Api/token/validateToken";
 
 const Router = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // validateToken 함수에 navigate 함수를 전달하여 호출합니다.
+    // validateToken 함수에 navigate 함수를 전달하여 호출
     validateToken(navigate);
   }, [navigate]);
 
@@ -57,6 +62,7 @@ const Router = () => {
         <Route path="bookreport/:libraryId" element={<BookReport />} />
         <Route path="bookreportview/:reportId" element={<BookReportView />} />
         <Route path="bookreportedit/:reportId" element={<BookReportEdit />} />
+        <Route path="profile" element={<ProfileMain />} />
       </Routes>
     </>
   );
