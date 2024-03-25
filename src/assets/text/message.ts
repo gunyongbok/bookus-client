@@ -33,6 +33,15 @@ export const Categoty: string = "🌱 카테고리";
 
 export const TopRatingBookTitle: string = "🌿 별점 높은 책";
 
+export const NotFoundFirstMsg: string =
+  "죄송합니다.\n요청하신 페이지를 찾을 수 없습니다.";
+
+export const NotFoundSecondMsg: string =
+  "방문하시려는 페이지의 주소가 잘못 입력되었거나,\n페이지의 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.\n입력하신 페이지 주소가 정확한지 다시 한번 확인해주시기 바랍니다.";
+
+export const NotFoundThirdMsg: string =
+  "관련 문의사항은 qhrrjsdyd123@gmail.com 으로 연락주세요.\n감사합니다.";
+
 type ProfileListDataItem = {
   [key: string]: string;
 };

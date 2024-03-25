@@ -7,6 +7,9 @@ import RootPage from "./Login/RootPage";
 import Login from "./Login/Login";
 import Withdraw from "./Login/Withdraw";
 
+// NotFound
+import NotFound from "./NotFound";
+
 // Before_Service
 import ServiceAgree from "./Login/ServiceAgree";
 import ServiceName from "./Login/ServiceName";
@@ -54,6 +57,7 @@ const Router = () => {
     <>
       <Routes>
         <Route path="/" element={<RootPage />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="login" element={<Login />} />
         <Route path="service/agree" element={<ServiceAgree />} />
         <Route path="service/nickname" element={<ServiceName />} />
