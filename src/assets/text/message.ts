@@ -32,3 +32,16 @@ export const TopFiveBookTitle: string = "🍀 현재 인기 순위 TOP 5";
 export const Categoty: string = "🌱 카테고리";
 
 export const TopRatingBookTitle: string = "🌿 별점 높은 책";
+
+type ProfileListDataItem = {
+  [key: string]: string;
+};
+
+export const ProfileListData: ProfileListDataItem[] = [
+  { "계정 관리": "account-management" },
+  { "알림 설정": "notification-setting" },
+  { 공지사항: "announcement" },
+  { 고객센터: "customer-service-center" },
+  { 이용약관: "terms-of-conditions" },
+  { 로그아웃: "logout" },
+];

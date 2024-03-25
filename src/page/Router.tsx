@@ -32,6 +32,12 @@ import { useEffect } from "react";
 
 // Profile
 import ProfileMain from "./Profile/ProfileMain";
+import AccountManagement from "./Profile/AccountManagement";
+import NotificationSetting from "./Profile/NotificationSetting";
+import Announcement from "./Profile/Announcement";
+import CustomerServiceCenter from "./Profile/CustomerServiceCenter";
+import TermsOfConditions from "./Profile/TermsOfConditions";
+import Logout from "./Profile/Logout";
 
 // API
 import validateToken from "../Api/token/validateToken";
@@ -63,6 +69,24 @@ const Router = () => {
         <Route path="bookreportview/:reportId" element={<BookReportView />} />
         <Route path="bookreportedit/:reportId" element={<BookReportEdit />} />
         <Route path="profile" element={<ProfileMain />} />
+        <Route
+          path="profile/account-management"
+          element={<AccountManagement />}
+        />
+        <Route
+          path="profile/notification-setting"
+          element={<NotificationSetting />}
+        />
+        <Route path="profile/announcement" element={<Announcement />} />
+        <Route
+          path="profile/customer-service-center"
+          element={<CustomerServiceCenter />}
+        />
+        <Route
+          path="profile/terms-of-conditions"
+          element={<TermsOfConditions />}
+        />
+        <Route path="profile/logout" element={<Logout />} />
       </Routes>
     </>
   );

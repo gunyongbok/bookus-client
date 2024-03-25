@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -11,7 +12,11 @@ import profileImg from "../../assets/svg/ProfileLogo.svg";
 // Navbar
 import Navbar from "../../components/Navigation/Navbar";
 
-import setting from "../../assets/svg/Profile/setting.svg";
+// svg
+import pointer from "../../assets/svg/Profile/DetailRoutePointer.svg";
+
+// Data
+import { ProfileListData } from "../../assets/text/message";
 
 const MainContent = styled.div`
   width: 100%;
@@ -77,8 +82,6 @@ const UserProfileNameNim = styled.div`
   margin-right: 8px;
 `;
 
-const Setting = styled.img``;
-
 const UserLibraryAccountInfoBox = styled.div`
   width: 100%;
   color: #4ca771;
@@ -99,18 +102,50 @@ const ProfileLi = styled.div`
   width: 100%;
   height: 50px;
   display: flex;
-  padding-left: 10px;
+  padding: 0 10px 0 10px;
   box-sizing: border-box;
   align-items: center;
+  border-bottom: 1px solid #e9f6ee;
+`;
+
+const VersionContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const VersionKey = styled.div`
   color: #0f473f;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  border-bottom: 1px solid #e9f6ee;
 `;
 
-const LiData = ["계정설정", "알림설정", "공지사항", "고객센터", "로그아웃"];
+const VersionValue = styled.div`
+  color: #bbc2c1;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+const StyledLink = styled(Link)`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+
+  &:active {
+    color: #0f473f;
+  }
+`;
 
 const ProfileMain = () => {
   return (
@@ -123,7 +158,6 @@ const ProfileMain = () => {
             <UserProfileNameBox>
               <UserProfileName>나는_북커스</UserProfileName>
               <UserProfileNameNim>님</UserProfileNameNim>
-              <Setting src={setting} alt="setting" />
             </UserProfileNameBox>
             <UserLibraryAccountInfoBox>
               서재 0 • 독서록 0
@@ -131,9 +165,20 @@ const ProfileMain = () => {
           </UserProfileInfoBox>
         </UserProfileContainer>
         <ProfileUl>
-          {LiData.map((data) => (
-            <ProfileLi>{data}</ProfileLi>
+          {ProfileListData.map((data, i) => (
+            <ProfileLi key={i}>
+              <StyledLink to={`/profile/${Object.values(data)[0]}`}>
+                {Object.keys(data)[0]}
+                <img src={pointer} alt="pointer" />
+              </StyledLink>
+            </ProfileLi>
           ))}
+          <ProfileLi>
+            <VersionContainer>
+              <VersionKey>버전</VersionKey>
+              <VersionValue>0.01</VersionValue>
+            </VersionContainer>
+          </ProfileLi>
         </ProfileUl>
       </MainContent>
       <Navbar />
