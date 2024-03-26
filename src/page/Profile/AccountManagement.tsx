@@ -1,7 +1,124 @@
-import React from "react";
+import styled from "styled-components";
+
+// Container
+import TopContainer from "../../components/Wrapper/TopContainer";
+
+// Header
+import MainHeader from "../../components/Header/MainHeader";
+import backArrowImg from "../../assets/img/back.png";
+import profileImg from "../../assets/svg/ProfileLogo.svg";
+
+// Navbar
+import Navbar from "../../components/Navigation/Navbar";
+
+// Svg
+import pencil from "../../assets/svg/Profile/ProfileImgEditPencil.svg";
+
+const MainContent = styled.div`
+  width: 100%;
+  max-width: 358px;
+  max-height: 630px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 11%;
+  overflow: auto;
+  @media (max-width: 599px) {
+    max-height: 70%;
+  }
+`;
+
+const ProfileImgContainer = styled.div`
+  width: 100%;
+  height: 144px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #e9f6ee;
+  position: relative;
+`;
+
+const ProfileImg = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background: #83d0a1;
+  position: relative;
+`;
+
+const ProfileImgEdit = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  background: #bbc2c1;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 20px;
+  right: 135px;
+`;
+
+const MyProfileInfoTitle = styled.div`
+  width: 100%;
+  height: 50px;
+  color: #bbc2c1;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+`;
+
+const NickNameBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0 16px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e9f6ee;
+`;
+
+const NickNameInput = styled.div`
+  width: fit-content;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+`;
+
+const NickNameChangeBtn = styled.div`
+  color: #bbc2c1;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+`;
 
 const AccountManagement = () => {
-  return <div>AcocuntManagement</div>;
+  return (
+    <TopContainer $background="#FCFCFF">
+      <MainHeader src1={backArrowImg} src2={profileImg} text="계정 관리" />
+      <MainContent>
+        <ProfileImgContainer>
+          <ProfileImg />
+          <ProfileImgEdit>
+            <img src={pencil} alt="pencil" />
+          </ProfileImgEdit>
+        </ProfileImgContainer>
+        <MyProfileInfoTitle>내 프로필 설정</MyProfileInfoTitle>
+        <NickNameBox>
+          <NickNameInput>나는_북커스</NickNameInput>
+          <NickNameChangeBtn>변경</NickNameChangeBtn>
+        </NickNameBox>
+        <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
+      </MainContent>
+      <Navbar />
+    </TopContainer>
+  );
 };
 
 export default AccountManagement;
