@@ -54,3 +54,6 @@ export const ProfileListData: ProfileListDataItem[] = [
   { 이용약관: "terms-of-conditions" },
   { 로그아웃: "logout" },
 ];
+
+export const CustomerServiceAskMsg: string =
+  "이용 중 불편한 점이나 문의사항을 보내주세요.\n확인 후 빠르고 정확하게 답변드리겠습니다.\n평일 (월~금) 10:00 ~ 17: 00, 주말/공휴일 휴무";

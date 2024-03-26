@@ -14,6 +14,10 @@ import Navbar from "../../components/Navigation/Navbar";
 // Svg
 import pencil from "../../assets/svg/Profile/ProfileImgEditPencil.svg";
 
+// Component
+import MyProfileInfoTitle from "../../components/Profile/MyProfileInfoTitle";
+import ProfileMainBox from "../../components/Profile/ProfileMainBox";
+
 const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
@@ -60,27 +64,6 @@ const ProfileImgEdit = styled.div`
   right: 135px;
 `;
 
-const MyProfileInfoTitle = styled.div`
-  width: 100%;
-  height: 50px;
-  color: #bbc2c1;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-`;
-
-const NickNameBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 0 16px 0;
-  box-sizing: border-box;
-  border-bottom: 1px solid #e9f6ee;
-`;
-
 const NickNameInput = styled.div`
   width: fit-content;
   color: #0f473f;
@@ -110,10 +93,10 @@ const AccountManagement = () => {
           </ProfileImgEdit>
         </ProfileImgContainer>
         <MyProfileInfoTitle>내 프로필 설정</MyProfileInfoTitle>
-        <NickNameBox>
+        <ProfileMainBox>
           <NickNameInput>나는_북커스</NickNameInput>
           <NickNameChangeBtn>변경</NickNameChangeBtn>
-        </NickNameBox>
+        </ProfileMainBox>
         <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
       </MainContent>
       <Navbar />
