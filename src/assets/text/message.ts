@@ -57,3 +57,8 @@ export const ProfileListData: ProfileListDataItem[] = [
 
 export const CustomerServiceAskMsg: string =
   "이용 중 불편한 점이나 문의사항을 보내주세요.\n확인 후 빠르고 정확하게 답변드리겠습니다.\n평일 (월~금) 10:00 ~ 17: 00, 주말/공휴일 휴무";
+
+export const FirstNoAnnounceMsg: string = "공지사항이 없습니다";
+
+export const SecondNoAnnounceMsg: string =
+  "아직 전달해드릴 공지사항이 없습니다.\n공지사항 발생 시 푸쉬 알림으로 알려드릴게요.";
