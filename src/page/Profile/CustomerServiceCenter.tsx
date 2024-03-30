@@ -52,7 +52,7 @@ const EmailValue = styled.div`
 `;
 
 const AskMsg = styled.div`
-  width: 211px;
+  width: 230px;
   color: #83d0a1;
   font-family: Pretendard;
   font-size: 12px;
