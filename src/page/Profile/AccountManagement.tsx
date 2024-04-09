@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -13,6 +14,7 @@ import Navbar from "../../components/Navigation/Navbar";
 
 // Svg
 import pencil from "../../assets/svg/Profile/ProfileImgEditPencil.svg";
+import emo from "../../assets/svg/Profile/KakaoEmailEmo.svg";
 
 // Component
 import MyProfileInfoTitle from "../../components/Profile/MyProfileInfoTitle";
@@ -71,6 +73,9 @@ const NickNameInput = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 `;
 
 const NickNameChangeBtn = styled.div`
@@ -82,6 +87,9 @@ const NickNameChangeBtn = styled.div`
 `;
 
 const AccountManagement = () => {
+  const location = useLocation();
+  const data = location.state;
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} text="계정 관리" />
@@ -94,10 +102,16 @@ const AccountManagement = () => {
         </ProfileImgContainer>
         <MyProfileInfoTitle>내 프로필 설정</MyProfileInfoTitle>
         <ProfileMainBox>
-          <NickNameInput>나는_북커스</NickNameInput>
+          <NickNameInput>{data?.memberName}</NickNameInput>
           <NickNameChangeBtn>변경</NickNameChangeBtn>
         </ProfileMainBox>
         <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
+        <ProfileMainBox>
+          <NickNameInput>
+            <img src={emo} alt="emo" />
+            {data?.email}
+          </NickNameInput>
+        </ProfileMainBox>
       </MainContent>
       <Navbar />
     </TopContainer>
