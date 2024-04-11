@@ -3,9 +3,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 // Root
 import RootPage from "./Login/RootPage";
 
-// Login , Wtihdraw
+// Login
 import Login from "./Login/Login";
-import Withdraw from "./Login/Withdraw";
 
 // NotFound
 import NotFound from "./NotFound";
@@ -64,7 +63,6 @@ const Router = () => {
         <Route path="kakao" element={<Kakao />} />
         <Route path="main" element={<Main />} />
         <Route path="service/interest" element={<ServiceInterest />} />
-        <Route path="logout" element={<Withdraw />} />
         <Route path="search" element={<BookSearch />} />
         <Route path="bookinfo" element={<BookInfo />} />
         <Route path="library" element={<Library />} />

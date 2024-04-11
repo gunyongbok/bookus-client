@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -18,6 +19,10 @@ import ProfileMainBox from "../../components/Profile/ProfileMainBox";
 // SVG
 import poiner from "../../assets/svg/Profile/DetailRoutePointer.svg";
 
+// Modal
+import ChangeBookStateModal from "../../components/Modal/BookDetail/ChangeBookState";
+import LogoutModal from "../../components/Modal/Profile/LogoutModal";
+
 const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
@@ -35,7 +40,7 @@ const MainContent = styled.div`
 `;
 
 const LogoutBox = styled.div`
-  width: fit-content;
+  width: 100%;
   color: #0f473f;
   font-family: Pretendard;
   font-size: 14px;
@@ -48,19 +53,30 @@ const RedLogoutBox = styled(LogoutBox)`
 `;
 
 const Logout = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} text="로그아웃" />
       <MainContent>
         <MyProfileInfoTitle>로그아웃</MyProfileInfoTitle>
         <ProfileMainBox>
-          <LogoutBox>로그아웃</LogoutBox>
+          <LogoutBox onClick={openModal}>로그아웃</LogoutBox>
         </ProfileMainBox>
         <MyProfileInfoTitle>계정탈퇴</MyProfileInfoTitle>
         <ProfileMainBox>
           <RedLogoutBox>탈퇴하기</RedLogoutBox>
           <img src={poiner} alt="pointer" />
         </ProfileMainBox>
+        {isModalOpen && <LogoutModal onClose={closeModal} />}
       </MainContent>
       <Navbar />
     </TopContainer>
