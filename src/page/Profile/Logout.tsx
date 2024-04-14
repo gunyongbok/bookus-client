@@ -20,7 +20,6 @@ import ProfileMainBox from "../../components/Profile/ProfileMainBox";
 import poiner from "../../assets/svg/Profile/DetailRoutePointer.svg";
 
 // Modal
-import ChangeBookStateModal from "../../components/Modal/BookDetail/ChangeBookState";
 import LogoutModal from "../../components/Modal/Profile/LogoutModal";
 
 const MainContent = styled.div`
