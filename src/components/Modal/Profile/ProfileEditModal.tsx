@@ -60,7 +60,7 @@ const CanlcelBtn = styled.div`
   align-items: center;
 `;
 
-const EditProfileModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
+const ProfileEditModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -93,4 +93,4 @@ const EditProfileModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
   );
 };
 
-export default EditProfileModal;
+export default ProfileEditModal;

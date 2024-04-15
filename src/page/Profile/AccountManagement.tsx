@@ -22,7 +22,9 @@ import MyProfileInfoTitle from "../../components/Profile/MyProfileInfoTitle";
 import ProfileMainBox from "../../components/Profile/ProfileMainBox";
 
 // Modal
-import EditProfileModal from "../../components/Modal/Profile/editProfileModal";
+import ProfileEditModal from "../../components/Modal/Profile/ProfileEditModal";
+
+// API
 import editProfile from "../../Api/Profile/editProfile";
 
 const MainContent = styled.div`
@@ -141,7 +143,7 @@ const AccountManagement = () => {
       </MainContent>
       <Navbar />
       {isModalVisible && (
-        <EditProfileModal
+        <ProfileEditModal
           onProfileEdit={handleProfileEdit}
           onClose={closeModal}
         />
