@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 // Container
@@ -19,6 +20,10 @@ import emo from "../../assets/svg/Profile/KakaoEmailEmo.svg";
 // Component
 import MyProfileInfoTitle from "../../components/Profile/MyProfileInfoTitle";
 import ProfileMainBox from "../../components/Profile/ProfileMainBox";
+
+// Modal
+import EditProfileModal from "../../components/Modal/Profile/editProfileModal";
+import editProfile from "../../Api/Profile/editProfile";
 
 const MainContent = styled.div`
   width: 100%;
@@ -45,7 +50,7 @@ const ProfileImgContainer = styled.div`
   position: relative;
 `;
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.i`
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -87,16 +92,37 @@ const NickNameChangeBtn = styled.div`
 `;
 
 const AccountManagement = () => {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<File>();
   const location = useLocation();
   const data = location.state;
 
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleProfileEdit = (image: File) => {
+    setProfileImage(image);
+  };
+
+  console.log(profileImage);
+
+  // useEffect(() => {
+  //   editProfile("hello", profileImage);
+  // }, [profileImage]);
+
   return (
-    <TopContainer $background="#FCFCFF">
+    <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} text="계정 관리" />
       <MainContent>
         <ProfileImgContainer>
           <ProfileImg />
-          <ProfileImgEdit>
+
+          <ProfileImgEdit onClick={openModal}>
             <img src={pencil} alt="pencil" />
           </ProfileImgEdit>
         </ProfileImgContainer>
@@ -114,6 +140,12 @@ const AccountManagement = () => {
         </ProfileMainBox>
       </MainContent>
       <Navbar />
+      {isModalVisible && (
+        <EditProfileModal
+          onProfileEdit={handleProfileEdit}
+          onClose={closeModal}
+        />
+      )}
     </TopContainer>
   );
 };
