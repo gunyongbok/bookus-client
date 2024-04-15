@@ -1,8 +1,8 @@
-import React, { ChangeEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, useRef } from "react";
 import styled from "styled-components";
 
 interface ModalProps {
-  onClose: (event: MouseEvent) => void;
+  onClose: () => void;
   onProfileEdit: (profileImage: File) => void;
 }
 
@@ -33,20 +33,6 @@ const ModalTitle = styled.div`
   border-bottom: 1px solid #bbc2c1;
 `;
 
-const SelectImgInput = styled.input`
-  width: 90%;
-  height: 59px;
-  color: #83d0a1;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #83d0a1;
-`;
-
 const SelectImgBox = styled.div`
   width: 90%;
   height: 59px;
@@ -75,28 +61,32 @@ const CanlcelBtn = styled.div`
 `;
 
 const EditProfileModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
-  const [image, setImage] = useState<File | null>(null);
-
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImage(file);
-      handleUploadImage();
+      onProfileEdit(file);
+      onClose();
     }
   };
+  const imgInput = useRef<HTMLInputElement | null>(null);
 
-  const handleUploadImage = () => {
-    if (image) {
-      onProfileEdit(image);
-      onClose;
-    }
+  const handleClick = () => {
+    imgInput.current!.click();
   };
 
   return (
     <ModalOverlay>
       <ModalTitle>프로필 사진 설정</ModalTitle>
-      <SelectImgInput type="file" onChange={handleImageChange} />
-
+      <SelectImgBox onClick={handleClick}>
+        앨범에서 사진 선택
+        <input
+          type="file"
+          multiple
+          ref={imgInput}
+          onChange={handleImageChange}
+          style={{ display: "none" }}
+        />
+      </SelectImgBox>
       <SelectImgBox>기본 이미지로 변경</SelectImgBox>
       <CanlcelBtn onClick={onClose}>취소</CanlcelBtn>
     </ModalOverlay>

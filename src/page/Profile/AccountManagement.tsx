@@ -111,9 +111,9 @@ const AccountManagement = () => {
 
   console.log(profileImage);
 
-  // useEffect(() => {
-  //   editProfile("hello", profileImage);
-  // }, [profileImage]);
+  useEffect(() => {
+    editProfile("hello", profileImage);
+  }, [profileImage]);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
