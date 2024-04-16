@@ -62,3 +62,9 @@ export const FirstNoAnnounceMsg: string = "공지사항이 없습니다";
 
 export const SecondNoAnnounceMsg: string =
   "아직 전달해드릴 공지사항이 없습니다.\n공지사항 발생 시 푸쉬 알림으로 알려드릴게요.";
+
+export const WithdrawInformMsg: string =
+  "계정 삭제 시 독서록 등 모든 활동 정보가 삭제됩니다.\n탈퇴 후 재가입은 7일 후에 가능합니다.";
+
+export const WithdrawFinalMsg: string =
+  "탈퇴 이유를 선택해야 탈퇴가 가능합니다.";

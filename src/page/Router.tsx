@@ -43,6 +43,7 @@ import Logout from "./Profile/Logout";
 
 // API
 import validateToken from "../Api/token/validateToken";
+import Withdraw from "./Profile/Withdraw";
 
 const Router = () => {
   const navigate = useNavigate();
@@ -89,6 +90,7 @@ const Router = () => {
           element={<TermsOfConditions />}
         />
         <Route path="profile/logout" element={<Logout />} />
+        <Route path="profile/withdraw" element={<Withdraw />} />
       </Routes>
     </>
   );

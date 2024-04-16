@@ -22,7 +22,7 @@ const editProfile = async (
   }
 
   try {
-    const response = await axios.post(
+    const response = await axios.patch(
       `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/member/profile`,
       formData,
       { headers }

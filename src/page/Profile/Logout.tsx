@@ -21,6 +21,7 @@ import poiner from "../../assets/svg/Profile/DetailRoutePointer.svg";
 
 // Modal
 import LogoutModal from "../../components/Modal/Profile/LogoutModal";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = styled.div`
   width: 100%;
@@ -52,6 +53,7 @@ const RedLogoutBox = styled(LogoutBox)`
 `;
 
 const Logout = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
@@ -72,7 +74,13 @@ const Logout = () => {
         </ProfileMainBox>
         <MyProfileInfoTitle>계정탈퇴</MyProfileInfoTitle>
         <ProfileMainBox>
-          <RedLogoutBox>탈퇴하기</RedLogoutBox>
+          <RedLogoutBox
+            onClick={() => {
+              navigate("/profile/withdraw");
+            }}
+          >
+            탈퇴하기
+          </RedLogoutBox>
           <img src={poiner} alt="pointer" />
         </ProfileMainBox>
         {isModalOpen && <LogoutModal onClose={closeModal} />}
