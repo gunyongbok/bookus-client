@@ -2,6 +2,13 @@
 // import '@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Myeongjo&display=swap");';
 // import '@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Myeongjo&family=Nanum+Pen+Script&display=swap");'
 
+import styled from "styled-components";
+
+const Select = styled.select`
+  position: absolute;
+  top: 2px;
+`;
+
 export const fontSize = ["16px", "18px", "20px", "22px"];
 
 export const QuillToolbar = () => (
@@ -16,8 +23,8 @@ export const QuillToolbar = () => (
           ))}
         </select>
       </span>
-      <span className="ql-formats">
-        <select className="ql-color" />
+      <span style={{ position: "relative" }} className="ql-formats">
+        <Select className="ql-color" />
       </span>
       <span className="ql-formats">
         <button className="ql-bold" />
