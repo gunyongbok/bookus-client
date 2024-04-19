@@ -63,7 +63,9 @@ const SearchWordWrapper = () => {
             }}
             key={index}
           >
-            {item?.bookTitle}
+            {item?.bookTitle.length > 15
+              ? `${item?.bookTitle.slice(0, 15)}...`
+              : item?.bookTitle}
           </SearchWordDetail>
         ))}
       </SearchWordBox>
