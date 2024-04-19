@@ -16,6 +16,8 @@ import { WithdrawFinalMsg, WithdrawInformMsg } from "../../assets/text/message";
 
 // Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
+import { useState } from "react";
+import WithdrawModal from "../../components/Modal/Profile/WithdrawModal";
 
 const MainContent = styled.div`
   width: 100%;
@@ -71,7 +73,36 @@ const WithdrawDetailBox = styled.div`
   white-space: break-spaces;
 `;
 
+const WithdrawReasonSelectBox = styled.select`
+  width: 100%;
+  height: 40px;
+  border: 1px solid #4ca771;
+  border-radius: 8px;
+  color: #4ca771;
+  padding: 0 16px 0 16px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const WithdrawReasonOptionBox = styled.option`
+  width: 100%;
+  height: 40px;
+  border: 1px solid #4ca771;
+  color: #4ca771;
+`;
+
 const Withdraw = () => {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} text="탈퇴하기" />
@@ -84,13 +115,35 @@ const Withdraw = () => {
           <WithdrawContainer>
             <WithdrawBox>탈퇴 이유를 선택해주세요.</WithdrawBox>
             <WithdrawDetailBox>{WithdrawFinalMsg}</WithdrawDetailBox>
+            <WithdrawReasonSelectBox>
+              <WithdrawReasonOptionBox value="">---</WithdrawReasonOptionBox>
+              <WithdrawReasonOptionBox value="1">
+                기록 삭제 목적
+              </WithdrawReasonOptionBox>
+              <WithdrawReasonOptionBox value="2">
+                이용이 불편하고 장애가 많아서
+              </WithdrawReasonOptionBox>
+              <WithdrawReasonOptionBox value="3">
+                타 어플을 더 많이 사용해서
+              </WithdrawReasonOptionBox>
+              <WithdrawReasonOptionBox value="4">
+                사용 빈도가 낮아서
+              </WithdrawReasonOptionBox>
+              <WithdrawReasonOptionBox value="5">
+                기타 사유
+              </WithdrawReasonOptionBox>
+            </WithdrawReasonSelectBox>
           </WithdrawContainer>
         </WithdrawTopContainer>
-        <StandardBtn $border="1px solid #BBC2C1" $color="#BBC2C1">
+        <StandardBtn
+          onClick={openModal}
+          $border="1px solid #BBC2C1"
+          $color="#BBC2C1"
+        >
           탈퇴하기
         </StandardBtn>
       </MainContent>
-
+      {isModalVisible && <WithdrawModal onClose={closeModal} />};
       <Navbar />
     </TopContainer>
   );
