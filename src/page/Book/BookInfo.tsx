@@ -10,9 +10,10 @@ import MainHeader from "../../components/Header/MainHeader";
 import backArrowImg from "../../assets/img/back.png";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
-// extra
+// Assets
 import { Color } from "../../assets/color/color";
-import arrow from "../../assets/svg/bottomArrow.svg";
+import bottomArrow from "../../assets/svg/bottomArrow.svg";
+import topArrow from "../../assets/svg/BookInfo/topArrow.svg";
 
 // BookInfo
 import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
@@ -43,6 +44,7 @@ const BookInfo = () => {
 
   const toggleContentsVisibility = () => {
     setIsContentsVisible((prev) => !prev);
+    console.log(isContentsVisible);
   };
 
   const toggleStaticsVisibility = () => {
@@ -75,8 +77,6 @@ const BookInfo = () => {
     }
   };
 
-  console.log(inLibrary, libraryId);
-
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} />
@@ -97,7 +97,12 @@ const BookInfo = () => {
           </StandardBtn>
           <S.ContentsContainer>
             <S.ContentsTitle>
-              책 소개 <img onClick={toggleContentsVisibility} src={arrow} />
+              책 소개{" "}
+              {isContentsVisible ? (
+                <img onClick={toggleContentsVisibility} src={bottomArrow} />
+              ) : (
+                <img onClick={toggleContentsVisibility} src={topArrow} />
+              )}
             </S.ContentsTitle>
             {isContentsVisible && (
               <S.BookContents>{book.contents}</S.BookContents>
@@ -105,7 +110,12 @@ const BookInfo = () => {
           </S.ContentsContainer>
           <S.ContentsContainer>
             <S.ContentsTitle>
-              통계 보기 <img onClick={toggleStaticsVisibility} src={arrow} />
+              통계 보기{" "}
+              {isStaticsVisible ? (
+                <img onClick={toggleStaticsVisibility} src={bottomArrow} />
+              ) : (
+                <img onClick={toggleStaticsVisibility} src={topArrow} />
+              )}
             </S.ContentsTitle>
             {isStaticsVisible && <BookStatisticWrapper isbn={book.isbn} />}
           </S.ContentsContainer>
