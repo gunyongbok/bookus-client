@@ -14,6 +14,8 @@ import Navbar from "../../components/Navigation/Navbar";
 // Component
 import MyProfileInfoTitle from "../../components/Profile/MyProfileInfoTitle";
 import ProfileMainBox from "../../components/Profile/ProfileMainBox";
+import ToggleSwitch from "../../components/Input/Profile/ToggleSwitch";
+import { useState } from "react";
 
 const MainContent = styled.div`
   width: 100%;
@@ -41,6 +43,9 @@ const Alarm = styled.div`
 `;
 
 const NotificationSetting = () => {
+  const [pushNotification, setPushNotification] = useState<boolean>(false);
+  const [emailNotification, setEmailNotification] = useState<boolean>(false);
+
   return (
     <TopContainer $background="#FCFCFF">
       <MainHeader src1={backArrowImg} src2={profileImg} text="알림 설정" />
@@ -48,13 +53,21 @@ const NotificationSetting = () => {
         <MyProfileInfoTitle>광고성 정보 수신</MyProfileInfoTitle>
         <ProfileMainBox>
           <Alarm>푸쉬 알림</Alarm>
+          <ToggleSwitch
+            isChecked={pushNotification}
+            onChange={() => setPushNotification(!pushNotification)}
+          />
         </ProfileMainBox>
         <ProfileMainBox>
           <Alarm>이메일 알림</Alarm>
+          <ToggleSwitch
+            onChange={() => setEmailNotification(!emailNotification)}
+          />
         </ProfileMainBox>
         <MyProfileInfoTitle>활동 알림</MyProfileInfoTitle>
         <ProfileMainBox>
           <Alarm>댓글,공감 등 알림</Alarm>
+          <ToggleSwitch />
         </ProfileMainBox>
       </MainContent>
       <Navbar />
