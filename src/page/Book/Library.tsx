@@ -241,7 +241,7 @@ const Library = () => {
         </S.LibraryBox>
         {libraryClicked ? (
           <S.BooksInMyLibrary>
-            <LibraryTitle text="나는 북커스 님의 서재" />
+            <LibraryTitle text="나의 독서록" />
             <S.StateControllerBox>
               {stateViewArr.map((state, index) => (
                 <SelectBookState
@@ -265,12 +265,12 @@ const Library = () => {
           <>
             {favoriteBooks.length === 0 ? null : (
               <S.FavoriteBookContainer>
-                <LibraryTitle text="나는 북커스 님의 인생책" />
+                <LibraryTitle text="나의 인생책" />
                 <ShowBooksInRow books={favoriteBooks} />
               </S.FavoriteBookContainer>
             )}
             <S.BooksInMyLibrary>
-              <LibraryTitle text="나는 북커스 님의 서재" />
+              <LibraryTitle text="나의 서재" />
               <S.StateControllerBox>
                 {stateViewArr.map((state, index) => (
                   <SelectBookState

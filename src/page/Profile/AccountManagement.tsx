@@ -52,7 +52,7 @@ const ProfileImgContainer = styled.div`
   position: relative;
 `;
 
-const ProfileImg = styled.i`
+const ProfileImg = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -95,7 +95,7 @@ const NickNameChangeBtn = styled.div`
 
 const AccountManagement = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<File>();
+  const [profileImage, setProfileImage] = useState<File | null>();
   const location = useLocation();
   const data = location.state;
 
@@ -107,22 +107,22 @@ const AccountManagement = () => {
     setIsModalVisible(false);
   };
 
-  const handleProfileEdit = (image: File) => {
-    setProfileImage(image);
+  const handleProfileEdit = (image: File | null) => {
+    if (image) {
+      setProfileImage(image);
+    } else {
+      setProfileImage(null);
+    }
   };
 
   console.log(profileImage);
-
-  useEffect(() => {
-    editProfile("hello", profileImage);
-  }, [profileImage]);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} text="계정 관리" />
       <MainContent>
         <ProfileImgContainer>
-          <ProfileImg />
+          <ProfileImg src={data?.profileImageUrl} />
 
           <ProfileImgEdit onClick={openModal}>
             <img src={pencil} alt="pencil" />
@@ -140,6 +140,13 @@ const AccountManagement = () => {
             {data?.email}
           </NickNameInput>
         </ProfileMainBox>
+        <button
+          onClick={() => {
+            editProfile("hello", profileImage);
+          }}
+        >
+          ok
+        </button>
       </MainContent>
       <Navbar />
       {isModalVisible && (

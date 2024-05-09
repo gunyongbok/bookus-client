@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface ModalProps {
   onClose: () => void;
-  onProfileEdit: (profileImage: File) => void;
+  onProfileEdit: (profileImage: File | null) => void;
 }
 
 const ModalOverlay = styled.div`
@@ -74,6 +74,11 @@ const ProfileEditModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
     imgInput.current!.click();
   };
 
+  const handleDefaultImageChange = () => {
+    onProfileEdit(null);
+    onClose();
+  };
+
   return (
     <ModalOverlay>
       <ModalTitle>프로필 사진 설정</ModalTitle>
@@ -87,7 +92,9 @@ const ProfileEditModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
           style={{ display: "none" }}
         />
       </SelectImgBox>
-      <SelectImgBox>기본 이미지로 변경</SelectImgBox>
+      <SelectImgBox onClick={handleDefaultImageChange}>
+        기본 이미지로 변경
+      </SelectImgBox>
       <CanlcelBtn onClick={onClose}>취소</CanlcelBtn>
     </ModalOverlay>
   );

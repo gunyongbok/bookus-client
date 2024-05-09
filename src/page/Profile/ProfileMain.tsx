@@ -22,7 +22,7 @@ import getMyProfile from "../../Api/Profile/getMyProfile";
 interface MemberProfile {
   memberName: string;
   email: string;
-  profileImageUrl: string | null;
+  profileImageUrl: string | undefined;
   oauthType: string;
   ageBand: string;
   gender: string;
@@ -58,7 +58,7 @@ const ProfileMain = () => {
       <MainHeader src1={backArrowImg} src2={profileImg} />
       <S.MainContent>
         <S.UserProfileContainer>
-          <S.UserProfileImg />
+          <S.UserProfileImg src={profileInfo?.profileImageUrl} />
           <S.UserProfileInfoBox>
             <S.UserProfileNameBox>
               <S.UserProfileName>{profileInfo?.memberName}</S.UserProfileName>
