@@ -1,9 +1,11 @@
 import React, { ChangeEvent, useRef } from "react";
 import styled from "styled-components";
+import deleteProfileImg from "../../../Api/Profile/deleteProfileImg";
 
 interface ModalProps {
   onClose: () => void;
-  onProfileEdit: (profileImage: File | null) => void;
+  onProfileEdit: (profileImage: File) => void;
+  onStatusChange: (status: number) => void;
 }
 
 const ModalOverlay = styled.div`
@@ -60,12 +62,17 @@ const CanlcelBtn = styled.div`
   align-items: center;
 `;
 
-const ProfileEditModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
+const ProfileEditModal: React.FC<ModalProps> = ({
+  onClose,
+  onProfileEdit,
+  onStatusChange,
+}) => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       onProfileEdit(file);
       onClose();
+      onStatusChange(100);
     }
   };
   const imgInput = useRef<HTMLInputElement | null>(null);
@@ -74,14 +81,17 @@ const ProfileEditModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
     imgInput.current!.click();
   };
 
-  const handleDefaultImageChange = () => {
-    onProfileEdit(null);
+  const handleImageToDefault = async () => {
+    let data = await deleteProfileImg();
+    onStatusChange(data?.status || 0);
     onClose();
   };
 
   return (
     <ModalOverlay>
-      <ModalTitle>프로필 사진 설정</ModalTitle>
+      <ModalTitle>
+        프로필 사진 설정 (저장 버튼을 클릭하면 변경 시항이 적용됩니다.)
+      </ModalTitle>
       <SelectImgBox onClick={handleClick}>
         앨범에서 사진 선택
         <input
@@ -92,7 +102,7 @@ const ProfileEditModal: React.FC<ModalProps> = ({ onClose, onProfileEdit }) => {
           style={{ display: "none" }}
         />
       </SelectImgBox>
-      <SelectImgBox onClick={handleDefaultImageChange}>
+      <SelectImgBox onClick={handleImageToDefault}>
         기본 이미지로 변경
       </SelectImgBox>
       <CanlcelBtn onClick={onClose}>취소</CanlcelBtn>

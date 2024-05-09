@@ -1,12 +1,6 @@
 import axios from "axios";
 
-const editProfile = async (
-  memberName: string,
-  profileImage: File | undefined | null
-) => {
-  // profileImage가 undefined일 경우 null로 설정합니다.
-  const imageToAdd = profileImage !== undefined ? profileImage : null;
-
+const editProfile = async (memberName: string, profileImage: File) => {
   const accessTokenHeader = localStorage.getItem("accessToken");
   const headers = {
     "Content-Type": "multipart/form-data",
@@ -15,16 +9,8 @@ const editProfile = async (
 
   const formData = new FormData();
   formData.append("memberName", memberName);
+  formData.append("profileImage", profileImage);
 
-  // imageToAdd가 null이 아닌 경우
-  if (imageToAdd !== null) {
-    formData.append("profileImage", imageToAdd);
-  } else {
-    // null인 경우에는 profileImage 값으로 null을 추가
-    formData.append("profileImage", "null");
-  }
-
-  // 여기서부터 코드 다시 치기
   console.log("FormData : " + formData);
 
   try {

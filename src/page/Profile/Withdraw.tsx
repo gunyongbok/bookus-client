@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -16,7 +17,8 @@ import { WithdrawFinalMsg, WithdrawInformMsg } from "../../assets/text/message";
 
 // Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
-import { useState } from "react";
+
+// Modal
 import WithdrawModal from "../../components/Modal/Profile/WithdrawModal";
 
 const MainContent = styled.div`

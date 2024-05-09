@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -26,13 +26,15 @@ import ProfileEditModal from "../../components/Modal/Profile/ProfileEditModal";
 
 // API
 import editProfile from "../../Api/Profile/editProfile";
+import StandardBtn from "../../commons/Button/StandardBtn";
 
 const MainContent = styled.div`
   width: 100%;
   max-width: 358px;
-  max-height: 630px;
+  height: 630px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
   position: absolute;
   top: 11%;
@@ -95,9 +97,11 @@ const NickNameChangeBtn = styled.div`
 
 const AccountManagement = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<File | null>();
+  const [profileImage, setProfileImage] = useState<File>();
+  const [status, setStatus] = useState<number>(0);
   const location = useLocation();
   const data = location.state;
+  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -107,50 +111,65 @@ const AccountManagement = () => {
     setIsModalVisible(false);
   };
 
-  const handleProfileEdit = (image: File | null) => {
-    if (image) {
-      setProfileImage(image);
-    } else {
-      setProfileImage(null);
+  const handleProfileEdit = (image: File) => {
+    setProfileImage(image);
+  };
+
+  const clickBtn = () => {
+    if (profileImage) {
+      editProfile("건용", profileImage);
     }
+    navigate("/profile");
+  };
+
+  const handleStatusChange = (newStatus: number) => {
+    setStatus(newStatus);
   };
 
   console.log(profileImage);
+  console.log(status);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
       <MainHeader src1={backArrowImg} src2={profileImg} text="계정 관리" />
       <MainContent>
-        <ProfileImgContainer>
-          <ProfileImg src={data?.profileImageUrl} />
-
-          <ProfileImgEdit onClick={openModal}>
-            <img src={pencil} alt="pencil" />
-          </ProfileImgEdit>
-        </ProfileImgContainer>
-        <MyProfileInfoTitle>내 프로필 설정</MyProfileInfoTitle>
-        <ProfileMainBox>
-          <NickNameInput>{data?.memberName}</NickNameInput>
-          <NickNameChangeBtn>변경</NickNameChangeBtn>
-        </ProfileMainBox>
-        <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
-        <ProfileMainBox>
-          <NickNameInput>
-            <img src={emo} alt="emo" />
-            {data?.email}
-          </NickNameInput>
-        </ProfileMainBox>
-        <button
-          onClick={() => {
-            editProfile("hello", profileImage);
-          }}
+        <div>
+          <ProfileImgContainer>
+            {status == 200 ? (
+              <ProfileImg />
+            ) : (
+              <ProfileImg src={data?.profileImageUrl} />
+            )}
+            <ProfileImgEdit onClick={openModal}>
+              <img src={pencil} alt="pencil" />
+            </ProfileImgEdit>
+          </ProfileImgContainer>
+          <MyProfileInfoTitle>내 프로필 설정</MyProfileInfoTitle>
+          <ProfileMainBox>
+            <NickNameInput>{data?.memberName}</NickNameInput>
+            <NickNameChangeBtn>변경</NickNameChangeBtn>
+          </ProfileMainBox>
+          <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
+          <ProfileMainBox>
+            <NickNameInput>
+              <img src={emo} alt="emo" />
+              {data?.email}
+            </NickNameInput>
+          </ProfileMainBox>
+        </div>
+        <StandardBtn
+          onClick={clickBtn}
+          $border="1px solid #BBC2C1"
+          $color="#BBC2C1"
+          $clickedBackground="#FCFCFF"
         >
-          ok
-        </button>
+          저장하기
+        </StandardBtn>
       </MainContent>
       <Navbar />
       {isModalVisible && (
         <ProfileEditModal
+          onStatusChange={handleStatusChange}
           onProfileEdit={handleProfileEdit}
           onClose={closeModal}
         />

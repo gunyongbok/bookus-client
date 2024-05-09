@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BtnContainer = styled.div`
   width: 5vw;
   min-width: 356px;
-  height: 128px;
+  height: 64px;
   position: absolute;
   bottom: 7%;
   display: flex;
