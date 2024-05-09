@@ -26,6 +26,8 @@ import ProfileEditModal from "../../components/Modal/Profile/ProfileEditModal";
 
 // API
 import editProfile from "../../Api/Profile/editProfile";
+
+//Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
 
 const MainContent = styled.div`
@@ -75,7 +77,7 @@ const ProfileImgEdit = styled.div`
   right: 135px;
 `;
 
-const NickNameInput = styled.div`
+const NickNameContainer = styled.div`
   width: fit-content;
   color: #0f473f;
   font-family: Pretendard;
@@ -87,6 +89,23 @@ const NickNameInput = styled.div`
   gap: 12px;
 `;
 
+const NickNameInput = styled.input`
+  width: fit-content;
+  color: #0f473f;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const NickNameChangeBtn = styled.div`
   color: #bbc2c1;
   font-family: Pretendard;
@@ -96,12 +115,16 @@ const NickNameChangeBtn = styled.div`
 `;
 
 const AccountManagement = () => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<File>();
-  const [status, setStatus] = useState<number>(0);
   const location = useLocation();
   const data = location.state;
   const navigate = useNavigate();
+
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<File>(data?.profileImageUrl);
+  const [status, setStatus] = useState<number>(0);
+  const [isNicknameChangeBtnClicked, setIsNicknameChangeBtnClicked] =
+    useState<boolean>(false);
+  const [nickname, setNickname] = useState<string>(data?.memberName);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -117,17 +140,24 @@ const AccountManagement = () => {
 
   const clickBtn = () => {
     if (profileImage) {
-      editProfile("건용", profileImage);
+      editProfile(nickname, profileImage);
     }
     navigate("/profile");
+  };
+
+  const clickNicknameChangeBtn = () => {
+    setIsNicknameChangeBtnClicked((pre) => !pre);
   };
 
   const handleStatusChange = (newStatus: number) => {
     setStatus(newStatus);
   };
 
-  console.log(profileImage);
-  console.log(status);
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
+  console.log(profileImage, nickname);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
@@ -146,15 +176,24 @@ const AccountManagement = () => {
           </ProfileImgContainer>
           <MyProfileInfoTitle>내 프로필 설정</MyProfileInfoTitle>
           <ProfileMainBox>
-            <NickNameInput>{data?.memberName}</NickNameInput>
-            <NickNameChangeBtn>변경</NickNameChangeBtn>
+            {isNicknameChangeBtnClicked ? (
+              <NickNameInput
+                defaultValue={nickname}
+                onChange={handleNicknameChange}
+              />
+            ) : (
+              <NickNameContainer>{nickname}</NickNameContainer>
+            )}
+            <NickNameChangeBtn onClick={clickNicknameChangeBtn}>
+              변경
+            </NickNameChangeBtn>
           </ProfileMainBox>
           <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
           <ProfileMainBox>
-            <NickNameInput>
+            <NickNameContainer>
               <img src={emo} alt="emo" />
               {data?.email}
-            </NickNameInput>
+            </NickNameContainer>
           </ProfileMainBox>
         </div>
         <StandardBtn
