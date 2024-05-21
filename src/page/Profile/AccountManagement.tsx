@@ -29,6 +29,7 @@ import editProfile from "../../Api/Profile/editProfile";
 
 //Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
+import editProfileNickname from "../../Api/Profile/editProfileNickname";
 
 const MainContent = styled.div`
   width: 100%;
@@ -90,7 +91,7 @@ const NickNameContainer = styled.div`
 `;
 
 const NickNameInput = styled.input`
-  width: fit-content;
+  width: 80%;
   color: #0f473f;
   font-family: Pretendard;
   font-size: 14px;
@@ -100,9 +101,10 @@ const NickNameInput = styled.input`
   align-items: center;
   gap: 12px;
   border: none;
+  border: 1px solid #83d0a1;
 
   &:focus {
-    outline: none;
+    outline: 1px solid #83d0a1;
   }
 `;
 
@@ -120,7 +122,7 @@ const AccountManagement = () => {
   const navigate = useNavigate();
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<File>(data?.profileImageUrl);
+  const [profileImage, setProfileImage] = useState<File>();
   const [status, setStatus] = useState<number>(0);
   const [isNicknameChangeBtnClicked, setIsNicknameChangeBtnClicked] =
     useState<boolean>(false);
@@ -138,15 +140,22 @@ const AccountManagement = () => {
     setProfileImage(image);
   };
 
+  // 저장 버튼 누르면 해당되는 버튼
   const clickBtn = () => {
     if (profileImage) {
-      editProfile(nickname, profileImage);
+      editProfile(profileImage);
     }
+
     navigate("/profile");
   };
 
   const clickNicknameChangeBtn = () => {
     setIsNicknameChangeBtnClicked((pre) => !pre);
+  };
+
+  const editNicknameChangeBtn = () => {
+    setIsNicknameChangeBtnClicked((pre) => !pre);
+    editProfileNickname(nickname);
   };
 
   const handleStatusChange = (newStatus: number) => {
@@ -157,7 +166,7 @@ const AccountManagement = () => {
     setNickname(e.target.value);
   };
 
-  console.log(profileImage, nickname);
+  console.log(profileImage);
 
   return (
     <TopContainer $background="#FCFCFF" $isModalVisible={isModalVisible}>
@@ -184,9 +193,15 @@ const AccountManagement = () => {
             ) : (
               <NickNameContainer>{nickname}</NickNameContainer>
             )}
-            <NickNameChangeBtn onClick={clickNicknameChangeBtn}>
-              변경
-            </NickNameChangeBtn>
+            {isNicknameChangeBtnClicked ? (
+              <NickNameChangeBtn onClick={editNicknameChangeBtn}>
+                변경 완료
+              </NickNameChangeBtn>
+            ) : (
+              <NickNameChangeBtn onClick={clickNicknameChangeBtn}>
+                변경
+              </NickNameChangeBtn>
+            )}
           </ProfileMainBox>
           <MyProfileInfoTitle>내 계정 정보</MyProfileInfoTitle>
           <ProfileMainBox>
@@ -202,7 +217,7 @@ const AccountManagement = () => {
           $color="#BBC2C1"
           $clickedBackground="#FCFCFF"
         >
-          저장하기
+          프로필 이미지 저장하기
         </StandardBtn>
       </MainContent>
       <Navbar />

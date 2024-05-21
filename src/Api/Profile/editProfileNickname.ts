@@ -1,21 +1,19 @@
 import axios from "axios";
 
-const editProfile = async (profileImage: File) => {
+const editProfileNickname = async (nickname: string) => {
   const accessTokenHeader = localStorage.getItem("accessToken");
   const headers = {
-    "Content-Type": "multipart/form-data",
     "Access-token": accessTokenHeader,
   };
 
-  const formData = new FormData();
-  formData.append("profileImage", profileImage);
-
-  console.log("FormData : " + formData);
+  const body = {
+    memberName: nickname,
+  };
 
   try {
     const response = await axios.patch(
-      `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/member/profile/image`,
-      formData,
+      `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/member/profile`,
+      body,
       { headers }
     );
     console.log(response);
@@ -25,4 +23,4 @@ const editProfile = async (profileImage: File) => {
   }
 };
 
-export default editProfile;
+export default editProfileNickname;
