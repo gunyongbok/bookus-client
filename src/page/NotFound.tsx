@@ -11,6 +11,9 @@ import {
   NotFoundThirdMsg,
 } from "../assets/text/message";
 
+// Navbar
+import Navbar from "../components/Navigation/Navbar";
+
 const MainContainer = styled.div`
   width: 100%;
   max-width: 358px;
@@ -67,6 +70,7 @@ const NotFound = () => {
         <FirstMsg>{NotFoundFirstMsg}</FirstMsg>
         <SecondMsg>{NotFoundSecondMsg}</SecondMsg>
         <ThridMsg>{NotFoundThirdMsg}</ThridMsg>
+        <Navbar />
       </MainContainer>
     </TopContainer>
   );
