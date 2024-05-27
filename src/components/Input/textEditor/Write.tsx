@@ -16,7 +16,7 @@ const StyledQuillWrapper = styled.div`
   .ql-editor.ql-snow {
     padding: 10px;
     color: #0f473f;
-    font-family: Pretendard;
+    font-family: "Pretendard Variable", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 300;

@@ -4,7 +4,7 @@ const Title = styled.div`
   width: 100%;
   height: 50px;
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

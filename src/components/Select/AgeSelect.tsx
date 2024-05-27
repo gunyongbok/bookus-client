@@ -35,7 +35,7 @@ const StyledSelect = styled(Select)`
   .select__option,
   .select__single-value {
     color: #4ca771;
-    font-family: Pretendard;
+    font-family: "Pretendard Variable", sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
@@ -43,7 +43,7 @@ const StyledSelect = styled(Select)`
 
   .select__option--is-selected {
     color: #4ca771;
-    font-family: Pretendard;
+    font-family: "Pretendard Variable", sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;

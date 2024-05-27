@@ -14,7 +14,7 @@ interface Props {
 
 const Container = styled.div<ContainerProps>`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: ${({ fontWeight }) => fontWeight || "400"};

@@ -15,7 +15,7 @@ const BookContents = styled.div`
   height: fit-content;
   color: #0f473f;
   text-align: justify;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -29,7 +29,7 @@ const BookStars = styled.div`
   height: 20px;
   gap: 6px;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -82,7 +82,7 @@ const BookStatisticInfo = styled.div`
 const BookStatisticStatus = styled.div`
   color: #0f473f;
   text-align: right;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -90,7 +90,7 @@ const BookStatisticStatus = styled.div`
 
 const BookStatisticCount = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

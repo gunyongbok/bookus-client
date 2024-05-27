@@ -28,7 +28,7 @@ export const LibraryController = styled.div<{ $clicked: boolean }>`
   width: 50%;
   height: 100%;
   color: ${(props) => (props.$clicked ? "#D6ECE6" : "#83d0a1")};
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

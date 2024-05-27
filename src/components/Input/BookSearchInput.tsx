@@ -14,7 +14,7 @@ const Input = styled.input`
   padding-left: 16px;
   box-sizing: border-box;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-weight: 500;
   position: relative;

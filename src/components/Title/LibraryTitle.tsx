@@ -6,7 +6,7 @@ interface LibraryTitleProps {
 
 const Title = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;

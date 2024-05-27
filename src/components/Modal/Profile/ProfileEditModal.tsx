@@ -25,7 +25,7 @@ const ModalTitle = styled.div`
   width: 90%;
   height: 40px;
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -39,7 +39,7 @@ const SelectImgBox = styled.div`
   width: 90%;
   height: 59px;
   color: #83d0a1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -53,7 +53,7 @@ const CanlcelBtn = styled.div`
   width: 90%;
   height: 49px;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;

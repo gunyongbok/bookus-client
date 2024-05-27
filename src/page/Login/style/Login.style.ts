@@ -15,7 +15,7 @@ export const TextBox = styled.div`
   width: fit-content;
   color: var(--Base-Grren, #e9f6ee);
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 500;

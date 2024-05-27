@@ -23,7 +23,7 @@ const Box = styled.div<{ backgroundColor?: string }>`
 const DateBox = styled.div`
   width: 100%;
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -37,7 +37,7 @@ const TitleBox = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -51,7 +51,7 @@ const ContentBox = styled.div`
   color: #4ca771;
   text-overflow: ellipsis;
   white-space: pre-line;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;

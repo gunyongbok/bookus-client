@@ -44,7 +44,7 @@ export const BtnWrapper = styled.div`
 
 export const LimitMessage = styled.div`
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

@@ -27,7 +27,7 @@ export const ModalWrapper = styled.div`
 
 export const ModalContent = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
@@ -36,7 +36,7 @@ export const ModalContent = styled.div`
 
 export const ModalCaution = styled.div`
   color: #83d0a1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
@@ -53,7 +53,7 @@ export const SelectBox = styled.div`
 
 export const CancelBtn = styled.button`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
@@ -65,7 +65,7 @@ export const CancelBtn = styled.button`
 
 export const OkBtn = styled.button`
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;

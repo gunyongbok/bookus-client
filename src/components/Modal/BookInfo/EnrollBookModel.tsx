@@ -33,7 +33,7 @@ const ModalContent = styled.div`
 
 const LibrarySelectTitle = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -60,7 +60,7 @@ const IndividualState = styled.div`
 
 const IndividualStateWord = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -82,7 +82,7 @@ const CancelEnrollBase = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;

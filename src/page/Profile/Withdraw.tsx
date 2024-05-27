@@ -60,7 +60,7 @@ const WithdrawContainer = styled.div`
 const WithdrawBox = styled.div`
   width: fit-content;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -68,7 +68,7 @@ const WithdrawBox = styled.div`
 
 const WithdrawDetailBox = styled.div`
   color: #83d0a1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

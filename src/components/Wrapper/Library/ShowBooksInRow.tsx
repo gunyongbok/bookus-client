@@ -29,7 +29,7 @@ const BookTitle = styled.div`
   width: 95px;
   height: 15px;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -40,7 +40,7 @@ const BookTitle = styled.div`
 
 const BookAuthor = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

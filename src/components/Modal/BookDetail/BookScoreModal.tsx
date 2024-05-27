@@ -44,7 +44,7 @@ const ModalHeader = styled.div`
 
 const ModalHeaderContent = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
@@ -54,7 +54,7 @@ const ModalHeaderContent = styled.div`
 const ModalContent = styled.div`
   padding-left: 20px;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;

@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const SearchWordTitle = styled.div`
   color: #000;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-weight: 500;
 `;
@@ -37,7 +37,7 @@ const SearchWordDetail = styled.div`
   border-radius: 8px;
   background: #e9f6ee;
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-weight: 500;
 `;

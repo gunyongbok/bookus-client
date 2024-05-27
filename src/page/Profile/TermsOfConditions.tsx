@@ -37,7 +37,7 @@ const MainContent = styled.div`
 const Condition = styled.div`
   width: fit-content;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

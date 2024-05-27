@@ -26,7 +26,7 @@ export const TopFiveBookContainer = styled.div`
 
 export const TitleBox = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -83,7 +83,7 @@ export const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -165,7 +165,7 @@ export const Title = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   color: #fff;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -173,7 +173,7 @@ export const Title = styled.div`
 
 export const Author = styled.div`
   color: #fff;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
@@ -188,7 +188,7 @@ export const RatingBox = styled.div`
 
 export const Rating = styled.div`
   color: #fff;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;

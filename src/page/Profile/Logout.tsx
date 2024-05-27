@@ -42,7 +42,7 @@ const MainContent = styled.div`
 const LogoutBox = styled.div`
   width: 100%;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

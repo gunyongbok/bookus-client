@@ -48,7 +48,7 @@ export const NicknameInput = styled.input`
   border: none;
   background: #e9f6ee;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -57,7 +57,7 @@ export const NicknameInput = styled.input`
   padding-left: 16px;
   &::placeholder {
     color: #0f473f;
-    font-family: Pretendard;
+    font-family: "Pretendard Variable", sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
@@ -73,7 +73,7 @@ export const DuplicatedBtn = styled.div`
   border-radius: 16px;
   border: 1px solid #4ca771;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
@@ -89,7 +89,7 @@ export const DuplicatedBtn = styled.div`
 
 export const ErrorMessage = styled.div`
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -120,7 +120,7 @@ export const TopicWrapper = styled.div`
 
 export const ToggleTopic = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -128,7 +128,7 @@ export const ToggleTopic = styled.div`
 
 export const ToggleOptional = styled.div`
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -149,7 +149,7 @@ export const MaleSelect = styled.div<{ selected: boolean }>`
   border-radius: 8px 0 0 8px;
   background: ${(props) => (props.selected ? " #E9F6EE" : "#fff")};
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
@@ -166,7 +166,7 @@ export const FemaleSelect = styled.div<{ selected: boolean }>`
   border-radius: 0 8px 8px 0;
   background: ${(props) => (props.selected ? " #E9F6EE" : "#fff")};
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;

@@ -33,7 +33,7 @@ export const BookStateBox = styled.div`
   gap: 4px;
   align-items: center;
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -41,7 +41,7 @@ export const BookStateBox = styled.div`
 
 export const BookStateString = styled.div`
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -112,7 +112,7 @@ export const ShowNoBookReportContainer = styled.div`
 
 export const ShowNoBookTitle = styled.div`
   color: #b9dbda;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -122,7 +122,7 @@ export const ShowNoBookTitle = styled.div`
 export const ShowNoBookSubTitle = styled.div`
   color: #bbc2c1;
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

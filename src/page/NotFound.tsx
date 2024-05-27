@@ -28,7 +28,7 @@ const MainContainer = styled.div`
 
 const FirstMsg = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -42,7 +42,7 @@ const FirstMsg = styled.div`
 const SecondMsg = styled.div`
   color: #0f473f;
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -54,7 +54,7 @@ const SecondMsg = styled.div`
 const ThridMsg = styled.div`
   color: #0f473f;
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

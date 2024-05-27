@@ -81,7 +81,7 @@ const ProfileImgEdit = styled.div`
 const NickNameContainer = styled.div`
   width: fit-content;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -93,7 +93,7 @@ const NickNameContainer = styled.div`
 const NickNameInput = styled.input`
   width: 80%;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -110,7 +110,7 @@ const NickNameInput = styled.input`
 
 const NickNameChangeBtn = styled.div`
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

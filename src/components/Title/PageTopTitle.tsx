@@ -7,7 +7,7 @@ interface TitleProps {
 const AgreeTitle = styled.div<TitleProps>`
   width: 100%;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;

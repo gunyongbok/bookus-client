@@ -14,7 +14,7 @@ const DateBox = styled.div`
 
 const DateLabel = styled.label`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -23,7 +23,7 @@ const DateLabel = styled.label`
 
 const DateInput = styled.input`
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -45,7 +45,7 @@ const CustomIcon = styled.div`
   right: 10px;
   cursor: pointer;
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

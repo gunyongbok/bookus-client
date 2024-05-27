@@ -44,7 +44,7 @@ const ImgBox = styled.img`
 
 const InfoBox = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

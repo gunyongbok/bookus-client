@@ -27,7 +27,7 @@ const BookDetailInfo = styled.div`
 const BookTitle = styled.div`
   width: 168px;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -36,7 +36,7 @@ const BookTitle = styled.div`
 
 const BookAuthor = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -45,7 +45,7 @@ const BookAuthor = styled.div`
 
 const BookReportCount = styled.div`
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -67,7 +67,7 @@ const BookInfoBtn = styled.button`
   border: none;
   background: #e9f6ee;
   color: #83d0a1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

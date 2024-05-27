@@ -19,7 +19,7 @@ const IndividualStateContainer = styled.div<{ $isActive: boolean }>`
   border-radius: 8px;
   background: ${(props) => (props.$isActive ? "#83d0a1" : "#e9f6ee")};
   color: ${(props) => (props.$isActive ? "#fcfcff" : "#4ca771")};
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;

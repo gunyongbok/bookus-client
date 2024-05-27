@@ -48,7 +48,7 @@ export const UserProfileNameBox = styled.div`
 export const UserProfileName = styled.div`
   color: #0f473f;
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -57,7 +57,7 @@ export const UserProfileName = styled.div`
 
 export const UserProfileNameNim = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -67,7 +67,7 @@ export const UserProfileNameNim = styled.div`
 export const UserLibraryAccountInfoBox = styled.div`
   width: 100%;
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
@@ -98,7 +98,7 @@ export const VersionContainer = styled.div`
 
 export const VersionKey = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -106,7 +106,7 @@ export const VersionKey = styled.div`
 
 export const VersionValue = styled.div`
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -119,7 +119,7 @@ export const StyledLink = styled(Link)`
   justify-content: space-between;
   text-decoration: none;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

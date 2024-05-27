@@ -44,7 +44,7 @@ const BookInfoContainer = styled.div`
 
 const BookTitle = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -53,7 +53,7 @@ const BookTitle = styled.div`
 
 const BookAuther = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -61,7 +61,7 @@ const BookAuther = styled.div`
 
 const BookPublisher = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -84,7 +84,7 @@ const BookIconBox = styled.div`
   display: flex;
   align-items: center;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

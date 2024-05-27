@@ -29,7 +29,7 @@ const BookReportInfoBox = styled.div`
 
 const Date = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -39,7 +39,7 @@ const BookTitle = styled.div`
   color: #4ca771;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -49,7 +49,7 @@ const ReportTitle = styled.div`
   color: #0f473f;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -60,7 +60,7 @@ const ReportContent = styled.div`
   color: #0f473f;
   text-overflow: ellipsis;
   white-space: pre-line;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;

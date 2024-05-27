@@ -37,7 +37,7 @@ const MainContent = styled.div`
 const Email = styled.div`
   width: fit-content;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -45,7 +45,7 @@ const Email = styled.div`
 
 const EmailValue = styled.div`
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -54,7 +54,7 @@ const EmailValue = styled.div`
 const AskMsg = styled.div`
   width: 230px;
   color: #83d0a1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

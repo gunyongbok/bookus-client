@@ -26,7 +26,7 @@ export const BookTitle = styled.div`
   width: 100%;
   height: fit-content;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -37,7 +37,7 @@ export const BookAuthor = styled.div`
   width: 100%;
   height: fit-content;
   color: #4ca771;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -50,7 +50,7 @@ export const TitleInput = styled.input`
   box-sizing: border-box;
   background-color: #fcfcff;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

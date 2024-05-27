@@ -17,7 +17,7 @@ const Box = styled.div`
 
 const Label = styled.label`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -34,7 +34,7 @@ const CustomIcon = styled.span`
   right: 10px;
   cursor: pointer;
   color: #bbc2c1;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;

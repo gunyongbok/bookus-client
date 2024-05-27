@@ -19,7 +19,7 @@ const InterestBtn = styled.div<{ $active: boolean }>`
   border-radius: 40px;
   background: ${(props) => (props.$active ? "#83D0A1" : "#e9f6ee")};
   color: ${(props) => (props.$active ? "#FCFCFF" : "#0f473f")};
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;

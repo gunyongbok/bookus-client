@@ -28,7 +28,7 @@ const Btn = styled.button<{
   border: ${(props) => props.$border || "none"};
   border-radius: 8px;
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

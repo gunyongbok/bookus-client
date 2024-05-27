@@ -38,7 +38,7 @@ const SubTitle = styled.div`
   width: fit-content;
   height: 58px;
   color: var(--Base-Grren, #e9f6ee);
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 800;

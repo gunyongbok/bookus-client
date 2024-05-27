@@ -48,7 +48,7 @@ export const BookThumbnail = styled.img`
 export const BookTitle = styled.div`
   color: #0f473f;
   text-align: center;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -57,7 +57,7 @@ export const BookTitle = styled.div`
 
 export const BookAuthor = styled.div`
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -74,7 +74,7 @@ export const ContentsContainer = styled.div`
 export const ContentsTitle = styled.div`
   width: 100%;
   color: #0f473f;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -88,7 +88,7 @@ export const BookContents = styled.div`
   height: fit-content;
   color: #0f473f;
   text-align: justify;
-  font-family: Pretendard;
+  font-family: "Pretendard Variable", sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
