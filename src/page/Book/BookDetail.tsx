@@ -239,7 +239,7 @@ const BookDetail = () => {
           />
         )}
         {isDeleteModalOpen && (
-          <DeleteBookModal libraryId={libraryId!} onClose={closeDeleteModal} />
+          <DeleteBookModal libraryId={libraryId} onClose={closeDeleteModal} />
         )}
       </S.MainContent>
     </TopContainer>

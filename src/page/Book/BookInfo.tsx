@@ -70,7 +70,9 @@ const BookInfo = () => {
   }, [, isBookUpdated]);
 
   const handleButtonClick = () => {
-    if (inLibrary) {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken === null) navigate("/none");
+    else if (inLibrary) {
       navigate(`/bookdetail/${libraryId}`);
     } else {
       openModal();

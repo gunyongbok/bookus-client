@@ -1,5 +1,6 @@
 import * as S from "../modal.style";
 import deleteBook from "../../../Api/Book/deleteBook";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   onClose: () => void;
@@ -7,11 +8,13 @@ interface ModalProps {
 }
 
 const DeleteBookModal = ({ onClose, libraryId }: ModalProps) => {
+  const navigate = useNavigate();
   const deleteBookFromLibrary = async () => {
     try {
       if (libraryId) {
         deleteBook(libraryId);
         onClose();
+        navigate("/main");
       }
     } catch (error) {
       console.log(error);
