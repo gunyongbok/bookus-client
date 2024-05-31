@@ -6,7 +6,7 @@ interface BtnProps {
   $color?: string;
   $disabled?: boolean;
   $border?: string;
-  $width?: string; // Add width prop
+  $width?: string;
   children?: React.ReactNode;
   onClick?: () => void;
   $clickedBackground?: string;
@@ -19,11 +19,11 @@ const Btn = styled.button<{
   $disabled?: boolean;
   $border?: string;
   $isClicked: boolean;
-  $width?: string; // Add width prop
+  $width?: string;
   $clickedBackground?: string;
   $clickedColor?: string;
 }>`
-  width: ${(props) => props.$width || "100%"}; // Set width
+  width: ${(props) => props.$width || "100%"};
   height: 56px;
   border: ${(props) => props.$border || "none"};
   border-radius: 8px;
@@ -53,7 +53,7 @@ const StandardBtn = ({
   $color,
   $disabled,
   $border,
-  $width, // Add width prop
+  $width,
   $clickedBackground,
   $clickedColor,
   children,

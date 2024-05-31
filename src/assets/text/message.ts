@@ -68,3 +68,6 @@ export const WithdrawInformMsg: string =
 
 export const WithdrawFinalMsg: string =
   "탈퇴 이유를 선택해야 탈퇴가 가능합니다.";
+
+export const LoginRequiredMsg: string =
+  "죄송합니다.\n요청하신 페이지는 로그인이 필요한 서비스입니다.";
