@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { inputPlaceholder } from "../../assets/text/message";
 import bookSearchLogo from "../../assets/svg/BookSearchLogo.svg";
@@ -53,21 +54,23 @@ interface BookSearchInputProps {
   onInputChange: (inputText: string) => void;
   onLogoClick: (inputText: string) => void;
   onSearchResults: (searchResults: BookResults[]) => void;
+  defaultValue?: string;
 }
 
 const BookSearchInput: React.FC<BookSearchInputProps> = ({
   onInputChange,
   onLogoClick,
   onSearchResults,
+  defaultValue,
 }) => {
   const [books, setBooks] = useState<BookResults[]>([]);
-  const [text, setText] = useState<string>("");
-  const [query, setQuery] = useState<string>("");
+  const [text, setText] = useState<string>(defaultValue || "");
+  const navigate = useNavigate();
 
   // 엔터를 눌렀을 때 호출 되는 함수
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      setQuery(text);
+      navigate(`?query=${text}`);
       onInputChange(text);
     }
   };
@@ -79,16 +82,18 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
 
   const onLogoClicked = () => {
     if (text.length > 0) {
+      navigate(`?query=${text}`);
       onLogoClick(text);
-      bookSearchHttpHandler(text, true, 8);
     }
   };
 
   useEffect(() => {
-    if (query.length > 0) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const query = searchParams.get("query");
+    if (query && query.length > 0) {
       bookSearchHttpHandler(query, true, 8);
     }
-  }, [query]);
+  }, [window.location.search]);
 
   const bookSearchHttpHandler = async (
     query: string,
@@ -106,13 +111,15 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
       const data = await bookSearch(params);
       if (reset) {
         setBooks(data.documents);
+      } else {
+        setBooks(books.concat(data.documents));
       }
-      setBooks(books.concat(data.documents));
       onSearchResults(data.documents);
     } catch (error) {
       console.error("Error >>", error);
     }
   };
+
   return (
     <>
       <Input

@@ -1,5 +1,6 @@
 import * as S from "./style/BookSearch.style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -23,14 +24,24 @@ import Navbar from "../../components/Navigation/Navbar";
 const BookSearch = () => {
   const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
   const [books, setBooks] = useState<BookResults[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get("query") || "";
 
   const handleInputChange = (inputText: string) => {
     setIsInputEmpty(!inputText);
+    setSearchParams({ query: inputText });
   };
 
   const handleSearchResults = (searchResults: BookResults[]) => {
     setBooks(searchResults);
   };
+
+  useEffect(() => {
+    if (query) {
+      setIsInputEmpty(false);
+    }
+  }, [query]);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -40,6 +51,7 @@ const BookSearch = () => {
           onInputChange={handleInputChange}
           onLogoClick={handleInputChange}
           onSearchResults={handleSearchResults}
+          defaultValue={query}
         />
         <S.SearchResultContainer>
           {isInputEmpty ? (
