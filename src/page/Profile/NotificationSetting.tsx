@@ -45,7 +45,7 @@ const Alarm = styled.div`
 const NotificationSetting = () => {
   const [pushNotification, setPushNotification] = useState<boolean>(false);
   const [emailNotification, setEmailNotification] = useState<boolean>(false);
-  const [notificationType, setNotificationType] = useState<string>("PUSH");
+  // const [notificationType, setNotificationType] = useState<string>("PUSH");
 
   // const submitNotificationType = async (agreementType: string) => {
   //   try {
@@ -69,7 +69,7 @@ const NotificationSetting = () => {
             isChecked={pushNotification}
             onChange={() => {
               setPushNotification(!pushNotification);
-              setNotificationType("PUSH");
+              // setNotificationType("PUSH");
               // submitNotificationType(notificationType);
             }}
           />
@@ -79,7 +79,7 @@ const NotificationSetting = () => {
           <ToggleSwitch
             onChange={() => {
               setEmailNotification(!emailNotification);
-              setNotificationType("EMAIL");
+              // setNotificationType("EMAIL");
               // submitNotificationType(notificationType);
             }}
           />
