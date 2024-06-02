@@ -30,12 +30,14 @@ import {
   TopFiveBookTitle,
   TopRatingBookTitle,
 } from "../../assets/text/message";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const navigate = useNavigate();
   const [favorite, setFavorite] = useState<FiveFavoriteProps[]>([]);
   const [highRating, setHighRating] = useState<HighRatingBookProps[]>([]);
 
-  const category = [
+  const CATEGORY = [
     "자기개발",
     "인문학",
     "경영/경제",
@@ -77,14 +79,20 @@ const Main = () => {
           <S.TitleBox>{TopFiveBookTitle}</S.TitleBox>
           <S.TopFiveBookImgBox>
             {favorite?.map((book) => (
-              <S.TopFiveBookImg key={book.bookId} src={book.imageUrl} />
+              <S.TopFiveBookImg
+                onClick={() => {
+                  navigate(`/bookinfo/?isbn=${book.isbn}`);
+                }}
+                key={book.bookId}
+                src={book.imageUrl}
+              />
             ))}
           </S.TopFiveBookImgBox>
         </S.TopFiveBookContainer>
         <S.CategoryContainer>
           <S.TitleBox>{Categoty}</S.TitleBox>
           <S.CategoryBox>
-            {category?.map((c, i) => (
+            {CATEGORY?.map((c, i) => (
               <S.Category key={i}>{c}</S.Category>
             ))}
           </S.CategoryBox>
@@ -93,7 +101,12 @@ const Main = () => {
           <S.TitleBox>{TopRatingBookTitle}</S.TitleBox>
           <S.HighRatingBoxWrapper>
             {highRating?.map((rating) => (
-              <S.HighRatingBookBox key={rating?.isbn}>
+              <S.HighRatingBookBox
+                onClick={() => {
+                  navigate(`/bookinfo/?isbn=${rating.isbn}`);
+                }}
+                key={rating?.isbn}
+              >
                 <S.RatingImg src={rating.thumbnail} />
                 <S.RatingBookInfoBox>
                   <S.TitleAndAuthorBox>

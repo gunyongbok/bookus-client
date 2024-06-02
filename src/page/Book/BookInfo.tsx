@@ -65,7 +65,6 @@ const BookInfo = () => {
       if (bookInfo) {
         try {
           const result = await isBookInLibrary(bookInfo?.isbn);
-          console.log(result);
           setInLibrary(result.isBookInLibrary);
           setLibraryId(result.libraryBookId);
         } catch (error) {
@@ -77,8 +76,6 @@ const BookInfo = () => {
     bookInLibrary();
   }, [bookInfo, isBookUpdated]);
 
-  console.log(inLibrary, libraryId);
-
   const openModal = () => {
     setIsModalVisible(true);
   };
@@ -89,7 +86,6 @@ const BookInfo = () => {
 
   const toggleContentsVisibility = () => {
     setIsContentsVisible((prev) => !prev);
-    console.log(isContentsVisible);
   };
 
   const toggleStaticsVisibility = () => {
