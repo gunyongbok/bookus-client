@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -15,7 +16,6 @@ import Navbar from "../../components/Navigation/Navbar";
 import MyProfileInfoTitle from "../../components/Profile/MyProfileInfoTitle";
 import ProfileMainBox from "../../components/Profile/ProfileMainBox";
 import ToggleSwitch from "../../components/Input/Profile/ToggleSwitch";
-import { useState } from "react";
 
 const MainContent = styled.div`
   width: 100%;
@@ -45,6 +45,18 @@ const Alarm = styled.div`
 const NotificationSetting = () => {
   const [pushNotification, setPushNotification] = useState<boolean>(false);
   const [emailNotification, setEmailNotification] = useState<boolean>(false);
+  const [notificationType, setNotificationType] = useState<string>("PUSH");
+
+  // const submitNotificationType = async (agreementType: string) => {
+  //   try {
+  //     const response = await handleNotificationAgreement(agreementType);
+  //     console.log(response);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+
+  //   console.log(notificationType);
+  // };
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -55,13 +67,21 @@ const NotificationSetting = () => {
           <Alarm>푸쉬 알림</Alarm>
           <ToggleSwitch
             isChecked={pushNotification}
-            onChange={() => setPushNotification(!pushNotification)}
+            onChange={() => {
+              setPushNotification(!pushNotification);
+              setNotificationType("PUSH");
+              // submitNotificationType(notificationType);
+            }}
           />
         </ProfileMainBox>
         <ProfileMainBox>
           <Alarm>이메일 알림</Alarm>
           <ToggleSwitch
-            onChange={() => setEmailNotification(!emailNotification)}
+            onChange={() => {
+              setEmailNotification(!emailNotification);
+              setNotificationType("EMAIL");
+              // submitNotificationType(notificationType);
+            }}
           />
         </ProfileMainBox>
         <MyProfileInfoTitle>활동 알림</MyProfileInfoTitle>
