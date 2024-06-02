@@ -38,12 +38,6 @@ export const TopFiveBookImgBox = styled.div`
   display: flex;
   gap: 24px;
   overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const TopFiveBookImg = styled.img`
@@ -63,17 +57,11 @@ export const CategoryContainer = styled.div`
 
 export const CategoryBox = styled.div`
   width: 100%;
-  height: 100px;
+  height: 110px;
   display: flex;
   gap: 20px;
   overflow-x: auto;
   white-space: nowrap;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const Category = styled.div`
@@ -101,7 +89,6 @@ export const Category = styled.div`
 
 export const HighRatingBookContainer = styled.div`
   width: 100%;
-  height: 100%;
   height: 220px;
   display: flex;
   flex-direction: column;
@@ -113,17 +100,11 @@ export const HighRatingBoxWrapper = styled.div`
   display: flex;
   gap: 24px;
   overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const HighRatingBookBox = styled.div`
   flex: 0 0 350px;
-  height: 165px;
+  height: 155px;
   border-radius: 8px;
   background: #83d0a1;
   padding: 16px 20px 16px 20px;
