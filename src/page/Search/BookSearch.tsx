@@ -1,6 +1,6 @@
 import * as S from "./style/BookSearch.style";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 // Container
 import TopContainer from "../../components/Wrapper/TopContainer";
@@ -19,29 +19,42 @@ import SearchResultWrapper from "../../components/Wrapper/SearchResultWrapper";
 
 // types
 import { BookResults } from "../../types/book";
+
+// Navbar
 import Navbar from "../../components/Navigation/Navbar";
 
 const BookSearch = () => {
   const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
   const [books, setBooks] = useState<BookResults[]>([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState<string>("");
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const query = searchParams.get("query") || "";
+  useEffect(() => {
+    const searchQuery = searchParams.get("query");
+    if (searchQuery) {
+      setQuery(searchQuery);
+      setIsInputEmpty(false);
+    } else {
+      setQuery("");
+      setIsInputEmpty(true);
+    }
+  }, [searchParams]);
 
   const handleInputChange = (inputText: string) => {
     setIsInputEmpty(!inputText);
-    setSearchParams({ query: inputText });
+    setQuery(inputText);
   };
 
   const handleSearchResults = (searchResults: BookResults[]) => {
     setBooks(searchResults);
   };
 
-  useEffect(() => {
-    if (query) {
-      setIsInputEmpty(false);
-    }
-  }, [query]);
+  const handleSearchClick = (searchQuery: string) => {
+    setQuery(searchQuery);
+    setIsInputEmpty(false);
+    navigate(`?query=${encodeURIComponent(searchQuery)}`);
+  };
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -55,7 +68,7 @@ const BookSearch = () => {
         />
         <S.SearchResultContainer>
           {isInputEmpty ? (
-            <SearchWordWrapper />
+            <SearchWordWrapper onSearchClick={handleSearchClick} />
           ) : (
             <SearchResultWrapper books={books} />
           )}

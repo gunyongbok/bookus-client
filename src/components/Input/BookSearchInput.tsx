@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
+// msg
 import { inputPlaceholder } from "../../assets/text/message";
+
+// asset
 import bookSearchLogo from "../../assets/svg/BookSearchLogo.svg";
+
+// api
 import { bookSearch } from "../../Api/Search/search";
 
 const Input = styled.input`
@@ -67,7 +72,15 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
   const [text, setText] = useState<string>(defaultValue || "");
   const navigate = useNavigate();
 
-  // 엔터를 눌렀을 때 호출 되는 함수
+  useEffect(() => {
+    if (defaultValue !== undefined) {
+      setText(defaultValue);
+      if (defaultValue !== "") {
+        bookSearchHttpHandler(defaultValue, true, 8);
+      }
+    }
+  }, [defaultValue]);
+
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       navigate(`?query=${text}`);
@@ -75,7 +88,6 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
     }
   };
 
-  // text 검색어가 바뀔 때 호출되는 함수.
   const onTextUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
@@ -86,14 +98,6 @@ const BookSearchInput: React.FC<BookSearchInputProps> = ({
       onLogoClick(text);
     }
   };
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const query = searchParams.get("query");
-    if (query && query.length > 0) {
-      bookSearchHttpHandler(query, true, 8);
-    }
-  }, [window.location.search]);
 
   const bookSearchHttpHandler = async (
     query: string,

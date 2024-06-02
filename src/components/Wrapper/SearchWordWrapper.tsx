@@ -40,9 +40,14 @@ const SearchWordDetail = styled.div`
   font-family: "Pretendard Variable", sans-serif;
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;
 
-const SearchWordWrapper = () => {
+interface SearchWordWrapperProps {
+  onSearchClick: (searchQuery: string) => void;
+}
+
+const SearchWordWrapper = ({ onSearchClick }: SearchWordWrapperProps) => {
   const [searchData, setSearchData] = useState<{ bookTitle: string }[]>([]);
 
   useEffect(() => {
@@ -58,9 +63,7 @@ const SearchWordWrapper = () => {
       <SearchWordBox>
         {searchData.map((item, index) => (
           <SearchWordDetail
-            onClick={() => {
-              console.log(item.bookTitle);
-            }}
+            onClick={() => onSearchClick(item.bookTitle)}
             key={index}
           >
             {item?.bookTitle.length > 15
