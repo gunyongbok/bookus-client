@@ -15,24 +15,69 @@ import { Color } from "../../assets/color/color";
 import bottomArrow from "../../assets/svg/bottomArrow.svg";
 import topArrow from "../../assets/svg/BookInfo/topArrow.svg";
 
-// BookInfo
+// Wrapper
 import BookStatisticWrapper from "../../components/Wrapper/BookInfo/BookStatistic";
-import Modal from "../../components/Modal/BookInfo/EnrollBookModel";
-import isBookInLibrary from "../../Api/Book/isBookInLibrary";
 import BookSubDetailInfoWrapper from "../../components/Wrapper/BookInfo/BookSubDetailInfoWrapper";
+
+// Modal
+import Modal from "../../components/Modal/BookInfo/EnrollBookModel";
+
+// Btn
 import StandardBtn from "../../commons/Button/StandardBtn";
+
+// API
+import getBookInfoByIsbn from "../../Api/Book/info/getBookInfoByIsbn";
+import isBookInLibrary from "../../Api/Book/isBookInLibrary";
+
+// type
+import { BookData } from "../../types/book";
 
 const BookInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const book = location.state;
 
+  const searchParams = new URLSearchParams(location.search);
+  const isbn = searchParams.get("isbn");
+
+  const [bookInfo, setBookInfo] = useState<BookData>();
   const [isContentsVisible, setIsContentsVisible] = useState<boolean>(true);
   const [isStaticsVisible, setIsStaticVisible] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isBookUpdated, setIsBookUpdated] = useState<boolean>(false);
   const [inLibrary, setInLibrary] = useState<boolean>(false);
   const [libraryId, setLibraryId] = useState<number>();
+
+  useEffect(() => {
+    const getBookInfo = async () => {
+      try {
+        const result = await getBookInfoByIsbn(isbn);
+        setBookInfo(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getBookInfo();
+  }, []);
+
+  useEffect(() => {
+    const bookInLibrary = async () => {
+      if (bookInfo) {
+        try {
+          const result = await isBookInLibrary(bookInfo?.isbn);
+          console.log(result);
+          setInLibrary(result.isBookInLibrary);
+          setLibraryId(result.libraryBookId);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    bookInLibrary();
+  }, [bookInfo, isBookUpdated]);
+
+  console.log(inLibrary, libraryId);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -55,20 +100,6 @@ const BookInfo = () => {
     setIsBookUpdated((prev) => !prev);
   };
 
-  const BookInLibrary = async () => {
-    try {
-      const result = await isBookInLibrary(book.isbn);
-      setInLibrary(result.isBookInLibrary);
-      setLibraryId(result.libraryBookId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    BookInLibrary();
-  }, [, isBookUpdated]);
-
   const handleButtonClick = () => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken === null) navigate("/none");
@@ -85,11 +116,11 @@ const BookInfo = () => {
       <S.BookInfoContainer>
         <S.BookDetailInfoContainer>
           <S.BookThumbnailBackground>
-            <S.BookThumbnail src={book.thumbnail} />
+            <S.BookThumbnail src={bookInfo?.thumbnail} />
           </S.BookThumbnailBackground>
-          <S.BookTitle>{book.title}</S.BookTitle>
-          <S.BookAuthor>{book.authors}</S.BookAuthor>
-          <BookSubDetailInfoWrapper book={book} />
+          <S.BookTitle>{bookInfo?.title}</S.BookTitle>
+          <S.BookAuthor>{bookInfo?.authors}</S.BookAuthor>
+          {bookInfo && <BookSubDetailInfoWrapper book={bookInfo} />}
           <StandardBtn
             onClick={handleButtonClick}
             $border={Color.border}
@@ -107,7 +138,7 @@ const BookInfo = () => {
               )}
             </S.ContentsTitle>
             {isContentsVisible && (
-              <S.BookContents>{book.contents}</S.BookContents>
+              <S.BookContents>{bookInfo?.contents}</S.BookContents>
             )}
           </S.ContentsContainer>
           <S.ContentsContainer>
@@ -119,14 +150,16 @@ const BookInfo = () => {
                 <img onClick={toggleStaticsVisibility} src={topArrow} />
               )}
             </S.ContentsTitle>
-            {isStaticsVisible && <BookStatisticWrapper isbn={book.isbn} />}
+            {bookInfo && isStaticsVisible && (
+              <BookStatisticWrapper isbn={bookInfo.isbn} />
+            )}
           </S.ContentsContainer>
         </S.BookDetailInfoContainer>
       </S.BookInfoContainer>
-      {isModalVisible && (
+      {isModalVisible && bookInfo && (
         <Modal
           onClose={closeModal}
-          isbn={book.isbn}
+          isbn={bookInfo?.isbn}
           onBookUpdate={updateBookInfo}
         />
       )}

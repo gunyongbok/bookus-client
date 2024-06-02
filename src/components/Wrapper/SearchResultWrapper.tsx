@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // icons
 import icon1 from "../../assets/svg/BookSeachIcon/Icon1.svg";
@@ -90,10 +90,6 @@ const BookIconBox = styled.div`
   font-weight: 300;
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
-
 interface StatisticProps {
   isbn: string;
   readyToReadCount: number;
@@ -118,6 +114,7 @@ const getKey = (index: number): keyof StatisticProps => {
 };
 
 const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
+  const navigate = useNavigate();
   const iconUrls = [icon1, icon2, icon3, icon4];
   const [statistic, setStatistic] = useState<StatisticProps[]>([]);
 
@@ -166,11 +163,12 @@ const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
   return (
     <Ul>
       {modifiedBooks.map((book, index) => (
-        <StyledLink
-          onClick={() => firstBookEnroll(book)}
+        <div
           key={index}
-          to="/bookinfo"
-          state={book}
+          onClick={async () => {
+            await firstBookEnroll(book);
+            navigate(`/bookinfo?isbn=${book.isbn}`);
+          }}
         >
           <BookSearchLi key={index}>
             <BookThumbnail src={book.thumbnail} alt={book.title} />
@@ -190,7 +188,7 @@ const SearchResultWrapper = ({ books }: { books: BookResults[] }) => {
               </BookIconContainer>
             </BookInfoContainer>
           </BookSearchLi>
-        </StyledLink>
+        </div>
       ))}
     </Ul>
   );

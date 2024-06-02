@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const isBookInLibrary = async (isbn: string) => {
+const isBookInLibrary = async (isbn: string | undefined) => {
   const accessTokenHeader = localStorage.getItem("accessToken");
   const headers = {
     "Access-token": `${accessTokenHeader}`,

@@ -6,12 +6,11 @@ const enrollBookToLibrary = async (body: Object) => {
     "Access-token": `${accessTokenHeader}`,
   };
   try {
-    const response = await axios.post(
+    await axios.post(
       `${import.meta.env.VITE_APP_DEFAULT_SERVER_URL}/libraries`,
       body,
       { headers }
     );
-    console.log("response >>", response);
   } catch (err) {
     console.log(headers, body);
     console.log("Err >>", err);

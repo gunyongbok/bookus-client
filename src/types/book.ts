@@ -13,6 +13,18 @@ export interface BookResults {
   url: string;
 }
 
+export interface BookData {
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  price: number;
+  publisher: string;
+  thumbnail: string;
+  title: string;
+  url: string;
+}
+
 export interface BookInfoProps {
   libraryId: number;
   bookTitle: string;

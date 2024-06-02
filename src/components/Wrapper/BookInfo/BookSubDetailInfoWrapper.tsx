@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import getExtraBookInfo from "../../../Api/Book/getExtraBookInfo";
-import { BookResults } from "../../../types/book";
+import { BookData } from "../../../types/book";
 
 // icons
 import category from "../../../assets/svg/BookInfo/category.svg";
@@ -59,9 +59,7 @@ interface ExtraBookInfo {
   page: number;
 }
 
-const BookSubDetailInfoWrapper: React.FC<{ book: BookResults }> = ({
-  book,
-}) => {
+const BookSubDetailInfoWrapper: React.FC<{ book: BookData }> = ({ book }) => {
   const [extraBookInfo, setExtraBookInfo] = useState<ExtraBookInfo | null>(
     null
   );
@@ -103,7 +101,7 @@ const BookSubDetailInfoWrapper: React.FC<{ book: BookResults }> = ({
           <InfoBox>{extraBookInfo?.page}p</InfoBox>
         </BookSubDetail>
         <BookSubDetail>
-          <ImgBox src={price} /> <InfoBox>{book.sale_price}원</InfoBox>
+          <ImgBox src={price} /> <InfoBox>{book.price}원</InfoBox>
         </BookSubDetail>
         <BookSubDetail>
           <ImgBox src={isbn} /> <InfoBox>{book.isbn}</InfoBox>
