@@ -8,8 +8,6 @@ import search from "../../assets/svg/library/IC_NAV_SEARCH.svg";
 import search1 from "../../assets/svg/library/IC_NAV_SEARCH_Clicked.svg";
 import book from "../../assets/svg/library/IC_NAV_BOOK.svg";
 import book1 from "../../assets/svg/library/IC_NAV_BOOK_Clicked.svg";
-import social from "../../assets/svg/library/IC_NAV_SOCIAL.svg";
-import social1 from "../../assets/svg/library/IC_NAV_SOCIAL_Clicked.svg";
 import profile from "../../assets/svg/library/IC_NAV_USER.svg";
 import profile1 from "../../assets/svg/library/IC_NAV_USER_Clicked.svg";
 
@@ -23,6 +21,7 @@ const NavBar = styled.div`
   padding: 12px 23px 34px 23px;
   box-sizing: border-box;
   display: flex;
+  justify-content: space-around;
   gap: 36px;
 `;
 
@@ -35,7 +34,6 @@ const Icons = [
   [home1, home, "/main"],
   [book1, book, "/library"],
   [search1, search, "/search"],
-  [social1, social, "/social"],
   [profile1, profile, "/profile"],
 ];
 

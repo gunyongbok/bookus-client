@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import * as S from './style/BookReportEdit.style'
-
+import * as S from "./style/BookReportEdit.style";
 
 // Api
 import getIndividualBookReport from "../../Api/Book/report/getIndividualBookReport";
@@ -23,7 +22,6 @@ import Write from "../../components/Input/textEditor/Write";
 
 // Modal
 import EnrollBookReportEditModal from "../../components/Modal/BookReport/EnrollBookReportEditModal";
-
 
 const BookReportEdit = () => {
   const { reportId } = useParams();
@@ -52,7 +50,6 @@ const BookReportEdit = () => {
 
   const openUploadModal = () => {
     setUploadModalOpen(true);
-    navigateToBookReportView();
   };
 
   const closeUploadModal = () => {
@@ -77,7 +74,10 @@ const BookReportEdit = () => {
           <S.BookTitle>{report?.bookTitle}</S.BookTitle>
           <S.BookAuthor>{report?.authors}</S.BookAuthor>
         </S.BookInfoContainer>
-        <S.TitleInput onChange={handleTitleChange} defaultValue={report?.title} />
+        <S.TitleInput
+          onChange={handleTitleChange}
+          defaultValue={report?.title}
+        />
 
         <Write
           defaultValue={report?.contents}

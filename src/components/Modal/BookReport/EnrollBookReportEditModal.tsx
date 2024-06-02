@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import editBookReport from "../../../Api/Book/report/editBookReport";
 import * as S from "../modal.style";
 
@@ -11,9 +12,16 @@ interface ModalProps {
 }
 
 const EnrollBookReportEditModal = ({ onClose, reportId, body }: ModalProps) => {
+  const navigate = useNavigate();
+
   const uploadReport = () => {
     editBookReport(reportId, body);
     onClose();
+    navigateToBookReportView();
+  };
+
+  const navigateToBookReportView = () => {
+    navigate(`/bookreportview/${reportId}`);
   };
 
   return (

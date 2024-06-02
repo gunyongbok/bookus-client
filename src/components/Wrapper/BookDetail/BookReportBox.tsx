@@ -10,7 +10,7 @@ interface BookReportBoxProps {
 }
 
 const Box = styled.div<{ backgroundColor?: string }>`
-  width: 173px;
+  width: 163px;
   height: 210px;
   background: ${(props) => props.backgroundColor || "#e9f6ee"};
   border-radius: 12px;
