@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import getPopularSearch from "../../Api/Search/getPopularSearch";
+import { mockPopularSearchData } from "../../assets/text/mockPopularSearchData";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -57,11 +58,14 @@ const SearchWordWrapper = ({ onSearchClick }: SearchWordWrapperProps) => {
     handlePopularSearch();
   }, []);
 
+  const dataToRender =
+    searchData.length === 0 ? mockPopularSearchData : searchData;
+
   return (
     <Wrapper>
       <SearchWordTitle>인기 검색어 🍏</SearchWordTitle>
       <SearchWordBox>
-        {searchData.map((item, index) => (
+        {dataToRender.map((item, index) => (
           <SearchWordDetail
             onClick={() => onSearchClick(item.bookTitle)}
             key={index}
