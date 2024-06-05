@@ -22,53 +22,60 @@ import AgreeBtn from "../../assets/img/AgreeBtn.png";
 import FilledAgreeBtn from "../../assets/img/FilledAgreeBtn.png";
 import { useNavigate } from "react-router-dom";
 
-const ServiceAgree = () => {
-  const navigate = useNavigate();
-  const [all, setAll] = useState<boolean>(false);
-  const [age, setAge] = useState<boolean>(false);
-  const [service, setService] = useState<boolean>(false);
-  const [personal, setPersonal] = useState<boolean>(false);
-  const [optional, setOptional] = useState<boolean>(false);
-  const [next, setNext] = useState<boolean>(false);
-  const [data, setData] = useState<Object>({});
+interface Agreements {
+  all: boolean;
+  age: boolean;
+  service: boolean;
+  personal: boolean;
+  optional: boolean;
+  next: boolean;
+}
 
-  const toggleClickAll = () => {
-    setAll(!all);
-    setService(!all);
-    setPersonal(!all);
-  };
+interface Data {
+  marketingAgreement?: boolean;
+}
 
-  const toggleClickAge = () => {
-    setAge(!age);
-  };
+const useServiceAgree = () => {
+  const [agreements, setAgreements] = useState<Agreements>({
+    all: false,
+    age: false,
+    service: false,
+    personal: false,
+    optional: false,
+    next: false,
+  });
+  const [data, setData] = useState<Data>({});
 
-  const toggleClickService = () => {
-    setService(!service);
-  };
-
-  const toggleClickPersonal = () => {
-    setPersonal(!personal);
-  };
-
-  const toggleClickOptional = () => {
-    setOptional(!optional);
+  const toggleAgreement = (key: keyof Agreements) => {
+    setAgreements((prev) => {
+      const updated = { ...prev, [key]: !prev[key] };
+      if (key === "all") {
+        updated.age = !prev.all;
+        updated.service = !prev.all;
+        updated.personal = !prev.all;
+        updated.optional = !prev.all;
+      }
+      return updated;
+    });
   };
 
   useEffect(() => {
     const agreeData: Data = {};
-
-    interface Data {
-      marketingAgreement?: boolean;
-    }
-
-    if (service && personal) {
-      setNext(true);
+    if (agreements.service && agreements.personal) {
+      setAgreements((prev) => ({ ...prev, next: true }));
       agreeData["marketingAgreement"] = true;
       setData(agreeData);
     } else {
-      setNext(false);
+      setAgreements((prev) => ({ ...prev, next: false }));
     }
-  }, [age, service, personal]);
+  }, [agreements.service, agreements.personal]);
+
+  return { agreements, data, toggleAgreement };
+};
+
+const ServiceAgree = () => {
+  const navigate = useNavigate();
+  const { agreements, data, toggleAgreement } = useServiceAgree();
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -78,37 +85,37 @@ const ServiceAgree = () => {
           <PageTopTitle $text="서비스 이용 동의" />
           <S.AgreeContent>
             <AgreeTextBox
-              onClick={toggleClickAll}
-              imgSrc={all ? FilledAgreeBtn : AgreeBtn}
+              onClick={() => toggleAgreement("all")}
+              imgSrc={agreements.all ? FilledAgreeBtn : AgreeBtn}
               text="약관 전체동의"
               fontWeight="600"
             />
             <BreakLine />
             <S.AgreeDetailWrapper>
               <AgreeTextBox
-                onClick={toggleClickAge}
-                imgSrc={age ? FilledAgreeBtn : AgreeBtn}
+                onClick={() => toggleAgreement("age")}
+                imgSrc={agreements.age ? FilledAgreeBtn : AgreeBtn}
                 text="만 14세 이상입니다."
               />
               <AgreeTextBox
-                onClick={toggleClickService}
-                imgSrc={service ? FilledAgreeBtn : AgreeBtn}
+                onClick={() => toggleAgreement("service")}
+                imgSrc={agreements.service ? FilledAgreeBtn : AgreeBtn}
                 text="(필수) 서비스 이용약관"
               />
               <AgreeTextBox
-                onClick={toggleClickPersonal}
-                imgSrc={personal ? FilledAgreeBtn : AgreeBtn}
+                onClick={() => toggleAgreement("personal")}
+                imgSrc={agreements.personal ? FilledAgreeBtn : AgreeBtn}
                 text="(필수) 개인정보 처리방침"
               />
               <AgreeTextBox
-                onClick={toggleClickOptional}
-                imgSrc={optional ? FilledAgreeBtn : AgreeBtn}
+                onClick={() => toggleAgreement("optional")}
+                imgSrc={agreements.optional ? FilledAgreeBtn : AgreeBtn}
                 text="(선택) 마케팅 정보 수신 동의"
               />
             </S.AgreeDetailWrapper>
           </S.AgreeContent>
         </S.AgreeWrapper>
-        {next ? (
+        {agreements.next ? (
           <StandardBtn
             onClick={() => navigate("/service/nickname", { state: { data } })}
             $background="#83D0A1"

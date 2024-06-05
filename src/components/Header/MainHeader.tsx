@@ -5,6 +5,7 @@ interface HeaderProps {
   src1: string;
   src2: string;
   text?: string;
+  onBackClick?: () => void;
 }
 
 const Header = styled.div`
@@ -25,11 +26,21 @@ const TextBox = styled.div`
   line-height: normal;
 `;
 
-const MainHeader = ({ src1, src2, text }: HeaderProps) => {
+const MainHeader = ({ src1, src2, text, onBackClick }: HeaderProps) => {
   const navigate = useNavigate();
   return (
     <Header>
-      <img src={src1} onClick={() => navigate(-1)} />
+      <img
+        style={{ width: "24px" }}
+        src={src1}
+        onClick={() => {
+          if (onBackClick) {
+            onBackClick();
+          } else {
+            navigate(-1);
+          }
+        }}
+      />
       <TextBox>{text}</TextBox>
       <img src={src2} onClick={() => navigate("/profile")} />
     </Header>

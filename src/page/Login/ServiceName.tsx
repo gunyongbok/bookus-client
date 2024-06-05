@@ -41,6 +41,8 @@ const ServiceName = () => {
   const [femaleSelected, setFemaleSelected] = useState<boolean>(false);
   const [selectedGenger, setSelectedGender] = useState<string>("NOT_CHOOSE");
 
+  console.log(data);
+
   useEffect(() => {
     data["ageBand"] = selectedAge?.value;
     if (selectedAge?.value === undefined) data["ageBand"] = "NOT_CHOOSE";

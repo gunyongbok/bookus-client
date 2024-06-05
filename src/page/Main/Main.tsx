@@ -6,7 +6,7 @@ import TopContainer from "../../components/Wrapper/TopContainer";
 
 // Header
 import MainHeader from "../../components/Header/MainHeader";
-import backArrowImg from "../../assets/img/back.png";
+import logo from "../../assets/svg/MainLogo.svg";
 import profileImg from "../../assets/svg/ProfileLogo.svg";
 
 // Api
@@ -73,7 +73,7 @@ const Main = () => {
 
   return (
     <TopContainer $background="#FCFCFF">
-      <MainHeader src1={backArrowImg} src2={profileImg} />
+      <MainHeader onBackClick={() => undefined} src1={logo} src2={profileImg} />
       <S.MainContent>
         <S.TopFiveBookContainer>
           <S.TitleBox>{TopFiveBookTitle}</S.TitleBox>
