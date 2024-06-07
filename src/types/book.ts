@@ -98,3 +98,24 @@ export interface HighRatingBookProps {
   thumbnail: string;
   rating: number;
 }
+
+export interface ClickInterface {
+  libraryClicked: boolean;
+  bookReportClicked: boolean;
+}
+
+export interface LibraryInterface {
+  books: MyBooksProps | undefined;
+  myBooks: BookProps[];
+  bookServerState: string;
+  prevBookServerState: string;
+  activeStateIndexOfBook: number;
+}
+
+export interface BookReportInterface {
+  bookReports: MyBooksProps | undefined;
+  myBookReports: MyBookReportProps[];
+  bookReportServerState: string;
+  prevBookReportServerState: string;
+  activeStateIndexOfReport: number;
+}
