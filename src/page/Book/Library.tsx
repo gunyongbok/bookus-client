@@ -32,54 +32,77 @@ import { BookProps, MyBookReportProps, MyBooksProps } from "../../types/book";
 //utils
 import { removeDuplicateById } from "../../utils/removeDuplicatedById";
 
-const stateViewArr = ["전체", "읽을 책", "읽고 있는 책", "다 읽은 책"];
-const stateServerArr = ["", "READY_TO_READ", "READING", "ALREADY_READ"];
+const STATE_VIEW = ["전체", "읽을 책", "읽고 있는 책", "다 읽은 책"];
+const SERVER_STATE_VIEW = ["", "READY_TO_READ", "READING", "ALREADY_READ"];
+
+interface ClickInterface {
+  libraryClicked: boolean;
+  bookReportClicked: boolean;
+}
+
+interface LibraryInterface {
+  books: MyBooksProps | undefined;
+  myBooks: BookProps[];
+  bookServerState: string;
+  prevBookServerState: string;
+  activeStateIndexOfBook: number;
+}
+
+interface BookReportInterface {
+  bookReports: MyBooksProps | undefined;
+  myBookReports: MyBookReportProps[];
+  bookReportServerState: string;
+  prevBookReportServerState: string;
+  activeStateIndexOfReport: number;
+}
 
 const Library = () => {
   // 상태관리
-  const [libraryClicked, setLibraryClicked] = useState<boolean>(false);
-  const [bookReportClicked, setBookReportClicked] = useState<boolean>(true);
+  const [clickState, setClickState] = useState<ClickInterface>({
+    libraryClicked: false,
+    bookReportClicked: true,
+  });
 
   // 인생책
   const [favoriteBooks, setFavoriteBooks] = useState<BookProps[]>([]);
 
   // 서재
-  const [books, setBooks] = useState<MyBooksProps>();
-  const [myBooks, setMyBooks] = useState<BookProps[]>([]);
-  const [bookServerState, setBookServerState] = useState<string>(
-    stateServerArr[0]
-  );
-  const [prevBookServerState, setPrevBookServerState] =
-    useState<string>(bookServerState);
-  const [activeStateIndexOfBook, setActiveStateIndexOfBook] =
-    useState<number>(0);
+  const [libraryState, setLibraryState] = useState<LibraryInterface>({
+    books: undefined,
+    myBooks: [],
+    bookServerState: SERVER_STATE_VIEW[0],
+    prevBookServerState: SERVER_STATE_VIEW[0],
+    activeStateIndexOfBook: 0,
+  });
 
   // 독서록
-  const [bookReports, setBookReports] = useState<MyBooksProps>();
-  const [myBookReports, setMyBookReports] = useState<MyBookReportProps[]>([]);
-  const [bookReportServerState, setBookReportServerState] = useState<string>(
-    stateServerArr[0]
-  );
-  const [prevBookReportServerState, setPrevBookReportServerState] =
-    useState<string>(bookReportServerState);
-  const [activeStateIndexOfReport, setActiveStateIndexOfReport] =
-    useState<number>(0);
+  const [bookReportState, setBookReportState] = useState<BookReportInterface>({
+    bookReports: undefined,
+    myBookReports: [],
+    bookReportServerState: SERVER_STATE_VIEW[0],
+    prevBookReportServerState: SERVER_STATE_VIEW[0],
+    activeStateIndexOfReport: 0,
+  });
 
+  // 페이지
   const [pageNumber, setPageNumber] = useState<number>(0);
 
-  const filteredMyBooks = removeDuplicateById(myBooks);
+  const filteredMyBooks = removeDuplicateById(libraryState.myBooks);
 
   // 서재 및 독서록 선택 바
   const handleLibraryController = () => {
-    setLibraryClicked((prev) => !prev);
-    setBookReportClicked((prev) => !prev);
+    setClickState((prevState) => ({
+      libraryClicked: !prevState.libraryClicked,
+      bookReportClicked: !prevState.bookReportClicked,
+    }));
   };
 
   const handleBookReportController = () => {
-    setBookReportClicked((prev) => !prev);
-    setLibraryClicked((prev) => !prev);
+    setClickState((prevState) => ({
+      libraryClicked: !prevState.libraryClicked,
+      bookReportClicked: !prevState.bookReportClicked,
+    }));
   };
-
   // 인생 책 조회
   const getFavoriteBookData = async () => {
     try {
@@ -95,36 +118,20 @@ const Library = () => {
     try {
       const result = await getMyBooks({
         pageNumber: String(pageNumber),
-        readingStatus: bookServerState,
+        readingStatus: libraryState.bookServerState,
       });
 
-      setBooks(result);
-      setMyBooks((prev) => [...prev, ...result.content]);
-      if (bookServerState !== prevBookServerState) {
-        setMyBooks(result.content);
-      } else {
-        setMyBooks((prev) => [...prev, ...result.content]);
-      }
-
-      setPrevBookServerState(bookServerState);
+      setLibraryState((prevState) => ({
+        ...prevState,
+        books: result,
+        myBooks:
+          libraryState.bookServerState !== libraryState.prevBookServerState
+            ? result.content
+            : [...prevState.myBooks, ...result.content],
+        prevBookServerState: libraryState.bookServerState,
+      }));
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  // 독서록 항목 추가 시 중복을 제거하고 추가하는 함수
-  const addBookReport = (newBookReport: MyBookReportProps) => {
-    // 이미 존재하는지 확인
-    const isAlreadyExists = myBookReports.some(
-      (bookReport) => bookReport.id === newBookReport.id
-    );
-
-    // 존재하지 않는 경우에만 추가
-    if (!isAlreadyExists) {
-      setMyBookReports((prevBookReports) => [
-        ...prevBookReports,
-        newBookReport,
-      ]);
     }
   };
 
@@ -133,21 +140,19 @@ const Library = () => {
     try {
       const result = await getMyBookReports({
         pageNumber: String(pageNumber),
-        readingStatus: bookReportServerState,
+        readingStatus: bookReportState.bookReportServerState,
       });
 
-      setBookReports(result);
-      if (bookReportServerState !== prevBookReportServerState) {
-        // 새로 받은 독서록으로 갱신
-        setMyBookReports(result.content);
-      } else {
-        // 중복된 항목 제거 후 새로운 독서록 추가
-        result.content.forEach((newBookReport: MyBookReportProps) => {
-          addBookReport(newBookReport);
-        });
-      }
-
-      setPrevBookReportServerState(bookReportServerState);
+      setBookReportState((prevState) => ({
+        ...prevState,
+        bookReports: result,
+        myBookReports:
+          bookReportState.bookReportServerState !==
+          bookReportState.prevBookReportServerState
+            ? result.content
+            : [...prevState.myBookReports, ...result.content],
+        prevBookReportServerState: bookReportState.bookReportServerState,
+      }));
     } catch (error) {
       console.log(error);
     }
@@ -155,14 +160,20 @@ const Library = () => {
 
   // 도서 상태 변경하였을때 여러 상태들 업데이트 해주는 함수
   const handleBookState = (index: number) => {
-    setBookServerState(stateServerArr[index]);
-    setActiveStateIndexOfBook(index);
+    setLibraryState((prevState) => ({
+      ...prevState,
+      bookServerState: SERVER_STATE_VIEW[index],
+      activeStateIndexOfBook: index,
+    }));
     setPageNumber(0);
   };
 
   const handleBookReportsState = (index: number) => {
-    setBookReportServerState(stateServerArr[index]);
-    setActiveStateIndexOfReport(index);
+    setBookReportState((prevState) => ({
+      ...prevState,
+      bookReportServerState: SERVER_STATE_VIEW[index],
+      activeStateIndexOfReport: index,
+    }));
     setPageNumber(0);
   };
 
@@ -172,8 +183,10 @@ const Library = () => {
 
     if (scrollTop + clientHeight >= scrollHeight - 10) {
       if (
-        (books?.hasNext === true && libraryClicked === false) ||
-        (bookReports?.hasNext === true && libraryClicked === true)
+        (libraryState.books?.hasNext === true &&
+          clickState.libraryClicked === false) ||
+        (bookReportState.bookReports?.hasNext === true &&
+          clickState.libraryClicked === true)
       ) {
         setPageNumber((prev) => prev + 1);
       }
@@ -184,32 +197,32 @@ const Library = () => {
 
   // 조건에 맞게 불러지는 함수들
   useEffect(() => {
-    if (!libraryClicked) {
+    if (!clickState.libraryClicked) {
       getFavoriteBookData();
     }
-  }, [libraryClicked]);
+  }, [clickState.libraryClicked]);
 
   useEffect(() => {
-    if (!libraryClicked) {
+    if (!clickState.libraryClicked) {
       getBooks();
     }
   }, [
-    libraryClicked,
-    bookReportServerState,
-    activeStateIndexOfBook,
+    clickState.libraryClicked,
+    libraryState.bookServerState,
+    libraryState.activeStateIndexOfBook,
     pageNumber,
   ]);
 
   useEffect(() => {
-    if (libraryClicked && isInitialRender.current) {
+    if (clickState.libraryClicked && isInitialRender.current) {
       getBookReports();
     } else {
       isInitialRender.current = true;
     }
   }, [
-    libraryClicked,
-    bookReportServerState,
-    activeStateIndexOfReport,
+    clickState.libraryClicked,
+    bookReportState.bookReportServerState,
+    bookReportState.activeStateIndexOfReport,
     pageNumber,
   ]);
 
@@ -219,7 +232,7 @@ const Library = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [books?.hasNext, bookReports?.hasNext]);
+  }, [libraryState.books?.hasNext, bookReportState.bookReports?.hasNext]);
 
   return (
     <TopContainer $background="#FCFCFF">
@@ -227,27 +240,27 @@ const Library = () => {
       <S.LibraryContainer onScroll={handleScroll}>
         <S.LibraryBox>
           <S.LibraryController
-            $clicked={libraryClicked}
+            $clicked={clickState.libraryClicked}
             onClick={handleLibraryController}
           >
             서재
           </S.LibraryController>
           <S.LibraryController
-            $clicked={bookReportClicked}
+            $clicked={clickState.bookReportClicked}
             onClick={handleBookReportController}
           >
             독서록
           </S.LibraryController>
         </S.LibraryBox>
-        {libraryClicked ? (
+        {clickState.libraryClicked ? (
           <S.BooksInMyLibrary>
             <LibraryTitle text="나의 독서록" />
             <S.StateControllerBox>
-              {stateViewArr.map((state, index) => (
+              {STATE_VIEW.map((state, index) => (
                 <SelectBookState
                   key={index}
                   onClick={() => handleBookReportsState(index)}
-                  isActive={index === activeStateIndexOfReport}
+                  isActive={index === bookReportState.activeStateIndexOfReport}
                 >
                   {state}
                 </SelectBookState>
@@ -258,7 +271,7 @@ const Library = () => {
               <S.ArrangeUpdateBox>업데이트순</S.ArrangeUpdateBox>
             </S.ArrangeController>
             <S.InfiniteScrollContainer>
-              <ShowBookReports bookReports={myBookReports} />
+              <ShowBookReports bookReports={bookReportState.myBookReports} />
             </S.InfiniteScrollContainer>
           </S.BooksInMyLibrary>
         ) : (
@@ -272,11 +285,11 @@ const Library = () => {
             <S.BooksInMyLibrary>
               <LibraryTitle text="나의 서재" />
               <S.StateControllerBox>
-                {stateViewArr.map((state, index) => (
+                {STATE_VIEW.map((state, index) => (
                   <SelectBookState
                     key={index}
                     onClick={() => handleBookState(index)}
-                    isActive={index === activeStateIndexOfBook}
+                    isActive={index === libraryState.activeStateIndexOfBook}
                   >
                     {state}
                   </SelectBookState>
